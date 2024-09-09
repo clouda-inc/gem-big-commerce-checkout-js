@@ -156,7 +156,7 @@ class SingleShippingForm extends PureComponent<
       values: { shippingAddress: addressForm },
       isShippingStepPending,
       isFloatingLabelEnabled,
-      updateAddress,
+      // updateAddress,
     } = this.props;
 
     const { isResettingAddress, isUpdatingShippingData, hasRequestedShippingOptions } = this.state;
