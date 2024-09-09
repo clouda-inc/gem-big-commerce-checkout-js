@@ -12,4 +12,6 @@ jobs:
       - name: Build image
         run: docker build -t neeshclouda/gem-checkout .
       - name: Push image
-        run: docker push neeshclouda/gem-checkout
+        run: |
+          docker login -u neeshclouda -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push neeshclouda/gem-checkout
