@@ -1,4 +1,4 @@
-FROM node:20.0.0
+FROM --platform=linux/x86_64 node:20.0.0
 
 WORKDIR /usr/app
 

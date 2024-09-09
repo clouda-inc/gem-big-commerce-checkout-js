@@ -1,0 +1,20 @@
+name: publish image to dockerhub
+on:
+  push:
+    branches:
+      - update/checkout-v-2
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t neeshclouda/gem-checkout .
+      - name: Push image
+        run: docker push neeshclouda/gem-checkout
