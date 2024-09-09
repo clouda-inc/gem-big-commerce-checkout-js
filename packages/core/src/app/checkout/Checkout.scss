@@ -1,0 +1,116 @@
+.sign-up-modal-body {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
+
+.sign-up-modal-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.sign-up-modal-body-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.sign-up-modal-form-wrapper {
+  max-width: 420px;
+  width: 54%;
+  padding: 2rem;
+}
+
+.sign-up-modal-header {
+  display: none;
+}
+
+.sign-up-modal-title {
+  color: #06353e;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.sign-up-modal-description {
+  font-size: 18px;
+  font-weight: 400;
+  color: #115f6d;
+}
+
+.sign-up-modal-form-wrapper
+  .checkout-form
+  .form-fieldset
+  .form-body
+  .create-account-form
+  .dynamic-form-field--firstName {
+  flex-basis: 100%;
+}
+
+.sign-up-modal-form-wrapper
+  .checkout-form
+  .form-fieldset
+  .form-body
+  .create-account-form
+  .dynamic-form-field {
+  padding-top: 10px;
+}
+
+.sign-up-modal-form-wrapper
+  .checkout-form
+  .form-fieldset
+  .form-body
+  .create-account-form
+  .dynamic-form-field--lastName {
+  flex-basis: 100%;
+}
+
+.sign-up-modal-form-wrapper
+  .checkout-form
+  .form-fieldset
+  .form-body
+  .create-account-form
+  .form-field {
+  position: relative;
+}
+
+.sign-up-modal-form-wrapper
+  .checkout-form
+  .form-fieldset
+  .form-body
+  .create-account-form
+  .optimizedCheckout-form-label {
+  position: absolute;
+  top: -10px;
+  left: 4px;
+  background: #ffffff;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.sign-up-modal-image-wrapper {
+  position: relative;
+  width: 46%;
+}
+
+.sign-up-modal-close {
+  position: absolute;
+  top: 8px;
+  padding: unset;
+  height: 32px;
+  width: 32px;
+  border: 1px solid #b2bcca;
+  right: 8px;
+}
+
+.sign-up-modal-image {
+  height: 582px;
+  width: 348px;
+}
+
+.sign-up-modal-body-wrapper .checkout-form {
+  margin-left: 0;
+}
+
+.checkout-steps {
+  padding-right: 0;
+}

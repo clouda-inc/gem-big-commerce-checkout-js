@@ -40,6 +40,7 @@
   },
   "prettier": "@bigcommerce/eslint-config/prettier",
   "homepage": "https://github.com/bigcommerce/checkout-js#readme",
+  "proxy": "https://api.bigcommerce.com",
   "dependencies": {
     "@bigcommerce/checkout-sdk": "^1.653.0",
     "@bigcommerce/citadel": "^2.15.1",

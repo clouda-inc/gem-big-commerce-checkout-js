@@ -1,0 +1,69 @@
+.checkout-summary-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.checkout-summary-heading {
+  justify-content: space-between;
+  background-color: #e7e7e7;
+  margin-right: 0;
+  padding: 1.5rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+  height: 4.25rem;
+}
+
+.checkout-summary-heading .stepHeader-title {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.is-readonly .checkout-summary-container {
+  padding-left: 0rem;
+  padding-right: 0rem;
+  padding-bottom: 0rem;
+  height: 0px;
+}
+
+.is-clickable .checkout-summary-container,
+.checkout-step--customer .checkout-summary-container {
+  padding-left: 1.6875rem;
+  padding-right: 1.6875rem;
+  padding-bottom: 1.25rem;
+  height: auto;
+  position: relative;
+}
+
+.stepHeader-counter--complete {
+  display: block !important;
+  background-color: #e7e7e7;
+}
+
+.stepHeader-counter--complete > svg {
+  fill: #024f60;
+}
+
+.checkout-summary-enable-edit {
+  width: fit-content;
+  position: absolute;
+  top: 17px;
+  right: 23px;
+  margin-left: unset;
+  margin-top: unset;
+}
+
+.checkout-summary-enable-edit-button {
+  color: #024f60;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  text-decoration-line: underline;
+}
