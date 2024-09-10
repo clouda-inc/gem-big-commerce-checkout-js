@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 import { CheckoutSelectors } from '@bigcommerce/checkout-sdk';
+import classNames from 'classnames';
 import React, { Component, ReactNode } from 'react';
 
 import { TranslatedString, withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
@@ -8,6 +8,7 @@ import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-
 import { withAnalytics } from '../../analytics';
 import { withCheckout } from '../../checkout';
 import { CheckoutState, WithCheckoutProps } from '../../checkout/Checkout';
+import { IconCheck } from '../../ui/icon';
 
 import './DiscountCode.scss';
 
@@ -17,6 +18,7 @@ interface DiscountCodeState {
 
 interface DiscountCodeProps {
   couponCode: any;
+  checkout: any;
   couponError: any;
   isRemovingCoupon: boolean;
   isApplyingCoupon: boolean;
@@ -37,10 +39,14 @@ class DiscountCode extends Component<
   }
 
   render(): ReactNode {
-    const { couponCode, couponError, isRemovingCoupon, isApplyingCoupon, applyCoupon } = this.props;
-
-    console.log('couponError jjjjj : ', couponError);
-    console.log('discountCode : ', couponCode);
+    const {
+      couponCode,
+      couponError,
+      isRemovingCoupon,
+      isApplyingCoupon,
+      applyCoupon,
+      removeCoupon,
+    } = this.props;
 
     const handleSubmitDiscountCode = async (event: any) => {
       event.preventDefault();
@@ -48,24 +54,34 @@ class DiscountCode extends Component<
       const { discountCode } = this.state;
 
       try {
-        const data = await applyCoupon(discountCode);
+        await applyCoupon(discountCode);
 
-        // this.setState({ discountCode: couponCode });
-
-        console.log('[before coupon code] data : ', couponError);
-
-        console.log('[after coupon code] data : ', data);
+        this.setState({ discountCode: couponCode });
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('error : ', error);
-        // this.setState({ discountCode: couponCode });
-        console.log('[before coupon code] data : ', couponError);
       }
     };
 
+    const handleRemoveDiscountCode = (event: any) => {
+      event.preventDefault();
+
+      const { couponCode } = this.props;
+
+      removeCoupon(couponCode);
+    };
+
     return (
-      <><div className="discount-code">
+      <div className="discount-code">
         <div className="discount-code-label">
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <TranslatedString id="cart.discountCode.title" />
             <div className="discount-code-status-container">
               {!!couponError && (
@@ -73,42 +89,74 @@ class DiscountCode extends Component<
                   <div>!</div>
                 </div>
               )}
-              {isRemovingCoupon || isApplyingCoupon ? <div className="spinner" /> : <></>}
-          </div>
-        </div>
-        <div style={{ width: '100%', color: 'red' }}>
-          {!!couponError && <div>{couponError?.body?.detail}</div>}
-        </div>
-      </div><div className="discount-code-input-wrapper">
-          <div className="discount-code-input-container">
-            <div className="discount-code-input-lable">
-              <TranslatedString id="cart.discountCode.placeholder" />
+              {(isRemovingCoupon || isApplyingCoupon) && <div className="spinner" />}
+              {!!couponCode && (!isRemovingCoupon || !isApplyingCoupon) && (
+                <IconCheck
+                  additionalClassName={classNames('stepHeader-counter', 'optimizedCheckout-step', {
+                    'stepHeader-counter--complete': !!couponCode,
+                  })}
+                />
+              )}
             </div>
-            <input
-              className="discount-code-input"
-              disabled={isApplyingCoupon || isRemovingCoupon}
-              onChange={(e) => this.setState({ discountCode: e.target.value })}
-              type="text"
-              value={this.state.discountCode} />
           </div>
-          <div className="discount-code-button-wrapper">
-            {!!this.state.discountCode && (
-              <button
-                className="discount-code-button"
-                disabled={isApplyingCoupon || isRemovingCoupon}
-                onClick={handleSubmitDiscountCode}
-              >
-                Validate
-              </button>
-            )}
-            {!!this.props.couponCode ||
-              (!!couponError && (
+          <div style={{ width: '100%', color: 'red', fontSize: '10px' }}>
+            {!!couponError && <div>{couponError?.body?.detail}</div>}
+          </div>
+        </div>
+
+        {!!couponCode && (
+          <div className="discount-code-input-wrapper">
+            <div className="discount-code-input-container">
+              <div className="discount-code-input-lable">
+                <TranslatedString id="cart.discountCode.placeholder" />
+              </div>
+              <input
+                className="discount-code-input"
+                disabled={true}
+                onChange={(e) => this.setState({ discountCode: e.target.value })}
+                type="text"
+                value={couponCode}
+              />
+            </div>
+            <div className="discount-code-button-wrapper">
+              {!!couponCode && (
                 <div>
-                  <button className="discount-code-button">Remove</button>
+                  <button className="discount-code-button" onClick={handleRemoveDiscountCode}>
+                    Remove
+                  </button>
                 </div>
-              ))}
+              )}
+            </div>
           </div>
-        </div></>
+        )}
+
+        {!couponCode && (
+          <div className="discount-code-input-wrapper">
+            <div className="discount-code-input-container">
+              <div className="discount-code-input-lable">
+                <TranslatedString id="cart.discountCode.placeholder" />
+              </div>
+              <input
+                className="discount-code-input"
+                disabled={isApplyingCoupon || isRemovingCoupon}
+                onChange={(e) => this.setState({ discountCode: e.target.value })}
+                type="text"
+                value={this.state.discountCode || this.props?.couponCode || ''}
+              />
+            </div>
+            <div className="discount-code-button-wrapper">
+              {!!this.state.discountCode && !couponCode && (
+                <button
+                  className="discount-code-button"
+                  disabled={isApplyingCoupon || isRemovingCoupon}
+                  onClick={handleSubmitDiscountCode}
+                >
+                  Validate
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -119,13 +167,14 @@ export function mapToDisCountCodeProps({
   checkoutState,
 }: CheckoutContextProps): DiscountCodeProps {
   const {
-    data: { getCoupons },
+    data: { getCoupons, getCheckout },
     statuses: { isRemovingCoupon, isApplyingCoupon },
     errors: { getApplyCouponError, getRemoveCouponError },
   } = checkoutState;
 
   return {
-    couponCode: getCoupons(),
+    couponCode: getCoupons()?.find((coupon) => coupon.code)?.code,
+    checkout: getCheckout(),
     couponError: getApplyCouponError() || getRemoveCouponError(),
     isRemovingCoupon: isRemovingCoupon(),
     isApplyingCoupon: isApplyingCoupon(),

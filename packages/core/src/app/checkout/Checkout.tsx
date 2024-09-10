@@ -629,7 +629,7 @@ class Checkout extends Component<
           </div>
         </div>
         <div className="checkout-discount-wrapper">
-          <DiscountCode />
+          <DiscountCode {...this.props} />
         </div>
         <div className="checkout-order-wrapper">
           <OrderComment {...this.props} />
