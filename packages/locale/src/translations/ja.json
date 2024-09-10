@@ -79,7 +79,15 @@
       "taxes_text": "税金",
       "total_text": "合計",
       "empty_cart_message": "カートが空です。自動的にリダイレクトされます。リダイレクトされない場合は、<a href=\"{url}\" target=\"_top\">ここ</a>をクリックしてください。",
-      "consistency_error": "一部の詳細が変更されたため、支払を処理できませんでした。ご注文内容をご確認の上、再度お試しください。"
+      "consistency_error": "一部の詳細が変更されたため、支払を処理できませんでした。ご注文内容をご確認の上、再度お試しください。",
+      "discountCode": {
+        "title": "割引コード",
+        "placeholder": "割引コードを入力してください"
+      },
+      "orderComment": {
+        "title": "注文コメント",
+        "placeholder": "注文コメントを入力してください"
+      }
     },
     "common": {
       "cancel_action": "キャンセル",

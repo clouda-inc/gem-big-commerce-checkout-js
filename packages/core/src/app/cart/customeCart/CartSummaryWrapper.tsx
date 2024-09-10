@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { Component, ReactNode } from 'react';
 
 import { withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
@@ -9,15 +8,17 @@ import { CheckoutState, WithCheckoutProps } from '../../checkout/Checkout';
 import mapToCheckoutProps from '../../checkout/mapToCheckoutProps';
 
 import CartLineItem from './CartLineItem';
+import './CartSummaryWrapper.scss';
 
 class CartSummaryWrapper extends Component<WithCheckoutProps & WithLanguageProps, CheckoutState> {
   render(): ReactNode {
     const { cart } = this.props;
 
-    console.log('cart : ', cart);
-
     return (
-      <div className="checkout-cart-summary">
+      <div className="checkout-cart-summary-item-list">
+        <div className="checkout-cart-summary-item-count">
+          {cart?.lineItems?.physicalItems?.length ?? 0} items in card
+        </div>
         {cart?.lineItems?.physicalItems && (
           <div className="checkout-cart-summary-line-items">
             {cart.lineItems.physicalItems?.map((lineItem) => (

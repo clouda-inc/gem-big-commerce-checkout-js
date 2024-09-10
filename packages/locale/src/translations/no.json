@@ -79,7 +79,15 @@
       "taxes_text": "Skatter",
       "total_text": "Totalbeløp",
       "empty_cart_message": "Handlekurven din er tom, du blir omdirigert. <a href=\"{url}\" target=\"_top\">Klikk her</a> hvis nettleseren din ikke omdirigerer deg.",
-      "consistency_error": "Kassen din kunne ikke behandles fordi noen detaljer er endret. Se igjennom bestillingen din og prøv igjen."
+      "consistency_error": "Kassen din kunne ikke behandles fordi noen detaljer er endret. Se igjennom bestillingen din og prøv igjen.",
+      "discountCode": {
+        "title": "Rabattkode",
+        "placeholder": "Skriv inn rabattkode"
+      },
+      "orderComment": {
+        "title": "Kundekommentar",
+        "placeholder": "Indtast en kundekommentar"
+      }
     },
     "common": {
       "cancel_action": "Avbryt",

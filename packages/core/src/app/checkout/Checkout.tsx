@@ -33,6 +33,8 @@ import { withAnalytics } from '../analytics';
 import { StaticBillingAddress } from '../billing';
 import { EmptyCartMessage } from '../cart';
 import CartSummaryWrapper from '../cart/customeCart/CartSummaryWrapper';
+import DiscountCode from '../cart/discount-code/DiscountCode';
+import OrderComment from '../cart/order-comment/OrderComment';
 import { withCheckout } from '../checkout';
 import { CustomError, ErrorModal, isCustomError } from '../common/error';
 import { retry } from '../common/utility';
@@ -620,9 +622,17 @@ class Checkout extends Component<
   private renderCartSummary(): ReactNode {
     return (
       <div className="checkout-cart-summary">
-        <div className="checkout-cart-summary-title">Order Review</div>
-        <div>
-          <CartSummaryWrapper />
+        <div className="checkout-order-review">
+          <div className="checkout-cart-summary-title">Order Review</div>
+          <div>
+            <CartSummaryWrapper />
+          </div>
+        </div>
+        <div className="checkout-discount-wrapper">
+          <DiscountCode />
+        </div>
+        <div className="checkout-order-wrapper">
+          <OrderComment {...this.props} />
         </div>
       </div>
       // <MobileView>

@@ -79,7 +79,15 @@
       "taxes_text": "Impuestos",
       "total_text": "Total",
       "empty_cart_message": "Tu carrito está vacío; se te está redirigiendo. Haz <a href=\"{url}\" target=\"_top\">clic aquí</a> si tu navegador no te redirige.",
-      "consistency_error": "No se pudo procesar tu pago porque cambiaron algunos datos. Revisa tu pedido e inténtalo nuevamente."
+      "consistency_error": "No se pudo procesar tu pago porque cambiaron algunos datos. Revisa tu pedido e inténtalo nuevamente.",
+      "discountCode": {
+        "title": "Código de descuento",
+        "placeholder": "Código de descuento"
+      },
+      "orderComment": {
+        "title": "Kundekommentar",
+        "placeholder": "Indtast en kundekommentar"
+      }
     },
     "common": {
       "cancel_action": "Cancelar",

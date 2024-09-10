@@ -79,7 +79,15 @@
       "taxes_text": "Taxes",
       "total_text": "Total",
       "empty_cart_message": "Votre panier est vide, vous allez être redirigé·e. Veuillez <a href=\"{url}\" target=\"_top\">cliquer ici</a> si rien ne se passe.",
-      "consistency_error": "Impossible de traiter votre paiement car certaines informations ont été modifiées. Veuillez vérifier votre commande et réessayer."
+      "consistency_error": "Impossible de traiter votre paiement car certaines informations ont été modifiées. Veuillez vérifier votre commande et réessayer.",
+      "discountCode": {
+        "title": "Code promo",
+        "placeholder": "Entrez votre code promo"
+      },
+      "orderComment": {
+        "title": "Commentaire",
+        "placeholder": "Entrez votre commentaire"
+      }
     },
     "common": {
       "cancel_action": "Annuler",

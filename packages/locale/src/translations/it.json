@@ -79,7 +79,15 @@
       "taxes_text": "Tasse",
       "total_text": "Totale",
       "empty_cart_message": "Il carrello è vuoto, verrai reindirizzato. Se il browser non procede automaticamente al reindirizzamento <a href=\"{url}\" target=\"_top\">fai clic qui</a>.",
-      "consistency_error": "Impossibile elaborare il checkout perché alcuni dettagli sono cambiati. Controlla l'ordine e riprova."
+      "consistency_error": "Impossibile elaborare il checkout perché alcuni dettagli sono cambiati. Controlla l'ordine e riprova.",
+      "discountCode": {
+        "title": "Codice sconto",
+        "placeholder": "Inserisci il codice sconto"
+      },
+      "orderComment": {
+        "title": "Commento dell'ordine",
+        "placeholder": "Inserisci un commento per l'ordine"
+      }
     },
     "common": {
       "cancel_action": "Annulla",
