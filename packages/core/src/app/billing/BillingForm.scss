@@ -142,3 +142,14 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.billing-address-input {
+  accent-color: #024f60;
+}
+
+.billing-address-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  width: 100%;
+}

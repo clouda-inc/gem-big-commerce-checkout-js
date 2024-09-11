@@ -601,6 +601,15 @@
       "thank_you_heading": "Merci !",
       "continue_shopping": "Continuer mes achats »",
       "order_status_update_facebook_messenger_heading": "Recevez toutes les mises à jour de votre commande sur Messenger"
+    },
+    "billing-summary": {
+      "title": "Billing Summary",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "total": "Grand Total",
+      "pay": "Pay"
     }
   }
 }

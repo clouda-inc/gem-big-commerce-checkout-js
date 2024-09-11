@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   CheckoutSelectors,
@@ -87,7 +88,11 @@ const BillingForm = ({
   const [tempBillingAddress, setTempBillingAddress] = useState<Address>({
     ...addressInStore,
     countryCode: 'US',
+    stateOrProvince: addressInStore?.stateOrProvince || 'Alabama',
+    stateOrProvinceCode: addressInStore?.stateOrProvinceCode || 'AL',
   });
+
+  const [billingAddressFromProps, setBillingAddressFromProps] = useState<Address>(billingAddress);
 
   const billingAddressesToShow = [{ ...selectedShippingAddress }, { ...tempBillingAddress }].filter(
     (addres) =>
@@ -102,17 +107,17 @@ const BillingForm = ({
       (addres?.postalCode?.length || 0) > 0,
   );
 
-  const enableAddTempAddress = !(
-    isValidAddress(tempBillingAddress, []) &&
-    !!tempBillingAddress.firstName &&
-    tempBillingAddress.firstName !== '' &&
-    !!tempBillingAddress.lastName &&
-    tempBillingAddress.lastName !== '' &&
-    (tempBillingAddress?.address1?.length || 0) > 0 &&
-    (tempBillingAddress?.address2?.length || 0) > 0 &&
-    (tempBillingAddress?.city?.length || 0) > 0 &&
-    (tempBillingAddress?.postalCode?.length || 0) > 0
-  );
+  // const enableAddTempAddress = !(
+  //   isValidAddress(tempBillingAddress, []) &&
+  //   !!tempBillingAddress.firstName &&
+  //   tempBillingAddress.firstName !== '' &&
+  //   !!tempBillingAddress.lastName &&
+  //   tempBillingAddress.lastName !== '' &&
+  //   (tempBillingAddress?.address1?.length || 0) > 0 &&
+  //   (tempBillingAddress?.address2?.length || 0) > 0 &&
+  //   (tempBillingAddress?.city?.length || 0) > 0 &&
+  //   (tempBillingAddress?.postalCode?.length || 0) > 0
+  // );
 
   const billingAddresses = isPayPalFastlaneEnabled
     ? paypalFastlaneAddresses
@@ -124,9 +129,14 @@ const BillingForm = ({
       ...addressInStore,
       countryCode: 'US',
       company: '',
-      stateOrProvince: '',
+      stateOrProvince: addressInStore?.stateOrProvince || 'Alabama',
+      stateOrProvinceCode: addressInStore?.stateOrProvinceCode || 'AL',
     });
   }, []);
+
+  useEffect(() => {
+    setBillingAddressFromProps(billingAddress);
+  }, [billingAddress]);
 
   const handleSelectAddress = async (address: Partial<Address>) => {
     setIsResettingAddress(true);
@@ -140,6 +150,23 @@ const BillingForm = ({
     } finally {
       setIsResettingAddress(false);
     }
+  };
+
+  const handleAddNewTempAddress = (e: any) => {
+    e.preventDefault();
+    setOpenEdit(true);
+    setTempBillingAddress({
+      ...tempBillingAddress,
+      firstName: '',
+      lastName: '',
+      address1: '',
+      address2: '',
+      city: '',
+      postalCode: '',
+      countryCode: 'US',
+      stateOrProvince: 'Alabama',
+      stateOrProvinceCode: 'AL',
+    });
   };
 
   const handleSaveTempAddress = (e: any) => {
@@ -168,17 +195,15 @@ const BillingForm = ({
   };
 
   return (
-    <Form autoComplete="on">
+    <Form autoComplete="on" className="billing-address-form">
       {shouldRenderStaticAddress && billingAddress && (
         <div className="form-fieldset">
           <StaticBillingAddress address={billingAddress} />
         </div>
       )}
-      {!!enableAddTempAddress && (
-        <div>
-          <div onClick={() => setOpenEdit(true)}>Add new Address</div>
-        </div>
-      )}
+      <div>
+        <div onClick={handleAddNewTempAddress}>Add new Address</div>
+      </div>
       <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
         {hasAddresses && !shouldRenderStaticAddress && !openEdit && (
           <Fieldset id="billingAddresses">
@@ -189,11 +214,13 @@ const BillingForm = ({
                     <div
                       className="custom-billing-address-container"
                       key={index}
-                      onClick={() => handleSelectAddress(address)}
+                      onClick={() =>
+                        handleSelectAddress({ ...address, id: billingAddress?.id } as Address)
+                      }
                     >
                       <div className="custom-billing-address">
                         <input
-                          checked={isEqualAddress(address, billingAddress as Address)}
+                          checked={isEqualAddress(address, billingAddressFromProps)}
                           className="billing-address-input"
                           type="radio"
                         />
@@ -317,7 +344,7 @@ const BillingForm = ({
                               stateOrProvince: e.target.value,
                             })
                           }
-                          value={tempBillingAddress.stateOrProvince}
+                          value={tempBillingAddress.stateOrProvinceCode}
                         >
                           {(
                             countries?.find((c) => c.code === tempBillingAddress.countryCode)

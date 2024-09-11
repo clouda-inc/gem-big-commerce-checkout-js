@@ -32,6 +32,7 @@ import { AddressFormSkeleton, ChecklistSkeleton, Modal } from '@bigcommerce/chec
 import { withAnalytics } from '../analytics';
 import { StaticBillingAddress } from '../billing';
 import { EmptyCartMessage } from '../cart';
+import BillingSummary from '../cart/billingSummary/BillingSummary';
 import CartSummaryWrapper from '../cart/customeCart/CartSummaryWrapper';
 import DiscountCode from '../cart/discount-code/DiscountCode';
 import OrderComment from '../cart/order-comment/OrderComment';
@@ -67,6 +68,7 @@ import CheckoutStepType from './CheckoutStepType';
 import CheckoutSupport from './CheckoutSupport';
 import mapToCheckoutProps from './mapToCheckoutProps';
 import navigateToOrderConfirmation from './navigateToOrderConfirmation';
+
 import './Checkout.scss';
 
 const Billing = lazy(() =>
@@ -603,6 +605,7 @@ class Checkout extends Component<
           <Payment
             checkEmbeddedSupport={this.checkEmbeddedSupport}
             errorLogger={errorLogger}
+            formId="checkout-payment-form"
             isEmbedded={isEmbedded()}
             isUsingMultiShipping={
               cart && consignments ? isUsingMultiShipping(consignments, cart.lineItems) : false
@@ -633,6 +636,9 @@ class Checkout extends Component<
         </div>
         <div className="checkout-order-wrapper">
           <OrderComment {...this.props} />
+        </div>
+        <div className="checkout-billing-summary-wrapper">
+          <BillingSummary {...this.props} formId={'checkout-payment-form'} />
         </div>
       </div>
       // <MobileView>

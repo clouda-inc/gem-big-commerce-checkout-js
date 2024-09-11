@@ -601,6 +601,15 @@
       "thank_you_heading": "Tak.",
       "continue_shopping": "Shop videre »",
       "order_status_update_facebook_messenger_heading": "Få øjeblikkelige opdateringer af din ordre på Messenger"
+    },
+    "billing-summary": {
+      "title": "Betalingsoplysninger",
+      "subtotal": "Subtotal",
+      "discount": "Rabat",
+      "shipping": "Fraktkost",
+      "tax": "Skat",
+      "total": "Grand Total",
+      "pay": "Betale"
     }
   }
 }

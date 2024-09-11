@@ -598,6 +598,15 @@
       "thank_you_heading": "Vielen Dank.",
       "continue_shopping": "Weiter einkaufen »",
       "order_status_update_facebook_messenger_heading": "Sofortige Aktualisierungen Ihrer Bestellung im Messenger erhalten"
+    },
+    "billing-summary": {
+      "title": "Rechnungsangaben",
+      "subtotal": "Subtotal",
+      "discount": "Rabatt",
+      "shipping": "Versandkosten",
+      "tax": "Mehrwertsteuer",
+      "total": "Gesamt",
+      "pay": "Bezahlen"
     }
   }
 }
