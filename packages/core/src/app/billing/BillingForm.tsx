@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
 import {
   Address,
   CheckoutSelectors,
   Country,
   Customer,
-  // CustomerAddress,
   FormField,
 } from '@bigcommerce/checkout-sdk';
 import { FormikProps, withFormik } from 'formik';
@@ -16,19 +14,15 @@ import { usePayPalFastlaneAddress } from '@bigcommerce/checkout/paypal-fastlane-
 import { AddressFormSkeleton } from '@bigcommerce/checkout/ui';
 
 import {
-  // AddressForm,
   AddressFormValues,
-  // AddressSelect,
-  // AddressType,
   getAddressFormFieldsValidationSchema,
   getTranslateAddressError,
   isEqualAddress,
-  // isValidCustomerAddress,
+  isValidAddress,
   mapAddressToFormValues,
   StaticAddress,
 } from '../address';
 import { getCustomFormFieldsValidationSchema } from '../formFields';
-// import { OrderComments } from '../orderComments';
 import { Button, ButtonVariant } from '../ui/button';
 import { Fieldset, Form } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
@@ -40,7 +34,7 @@ import './BillingForm.scss';
 export type BillingFormValues = AddressFormValues & { orderComment: string };
 
 export interface BillingFormProps {
-  billingAddress?: Address;
+  billingAddress?: any;
   countries: Country[];
   countriesWithAutocomplete: string[];
   customer: Customer;
@@ -61,10 +55,7 @@ const BillingForm = ({
   // googleMapsApiKey,
   billingAddress,
   // countriesWithAutocomplete,
-  customer: {
-    addresses,
-    // isGuest
-  },
+  // customer: { addresses, isGuest },
   // getFields,
   countries,
   isUpdating,
@@ -87,25 +78,54 @@ const BillingForm = ({
   // const hasCustomFormFields = customFormFields.length > 0;
   // const editableFormFields =
   //   shouldRenderStaticAddress && hasCustomFormFields ? customFormFields : allFormFields;
-  const billingAddresses = isPayPalFastlaneEnabled ? paypalFastlaneAddresses : addresses;
-  const hasAddresses = billingAddresses?.length > 0;
+
   // const hasValidCustomerAddress =
   //   billingAddress &&
   //   isValidCustomerAddress(billingAddress, billingAddresses, getFields(billingAddress.countryCode));
   const addressInStore = JSON.parse(localStorage.getItem('billingAddress') || '{}');
   const [openEdit, setOpenEdit] = useState<boolean>(false);
-
-  console.log('[checkout] billingAddress : ', billingAddress);
-
   const [tempBillingAddress, setTempBillingAddress] = useState<Address>({
     ...addressInStore,
     countryCode: 'US',
   });
 
-  useEffect(() => {
-    console.log('addressInStore : ', addressInStore);
+  const billingAddressesToShow = [{ ...selectedShippingAddress }, { ...tempBillingAddress }].filter(
+    (addres) =>
+      isValidAddress(addres, []) &&
+      !!addres.firstName &&
+      addres.firstName !== '' &&
+      !!addres.lastName &&
+      addres.lastName !== '' &&
+      (addres?.address1?.length || 0) > 0 &&
+      (addres?.address2?.length || 0) > 0 &&
+      (addres?.city?.length || 0) > 0 &&
+      (addres?.postalCode?.length || 0) > 0,
+  );
 
-    setTempBillingAddress({ ...addressInStore, countryCode: 'US', company: '' });
+  const enableAddTempAddress = !(
+    isValidAddress(tempBillingAddress, []) &&
+    !!tempBillingAddress.firstName &&
+    tempBillingAddress.firstName !== '' &&
+    !!tempBillingAddress.lastName &&
+    tempBillingAddress.lastName !== '' &&
+    (tempBillingAddress?.address1?.length || 0) > 0 &&
+    (tempBillingAddress?.address2?.length || 0) > 0 &&
+    (tempBillingAddress?.city?.length || 0) > 0 &&
+    (tempBillingAddress?.postalCode?.length || 0) > 0
+  );
+
+  const billingAddresses = isPayPalFastlaneEnabled
+    ? paypalFastlaneAddresses
+    : billingAddressesToShow;
+  const hasAddresses = billingAddresses?.length > 0;
+
+  useEffect(() => {
+    setTempBillingAddress({
+      ...addressInStore,
+      countryCode: 'US',
+      company: '',
+      stateOrProvince: '',
+    });
   }, []);
 
   const handleSelectAddress = async (address: Partial<Address>) => {
@@ -122,40 +142,30 @@ const BillingForm = ({
     }
   };
 
-  // const handleUseNewAddress = () => {
-  //   handleSelectAddress({});
-  // };
-
-  // const relatedCustomerAddress = addresses.find((address) =>
-  //   isEqualAddress(address, selectedShippingAddress),
-  // );
-
-  // const billingAddressListToShow = [
-  //   { ...relatedCustomerAddress } as CustomerAddress,
-  //   { ...billingAddress },
-  // ];
-
-  // console.log('[BillingForm] billingAddressListToShow : ', billingAddressListToShow);
-
-  // console.log('[BillingForm] countries : ', countries);
-
-  // console.log('[BillingForm] customFormFields : ', customFormFields);
-  // console.log('[BillingForm] selectedShippingAddress : ', selectedShippingAddress);
-  // console.log('[BillingForm] hasValidCustomerAddress : ', hasValidCustomerAddress);
-  // console.log('[BillingForm] billingAddress : ', billingAddress);
-  // console.log('[BillingForm] addresses : ', addresses);
-
-  const handleSubmit = (e: any) => {
+  const handleSaveTempAddress = (e: any) => {
     e.preventDefault();
 
-    // console.log('[BillingForm] handleSubmit : ', tempBillingAddress);
-    // localStorage.setItem('billingAddress', JSON.stringify(tempBillingAddress));
-    // handleSelectAddress(tempBillingAddress as CustomerAddress);
-  };
+    const add = {
+      ...tempBillingAddress,
+      country: countries.find((country) => country.code === tempBillingAddress.countryCode)?.name,
+      stateOrProvince:
+        countries
+          .find((country) => country.code === tempBillingAddress.countryCode)
+          ?.subdivisions.find(
+            (subdivision) => subdivision.code === tempBillingAddress.stateOrProvince,
+          )?.name ?? tempBillingAddress.stateOrProvince,
+      stateOrProvinceCode:
+        countries
+          .find((country) => country.code === tempBillingAddress.countryCode)
+          ?.subdivisions.find(
+            (subdivision) => subdivision.code === tempBillingAddress.stateOrProvince,
+          )?.code ?? tempBillingAddress.stateOrProvinceCode,
+    };
 
-  // const handleCloseEditAddressModal = () => {
-  //   handleSelectAddress(relatedCustomerAddress as CustomerAddress);
-  // };
+    localStorage.setItem('billingAddress', JSON.stringify(add));
+    handleSelectAddress({ ...tempBillingAddress, id: billingAddress?.id } as Address);
+    setOpenEdit(false);
+  };
 
   return (
     <Form autoComplete="on">
@@ -164,46 +174,49 @@ const BillingForm = ({
           <StaticBillingAddress address={billingAddress} />
         </div>
       )}
+      {!!enableAddTempAddress && (
+        <div>
+          <div onClick={() => setOpenEdit(true)}>Add new Address</div>
+        </div>
+      )}
       <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
         {hasAddresses && !shouldRenderStaticAddress && !openEdit && (
           <Fieldset id="billingAddresses">
             <LoadingOverlay isLoading={isResettingAddress}>
               <div className="custom-billing-address-list">
-                {[{ ...selectedShippingAddress }, { ...tempBillingAddress }].map(
-                  (address, index: number) => {
-                    return (
-                      <div
-                        className="custom-billing-address-container"
-                        key={index}
-                        onClick={() => handleSelectAddress(address)}
-                      >
-                        <div className="custom-billing-address">
-                          <input
-                            checked={isEqualAddress(address, billingAddress as Address)}
-                            className="billing-address-input"
-                            type="radio"
-                          />
-                          <div className="billing-address-container">
-                            <StaticAddress address={address as Address} />
-                          </div>
+                {billingAddressesToShow.map((address, index: number) => {
+                  return (
+                    <div
+                      className="custom-billing-address-container"
+                      key={index}
+                      onClick={() => handleSelectAddress(address)}
+                    >
+                      <div className="custom-billing-address">
+                        <input
+                          checked={isEqualAddress(address, billingAddress as Address)}
+                          className="billing-address-input"
+                          type="radio"
+                        />
+                        <div className="billing-address-container">
+                          <StaticAddress address={address as Address} />
                         </div>
-                        {isEqualAddress(address, selectedShippingAddress) && (
-                          <div className="billing-addres-same-shipping-label">
-                            same as shipping address
-                          </div>
-                        )}
-                        {isEqualAddress(address, tempBillingAddress) && (
-                          <div
-                            className="billing-addres-edit-label"
-                            onClick={() => setOpenEdit(true)}
-                          >
-                            edit
-                          </div>
-                        )}
                       </div>
-                    );
-                  },
-                )}
+                      {isEqualAddress(address, selectedShippingAddress) && (
+                        <div className="billing-addres-same-shipping-label">
+                          same as shipping address
+                        </div>
+                      )}
+                      {isEqualAddress(address, tempBillingAddress) && (
+                        <div
+                          className="billing-addres-edit-label"
+                          onClick={() => setOpenEdit(true)}
+                        >
+                          edit
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
               {/* <AddressSelect
                 addresses={[{ ...relatedCustomerAddress } as CustomerAddress]}
@@ -218,7 +231,7 @@ const BillingForm = ({
 
         {openEdit && (
           <AddressFormSkeleton isLoading={isResettingAddress}>
-            <form onSubmit={handleSubmit}>
+            <div>
               <div className="temp-billing-address-container">
                 <div className="temp-billing-address-name-container">
                   <div className="temp-billing-address-firstname">
@@ -381,15 +394,20 @@ const BillingForm = ({
                   <button
                     className="temp-billing-address-cancel-button"
                     onClick={() => setOpenEdit(false)}
+                    type="button"
                   >
                     Cancel
                   </button>
-                  <button className="temp-billing-address-save-button" type="submit">
+                  <button
+                    className="temp-billing-address-save-button"
+                    onClick={handleSaveTempAddress}
+                    type="button"
+                  >
                     Save
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </AddressFormSkeleton>
         )}
 
@@ -408,7 +426,6 @@ const BillingForm = ({
           </AddressFormSkeleton>
         )} */}
       </Fieldset>
-      {/* {shouldShowOrderComments && <OrderComments />} */}
       <div className="form-actions">
         <Button
           disabled={isUpdating || isResettingAddress}

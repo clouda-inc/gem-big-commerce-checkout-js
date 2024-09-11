@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   CheckoutParams,
@@ -169,6 +170,7 @@ class SingleShippingForm extends PureComponent<
     return (
       <Form autoComplete="on">
         <Fieldset>
+          shouldShowBillingSameAsShipping : {JSON.stringify(shouldShowBillingSameAsShipping)}
           <ShippingAddress
             addresses={addresses}
             consignments={consignments}
@@ -193,7 +195,11 @@ class SingleShippingForm extends PureComponent<
           />
           {shouldShowBillingSameAsShipping && (
             <div className="form-body">
-              <BillingSameAsShippingField />
+              <BillingSameAsShippingField
+                onChange={(e) => {
+                  console.log(e);
+                }}
+              />
             </div>
           )}
         </Fieldset>
@@ -319,6 +325,7 @@ class SingleShippingForm extends PureComponent<
 export default withLanguage(
   withFormikExtended<SingleShippingFormProps & WithLanguageProps, SingleShippingFormValues>({
     handleSubmit: (values, { props: { onSubmit } }) => {
+      console.log('[handleSubmit] values', values);
       onSubmit(values);
     },
     mapPropsToValues: ({
