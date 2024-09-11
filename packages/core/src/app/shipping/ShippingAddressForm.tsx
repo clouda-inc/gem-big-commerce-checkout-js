@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   Consignment,
@@ -91,10 +90,6 @@ class ShippingAddressForm extends Component<
     const hasAddresses = addresses && addresses.length > 0;
     const hasValidCustomerAddress = isValidCustomerAddress(shippingAddress, addresses, formFields);
 
-    console.log('hasValidCustomerAddress : ', hasValidCustomerAddress);
-    console.log('shippingAddress : ', shippingAddress);
-    console.log('addresses : ', addresses);
-
     const handleUseNewAddress = () => {
       onUseNewAddress(shippingAddress);
     };
@@ -115,7 +110,6 @@ class ShippingAddressForm extends Component<
 
     const onSubmit = (e: any) => {
       e.preventDefault();
-      console.log('onSubmit : ', e);
 
       const editedaddress = {
         id: editAddress?.id,
@@ -131,7 +125,6 @@ class ShippingAddressForm extends Component<
         address_type: editAddress?.type,
       };
 
-      console.log('editedaddress : ', editAddress);
       fetch('https://api.bigcommerce.com/stores/qxtizk9ym4/v3/customers/addresses', {
         method: 'PUT',
         headers: {
@@ -143,7 +136,6 @@ class ShippingAddressForm extends Component<
       })
         .then((r) => r.json())
         .then((r) => {
-          console.log('R : Result :', r.data[0]);
           handleCloseEditAddressModal();
           updateShippingAddress(
             {
@@ -181,45 +173,10 @@ class ShippingAddressForm extends Component<
           // window.location.reload();
         })
         .catch((e) => {
+          // eslint-disable-next-line no-console
           console.error('Error : ', e);
         });
     };
-
-    // const handleUpdateCustomerAddress = (address: CustomerAddress) => {
-    //   console.log('address : ', address);
-    //   fetch('https://api.bigcommerce.com/stores/qxtizk9ym4/v3/customers/addresses', {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Accept: 'application/json',
-    //       'X-Auth-Token': token,
-    //     },
-    //     body: JSON.stringify([
-    //       {
-    //         id: address?.id,
-    //         first_name: `${getRandomName()}`,
-    //         last_name: address?.lastName,
-    //         address1: address?.address1,
-    //         address2: address?.address2,
-    //         city: address?.city,
-    //         state_or_province: address?.stateOrProvince,
-    //         postal_code: address?.postalCode,
-    //         country_code: address?.countryCode,
-    //         phone: address?.phone,
-    //         address_type: address?.type,
-    //       },
-    //     ]),
-    //   })
-    //     .then((r) => r.json())
-    //     .then((r) => {
-    //       console.log('R : Result :', r.data[0]);
-    //       handleSelectAddress(r.data[0]);
-    //       window.location.reload();
-    //     })
-    //     .catch((e) => {
-    //       console.error('Error : ', e);
-    //     });
-    // };
 
     return (
       <Fieldset id="checkoutShippingAddress">
@@ -288,10 +245,7 @@ class ShippingAddressForm extends Component<
         {showEditAddressModal && (
           <div className="edit-shipping-address-form">
             <div className="edit-shipping-address-title">Edit Shipping Address</div>
-            <div
-              // onSubmit={onSubmit}
-              style={{ display: 'flex', flexDirection: 'column', gap: '1.875rem' }}
-            >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.875rem' }}>
               <div className="form-field-name-container">
                 <div className="form-field-first-name form-field">
                   <input

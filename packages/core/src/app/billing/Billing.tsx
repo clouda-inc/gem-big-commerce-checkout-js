@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   CheckoutRequestBody,
@@ -44,6 +45,7 @@ export interface WithCheckoutBillingProps {
   initialize(): Promise<CheckoutSelectors>;
   updateAddress(address: Partial<Address>): Promise<CheckoutSelectors>;
   updateCheckout(payload: CheckoutRequestBody): Promise<CheckoutSelectors>;
+  selectedShippingAddress: Address;
 }
 
 class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
@@ -61,7 +63,10 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
   }
 
   render(): ReactNode {
-    const { updateAddress, isInitializing, ...props } = this.props;
+    const { updateAddress, isInitializing, selectedShippingAddress, ...props } = this.props;
+
+    console.log('selectedShippingAddress : ', selectedShippingAddress);
+    console.log('[this.props] billingAddress : ', this.props.billingAddress);
 
     return (
       <AddressFormSkeleton isLoading={isInitializing}>
@@ -71,7 +76,12 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
               <TranslatedString id="billing.billing_address_heading" />
             </Legend>
           </div>
-          <BillingForm {...props} onSubmit={this.handleSubmit} updateAddress={updateAddress} />
+          <BillingForm
+            {...props}
+            onSubmit={this.handleSubmit}
+            selectedShippingAddress={selectedShippingAddress}
+            updateAddress={updateAddress}
+          />
         </div>
       </AddressFormSkeleton>
     );
@@ -126,6 +136,7 @@ function mapToBillingProps({
       getBillingAddress,
       getBillingAddressFields,
       getBillingCountries,
+      getShippingAddress,
     },
     statuses: { isLoadingBillingCountries, isUpdatingBillingAddress, isUpdatingCheckout },
   } = checkoutState;
@@ -159,6 +170,7 @@ function mapToBillingProps({
     updateAddress: checkoutService.updateBillingAddress,
     updateCheckout: checkoutService.updateCheckout,
     isFloatingLabelEnabled: isFloatingLabelEnabled(config.checkoutSettings),
+    selectedShippingAddress: getShippingAddress() || ({} as Address),
   };
 }
 

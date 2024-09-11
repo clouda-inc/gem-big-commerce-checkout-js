@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FormField } from '@bigcommerce/checkout-sdk';
 import { FormikProps, withFormik } from 'formik';
 import { noop } from 'lodash';
@@ -108,8 +107,6 @@ const CreateAccountForm: FunctionComponent<
   const fields = fixNewsletterCheckboxExperimentEnabled
     ? transformFormFieldsData(formFields, defaultShouldSubscribe)
     : formFields;
-
-  console.log('fields : ', fields);
 
   return (
     <Form

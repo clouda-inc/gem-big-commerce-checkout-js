@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CheckoutRequestBody, CheckoutSelectors } from '@bigcommerce/checkout-sdk';
 import React, { Component, ReactNode } from 'react';
 
@@ -8,7 +7,6 @@ import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-
 import { withAnalytics } from '../../analytics';
 import { withCheckout } from '../../checkout';
 import { WithCheckoutProps } from '../../checkout/Checkout';
-// import mapToCheckoutProps from '../../checkout/mapToCheckoutProps';
 
 import './OrderComment.scss';
 
@@ -43,15 +41,9 @@ class OrderComment extends Component<
 
       const { updateCheckout, cart, loadCheckout } = this.props;
 
-      const data = await updateCheckout({ customerMessage: comment });
-
-      const { comment: orderComment } = this.props;
-
-      console.log('orderComment : ', orderComment);
+      await updateCheckout({ customerMessage: comment });
 
       loadCheckout(cart?.id ?? '');
-
-      console.log('data : ', data);
     };
 
     return (
@@ -94,28 +86,8 @@ export function mapToOrderCommentProps({
   checkoutState,
 }: CheckoutContextProps): OrderCommentProps | null {
   const {
-    data: {
-      // getCart,
-      getCheckout,
-      // getConfig,
-      // getCustomer,
-      // getConsignments,
-      // getShippingAddress,
-      // getBillingAddress,
-      // getShippingAddressFields,
-      // getShippingCountries,
-    },
-    statuses: {
-      // isShippingStepPending,
-      // isSelectingShippingOption,
-      // isLoadingShippingOptions,
-      // isUpdatingConsignment,
-      // isCreatingConsignments,
-      // isCreatingCustomerAddress,
-      // isLoadingShippingCountries,
-      // isUpdatingBillingAddress,
-      isUpdatingCheckout,
-    },
+    data: { getCheckout },
+    statuses: { isUpdatingCheckout },
   } = checkoutState;
 
   const checkout = getCheckout();

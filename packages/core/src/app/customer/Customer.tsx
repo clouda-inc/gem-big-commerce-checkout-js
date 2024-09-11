@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   CheckoutPaymentMethodExecutedOptions,
   CheckoutSelectors,
@@ -476,8 +475,6 @@ class Customer extends Component<
 
   private showCreateAccount: () => void = () => {
     const { onChangeViewType = noop } = this.props;
-
-    console.log('showCreateAccount');
 
     onChangeViewType(CustomerViewType.CreateAccount);
   };
