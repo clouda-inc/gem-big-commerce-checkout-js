@@ -638,7 +638,7 @@ class Checkout extends Component<
           <OrderComment {...this.props} />
         </div>
         <div className="checkout-billing-summary-wrapper">
-          <BillingSummary {...this.props} formId={'checkout-payment-form'} />
+          <BillingSummary {...this.props} formId="checkout-payment-form" />
         </div>
       </div>
       // <MobileView>

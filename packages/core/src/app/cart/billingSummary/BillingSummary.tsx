@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CheckoutRequestBody, CheckoutSelectors } from '@bigcommerce/checkout-sdk';
 import React, { Component, ReactNode } from 'react';
 
@@ -14,7 +13,6 @@ import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-
 import { withAnalytics } from '../../analytics';
 import { withCheckout } from '../../checkout';
 import { WithCheckoutProps } from '../../checkout/Checkout';
-import PaymentSubmitButton from '../../payment/PaymentSubmitButton';
 
 import './BillingSummary.scss';
 
@@ -33,19 +31,8 @@ class BillingSummary extends Component<
 > {
   render(): ReactNode {
     const { checkout, currency, formId } = this.props;
-
-    console.log('checkout : ', checkout);
-
     const { subtotal, taxTotal, grandTotal, shippingCostTotal } = checkout;
-
     const { discountAmount } = checkout.cart;
-
-    console.log('subtotal : ', subtotal);
-    console.log('taxTotal : ', taxTotal);
-    console.log('grandTotal : ', grandTotal);
-    console.log('discountAmount : ', discountAmount);
-
-    console.log('shippingCostTotal : ', shippingCostTotal);
 
     return (
       <div className="billing-summary">
@@ -99,14 +86,13 @@ class BillingSummary extends Component<
             <div className="billing-summary-payment-button-container">
               <button
                 className="billing-summary-payment-button"
-                disabled
+                disabled={this.props.isLoading}
                 form={formId}
                 id="checkout-payment-continue"
                 type="submit"
               >
                 Pay {currency.toCustomerCurrency(grandTotal)}
               </button>
-              <PaymentSubmitButton />
             </div>
             <div className="billing-summary-privacy-container">
               <div className="billing-summary-privacy-label">By purchasing you agree to our</div>
