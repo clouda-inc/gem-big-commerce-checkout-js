@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   CheckoutParams,
@@ -33,11 +32,13 @@ import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { PaymentMethodId } from '../payment/paymentMethod';
 import { Fieldset, Form } from '../ui/form';
 
-import BillingSameAsShippingField from './BillingSameAsShippingField';
+// import BillingSameAsShippingField from './BillingSameAsShippingField';
 import hasSelectedShippingOptions from './hasSelectedShippingOptions';
 import ShippingAddress from './ShippingAddress';
 import { SHIPPING_ADDRESS_FIELDS } from './ShippingAddressFields';
 import ShippingFormFooter from './ShippingFormFooter';
+
+import './SingleShippingForm.scss';
 
 export interface SingleShippingFormProps {
   addresses: CustomerAddress[];
@@ -81,6 +82,7 @@ interface SingleShippingFormState {
   isResettingAddress: boolean;
   isUpdatingShippingData: boolean;
   hasRequestedShippingOptions: boolean;
+  billingSameAsShipping: boolean;
 }
 
 function shouldHaveCustomValidation(methodId?: string): boolean {
@@ -103,6 +105,7 @@ class SingleShippingForm extends PureComponent<
     isResettingAddress: false,
     isUpdatingShippingData: false,
     hasRequestedShippingOptions: false,
+    billingSameAsShipping: localStorage.getItem('billingSameAsShipping') === 'true',
   };
 
   private debouncedUpdateAddress: any;
@@ -170,7 +173,6 @@ class SingleShippingForm extends PureComponent<
     return (
       <Form autoComplete="on">
         <Fieldset>
-          shouldShowBillingSameAsShipping : {JSON.stringify(shouldShowBillingSameAsShipping)}
           <ShippingAddress
             addresses={addresses}
             consignments={consignments}
@@ -194,12 +196,22 @@ class SingleShippingForm extends PureComponent<
             updateShippingAddress={this.debouncedUpdateAddress}
           />
           {shouldShowBillingSameAsShipping && (
-            <div className="form-body">
-              <BillingSameAsShippingField
+            <div className="billing-same-as-shipping-container">
+              <input
+                checked={this.state.billingSameAsShipping}
+                className="billing-same-as-shipping-input"
+                data-test="billingSameAsShipping"
+                id="sameAsBilling"
+                name="billingSameAsShipping"
                 onChange={(e) => {
-                  console.log(e);
+                  this.setState({ billingSameAsShipping: e.target.checked });
+                  localStorage.setItem('isBillingSameAsShipping', e.target.checked.toString());
                 }}
+                type="checkbox"
               />
+              <label className="billing-same-as-shipping-label" htmlFor="sameAsBilling">
+                Same as billing address
+              </label>
             </div>
           )}
         </Fieldset>
@@ -325,8 +337,10 @@ class SingleShippingForm extends PureComponent<
 export default withLanguage(
   withFormikExtended<SingleShippingFormProps & WithLanguageProps, SingleShippingFormValues>({
     handleSubmit: (values, { props: { onSubmit } }) => {
-      console.log('[handleSubmit] values', values);
-      onSubmit(values);
+      onSubmit({
+        ...values,
+        billingSameAsShipping: localStorage.getItem('isBillingSameAsShipping') === 'true',
+      });
     },
     mapPropsToValues: ({
       getFields,

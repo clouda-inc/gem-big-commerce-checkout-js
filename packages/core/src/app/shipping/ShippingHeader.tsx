@@ -2,7 +2,7 @@ import { ExtensionRegion } from '@bigcommerce/checkout-sdk';
 import React, { FunctionComponent, memo } from 'react';
 
 import { Extension } from '@bigcommerce/checkout/checkout-extension';
-import { preventDefault } from '@bigcommerce/checkout/dom-utils';
+// import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 
 import { Legend } from '../ui/form';
@@ -17,8 +17,8 @@ interface ShippingHeaderProps {
 const ShippingHeader: FunctionComponent<ShippingHeaderProps> = ({
   isMultiShippingMode,
   isGuest,
-  onMultiShippingChange,
-  shouldShowMultiShipping,
+  // onMultiShippingChange,
+  // shouldShowMultiShipping,
 }) => {
   return (
     <>
@@ -36,7 +36,8 @@ const ShippingHeader: FunctionComponent<ShippingHeaderProps> = ({
           />
         </Legend>
 
-        {shouldShowMultiShipping && (
+        {/** TODO: Uncomment to allow add multi shipping */}
+        {/* {shouldShowMultiShipping && (
           <a
             data-test="shipping-mode-toggle"
             href="#"
@@ -46,7 +47,7 @@ const ShippingHeader: FunctionComponent<ShippingHeaderProps> = ({
               id={isMultiShippingMode ? 'shipping.ship_to_single' : 'shipping.ship_to_multi'}
             />
           </a>
-        )}
+        )} */}
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   AddressRequestBody,
@@ -14,7 +15,7 @@ import {
   ShippingInitializeOptions,
   ShippingRequestOptions,
 } from '@bigcommerce/checkout-sdk';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
 import { usePayPalFastlaneAddress } from '@bigcommerce/checkout/paypal-fastlane-integration';
@@ -24,6 +25,7 @@ import SingleShippingForm, { SingleShippingFormValues } from './SingleShippingFo
 
 export interface ShippingFormProps {
   addresses: CustomerAddress[];
+  billingAddress: Address;
   cart: Cart;
   cartHasChanged: boolean;
   consignments: Consignment[];
@@ -64,6 +66,7 @@ export interface ShippingFormProps {
 const ShippingForm = ({
   addresses,
   assignItem,
+  billingAddress,
   cart,
   cartHasChanged,
   createCustomerAddress,
@@ -103,11 +106,17 @@ const ShippingForm = ({
   const shippingAddresses =
     isPayPalFastlaneEnabled && isGuest ? paypalFastlaneAddresses : addresses;
 
+  const [isBillingSameAsShippingState, setIsBillingSameAsShippingState] = useState(
+    localStorage.getItem('isBillingSameAsShipping') === 'true',
+  );
+
   useEffect(() => {
     if (isPayPalFastlaneEnabled && !shouldShowPayPalFastlaneShippingForm) {
       initialize({ methodId });
     }
   }, [isPayPalFastlaneEnabled, shouldShowPayPalFastlaneShippingForm, methodId, initialize]);
+
+  console.log('shippingAddresses', shippingAddresses);
 
   return isMultiShippingMode ? (
     <MultiShippingForm
@@ -147,7 +156,8 @@ const ShippingForm = ({
       getFields={getFields}
       googleMapsApiKey={googleMapsApiKey}
       initialize={initialize}
-      isBillingSameAsShipping={isBillingSameAsShipping}
+      // isBillingSameAsShipping={isBillingSameAsShipping}
+      isBillingSameAsShipping={isBillingSameAsShippingState}
       isFloatingLabelEnabled={isFloatingLabelEnabled}
       isInitialValueLoaded={isInitialValueLoaded}
       isLoading={isLoading}

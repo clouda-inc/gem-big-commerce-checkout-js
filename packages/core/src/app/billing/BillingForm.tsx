@@ -93,6 +93,10 @@ const BillingForm = ({
   });
 
   const [billingAddressFromProps, setBillingAddressFromProps] = useState<Address>(billingAddress);
+  const [sameAsShippingAddress, setSameAsShippingAddress] = useState<boolean>(
+    isEqualAddress(billingAddress, selectedShippingAddress) &&
+      localStorage.getItem('billingAddress') === 'true',
+  );
 
   const billingAddressesToShow = [{ ...selectedShippingAddress }, { ...tempBillingAddress }].filter(
     (addres) =>
@@ -201,8 +205,37 @@ const BillingForm = ({
           <StaticBillingAddress address={billingAddress} />
         </div>
       )}
-      <div>
-        <div onClick={handleAddNewTempAddress}>Add new Address</div>
+      <div className="same-as-shipping-address-container">
+        <input
+          checked={sameAsShippingAddress}
+          className="same-as-shipping-address"
+          id="sameAsShippingAddress"
+          name="sameAsShippingAddress"
+          onChange={(e) => {
+            // e.preventDefault();
+            setSameAsShippingAddress(e.target.checked);
+            localStorage.setItem('isBillingSameAsShipping', String(e.target.checked));
+
+            if (e.target.checked) {
+              console.log('sameAsShippingAddress', e.target.checked);
+              handleSelectAddress({
+                ...selectedShippingAddress,
+                id: billingAddress?.id,
+              } as Address);
+            } else if (isValidAddress(tempBillingAddress, [])) {
+              handleSelectAddress({ ...tempBillingAddress, id: billingAddress?.id } as Address);
+            }
+          }}
+          type="checkbox"
+        />
+        <label className="same-as-shipping-address-label" htmlFor="sameAsShippingAddress">
+          Same as shipping address
+        </label>
+      </div>
+      <div className="billing-address-add-new-container">
+        <div className="billing-address-add-new" onClick={handleAddNewTempAddress}>
+          Add new Address
+        </div>
       </div>
       <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
         {hasAddresses && !shouldRenderStaticAddress && !openEdit && (
@@ -214,9 +247,10 @@ const BillingForm = ({
                     <div
                       className="custom-billing-address-container"
                       key={index}
-                      onClick={() =>
-                        handleSelectAddress({ ...address, id: billingAddress?.id } as Address)
-                      }
+                      onClick={() => {
+                        handleSelectAddress({ ...address, id: billingAddress?.id } as Address);
+                        setSameAsShippingAddress(isEqualAddress(address, selectedShippingAddress));
+                      }}
                     >
                       <div className="custom-billing-address">
                         <input

@@ -126,6 +126,7 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
 
   render(): ReactNode {
     const {
+      billingAddress,
       isBillingSameAsShipping,
       isGuest,
       shouldShowMultiShipping,
@@ -199,6 +200,7 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
           <ShippingForm
             {...shippingFormProps}
             addresses={customer.addresses}
+            billingAddress={billingAddress || ({} as Address)}
             deinitialize={deinitializeShippingMethod}
             initialize={initializeShippingMethod}
             isBillingSameAsShipping={isBillingSameAsShipping}

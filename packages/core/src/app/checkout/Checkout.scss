@@ -183,3 +183,25 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
+.checkout-step--shipping .form-checklist-checkbox:checked ~ .form-label::before {
+  border-color: #024f60;
+}
+
+.checkout-step--shipping .form-checklist-checkbox ~ .form-label::before {
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkout-step--shipping .form-checklist-checkbox:checked ~ .form-label::after {
+  background-color: #024f60;
+}
+
+.checkout-step--shipping .form-checklist-checkbox ~ .form-label::after {
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkout-view-header {
+  margin-bottom: 0;
+}
