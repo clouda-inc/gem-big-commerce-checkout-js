@@ -367,7 +367,10 @@ class Checkout extends Component<
 
     return (
       <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting}>
-        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+        <div
+          className="checkout-page-container"
+          style={{ display: 'flex', flexDirection: 'row', height: '100%' }}
+        >
           <div className="layout-main">
             <LoadingNotification
               isLoading={

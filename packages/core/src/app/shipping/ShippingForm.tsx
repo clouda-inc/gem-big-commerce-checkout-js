@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   AddressRequestBody,
@@ -66,7 +65,7 @@ export interface ShippingFormProps {
 const ShippingForm = ({
   addresses,
   assignItem,
-  billingAddress,
+  // billingAddress,
   cart,
   cartHasChanged,
   createCustomerAddress,
@@ -80,7 +79,7 @@ const ShippingForm = ({
   getFields,
   googleMapsApiKey,
   initialize,
-  isBillingSameAsShipping,
+  // isBillingSameAsShipping,
   isGuest,
   isLoading,
   isMultiShippingMode,
@@ -111,12 +110,14 @@ const ShippingForm = ({
   );
 
   useEffect(() => {
+    setIsBillingSameAsShippingState(localStorage.getItem('isBillingSameAsShipping') === 'true');
+  }, []);
+
+  useEffect(() => {
     if (isPayPalFastlaneEnabled && !shouldShowPayPalFastlaneShippingForm) {
       initialize({ methodId });
     }
   }, [isPayPalFastlaneEnabled, shouldShowPayPalFastlaneShippingForm, methodId, initialize]);
-
-  console.log('shippingAddresses', shippingAddresses);
 
   return isMultiShippingMode ? (
     <MultiShippingForm

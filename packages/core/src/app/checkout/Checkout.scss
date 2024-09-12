@@ -1,3 +1,15 @@
+.checkout-page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  column-gap: 30px;
+}
+
+.layout-main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .sign-up-modal-body {
   padding-left: 0;
   padding-right: 0;
