@@ -42,12 +42,14 @@
 
 .order-comment-input {
   width: 100%;
-  height: 44px;
+  height: 83px;
   border-radius: 4px;
   border: 1px solid #b2bcca;
   background: #fff;
   padding-left: 1rem;
   padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.375rem;
 }
 
 .order-comment-input:focus-visible {
@@ -72,4 +74,53 @@
 
 .order-comment-submit:disabled {
   background: #b2bcca;
+}
+
+.order-comment-value-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.order-comment-value-wrapper {
+  padding: 24px 13px;
+}
+
+.order-comment-value-container {
+  position: relative;
+}
+
+.order-comment-value {
+  border-radius: 4px;
+  border: 1px solid #b2bcca;
+  background: #fff;
+  width: 386px;
+  height: 83px;
+  padding: 1rem;
+}
+
+.order-comment-value-action-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.order-comment-value-delete-button {
+  color: #024f60;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  text-decoration-line: underline;
+}
+
+.order-comment-value-edit-button {
+  color: #024f60;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  text-decoration-line: underline;
 }

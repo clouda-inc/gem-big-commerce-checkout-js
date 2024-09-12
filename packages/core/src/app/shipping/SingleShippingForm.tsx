@@ -82,7 +82,7 @@ interface SingleShippingFormState {
   isResettingAddress: boolean;
   isUpdatingShippingData: boolean;
   hasRequestedShippingOptions: boolean;
-  billingSameAsShipping: boolean;
+  // billingSameAsShipping: boolean;
 }
 
 function shouldHaveCustomValidation(methodId?: string): boolean {
@@ -105,7 +105,7 @@ class SingleShippingForm extends PureComponent<
     isResettingAddress: false,
     isUpdatingShippingData: false,
     hasRequestedShippingOptions: false,
-    billingSameAsShipping: localStorage.getItem('billingSameAsShipping') === 'true',
+    // billingSameAsShipping: localStorage.getItem('billingSameAsShipping') === 'true',
   };
 
   private debouncedUpdateAddress: any;
@@ -165,10 +165,10 @@ class SingleShippingForm extends PureComponent<
 
     const { isResettingAddress, isUpdatingShippingData, hasRequestedShippingOptions } = this.state;
 
-    const PAYMENT_METHOD_VALID = ['amazonpay'];
-    const shouldShowBillingSameAsShipping = !PAYMENT_METHOD_VALID.some(
-      (method) => method === methodId,
-    );
+    // const PAYMENT_METHOD_VALID = ['amazonpay'];
+    // const shouldShowBillingSameAsShipping = !PAYMENT_METHOD_VALID.some(
+    //   (method) => method === methodId,
+    // );
 
     return (
       <Form autoComplete="on">
@@ -195,7 +195,7 @@ class SingleShippingForm extends PureComponent<
             shouldShowSaveAddress={shouldShowSaveAddress}
             updateShippingAddress={this.debouncedUpdateAddress}
           />
-          {shouldShowBillingSameAsShipping && (
+          {/* {shouldShowBillingSameAsShipping && (
             <div className="billing-same-as-shipping-container">
               <input
                 checked={this.state.billingSameAsShipping}
@@ -213,7 +213,7 @@ class SingleShippingForm extends PureComponent<
                 Same as billing address
               </label>
             </div>
-          )}
+          )} */}
         </Fieldset>
         <ShippingFormFooter
           cartHasChanged={cartHasChanged}

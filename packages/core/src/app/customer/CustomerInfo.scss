@@ -20,6 +20,16 @@
   height: 44px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.checkout-customer-info-email-correcticon {
+  width: 14px;
+  height: 14px;
+}
+
+.checkout-customer-info-email-correcticon svg path {
+  fill: #024f60;
 }
 
 .customerView-signout-message {

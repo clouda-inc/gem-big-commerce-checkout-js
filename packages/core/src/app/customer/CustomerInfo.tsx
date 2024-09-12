@@ -12,6 +12,7 @@ import { isErrorWithType } from '../common/error';
 import canSignOut, { isSupportedSignoutMethod } from './canSignOut';
 
 import './CustomerInfo.scss';
+// import { IconCheck } from '../ui/icon';
 
 export interface CustomerInfoProps {
   onSignOut?(event: CustomerSignOutEvent): void;
@@ -65,7 +66,23 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
         data-test="customer-info"
       >
         <div className="checkout-customer-info-email-heading">Email Address</div>
-        <div className="checkout-customer-info-email">{email}</div>
+        <div className="checkout-customer-info-email">
+          {email}{' '}
+          {!!email && (
+            <div>
+              <svg
+                fill="none"
+                height="15"
+                viewBox="0 0 15 15"
+                width="15"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="7.65625" cy="7.90723" fill="#024F60" r="7" />
+                <path d="M4.65637 8.82361L6.74036 10.9072L10.6564 5.90723" stroke="white" />
+              </svg>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="customerView-actions">

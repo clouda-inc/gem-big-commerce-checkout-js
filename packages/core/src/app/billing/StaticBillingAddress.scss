@@ -1,0 +1,13 @@
+.billing-address-summary-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.billing-address-summary-title {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}

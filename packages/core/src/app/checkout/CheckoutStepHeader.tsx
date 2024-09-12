@@ -49,10 +49,16 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
       </div>
       {/** Heading of the checkout components - end */}
 
-      <div className="checkout-summary-container">
+      <div
+        className={`checkout-summary-container summary-${
+          !isActive && isComplete ? 'is-complete' : 'is-incomplete'
+        }`}
+      >
         {/** summary of the checkout components - start */}
         <div
-          className="stepHeader-body stepHeader-column optimizedCheckout-contentPrimary"
+          className={`stepHeader-body stepHeader-column optimizedCheckout-contentPrimary summary-${
+            !isActive && isComplete ? 'is-complete' : 'is-incomplete'
+          }`}
           data-test="step-info"
         >
           {!isActive && isComplete && summary}
@@ -67,7 +73,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
               className="checkout-summary-enable-edit-button"
               data-test="step-edit-button"
             >
-              <TranslatedString id="common.edit_action" />
+              <TranslatedString id="common.change_action" />
             </div>
           </div>
         )}

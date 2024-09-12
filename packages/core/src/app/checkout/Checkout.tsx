@@ -328,7 +328,7 @@ class Checkout extends Component<
         id="checkout-page-container"
       >
         <div className="layout optimizedCheckout-contentPrimary">
-          <div>ddddddd</div>
+          {/* <div>ddddddd</div> */}
           {this.renderContent()}
         </div>
         {errorModal}

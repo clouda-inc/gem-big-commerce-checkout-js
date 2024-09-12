@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CheckoutRequestBody, CheckoutSelectors } from '@bigcommerce/checkout-sdk';
 import React, { Component, ReactNode } from 'react';
 
@@ -13,6 +14,7 @@ import './OrderComment.scss';
 interface OrderCommentStates {
   comment: string;
   hasComment: boolean;
+  editing: boolean;
 }
 
 interface OrderCommentProps {
@@ -30,10 +32,15 @@ class OrderComment extends Component<
     this.state = {
       comment: props.comment || '',
       hasComment: !!props.comment,
+      editing: !props.comment,
     };
   }
 
   render(): ReactNode {
+    const { comment } = this.props;
+
+    console.log(comment);
+
     const handleSubmitOrderComment = async (event: any) => {
       event.preventDefault();
 
@@ -44,6 +51,17 @@ class OrderComment extends Component<
       await updateCheckout({ customerMessage: comment });
 
       loadCheckout(cart?.id ?? '');
+      this.setState({ editing: false });
+    };
+
+    const handleDeleteOrderComment = async (event: any) => {
+      event.preventDefault();
+
+      const { updateCheckout, cart, loadCheckout } = this.props;
+
+      await updateCheckout({ customerMessage: '' });
+
+      loadCheckout(cart?.id ?? '');
     };
 
     return (
@@ -51,31 +69,62 @@ class OrderComment extends Component<
         <div className="order-comment-label">
           <TranslatedString id="cart.orderComment.title" />
         </div>
-        <div className="order-comment-input-wrapper">
-          <div className="order-comment-input-container">
-            <div className="order-comment-input-lable">
-              <TranslatedString id="cart.orderComment.placeholder" />
+        {!!comment && <div>{comment}</div>}
+        {!comment && <div>No Comment</div>}
+        {!this.state.editing && (!!this.state.hasComment || !!this.props.comment) && (
+          <div className="order-comment-value-wrapper">
+            <div className="order-comment-value-container">
+              <div className="order-comment-input-lable">
+                <TranslatedString id="cart.orderComment.placeholder" />
+              </div>
+              <div className="order-comment-value">{this.state.comment}</div>
             </div>
-            <input
-              className="order-comment-input"
-              disabled={this.props.isLoading}
-              onChange={(e) => {
-                this.setState({ comment: e.target.value });
-              }}
-              type="text"
-              value={this.state.comment}
-            />
+            <div className="order-comment-value-action-container">
+              <button
+                className="order-comment-value-delete-button"
+                onClick={handleDeleteOrderComment}
+              >
+                Delete
+              </button>
+              <button
+                className="order-comment-value-edit-button"
+                onClick={() => this.setState({ editing: true })}
+              >
+                Edit
+              </button>
+            </div>
           </div>
+        )}
+        {((!this.state.hasComment && !this.props.comment) || this.state.editing) && (
           <div>
-            <button
-              className="order-comment-submit"
-              disabled={this.props.isLoading}
-              onClick={handleSubmitOrderComment}
-            >
-              {this.state.hasComment ? 'Update Comment' : 'Add Comment'}
-            </button>
+            <div className="order-comment-input-wrapper">
+              <div className="order-comment-input-container">
+                <div className="order-comment-input-lable">
+                  <TranslatedString id="cart.orderComment.placeholder" />
+                </div>
+                <textarea
+                  className="order-comment-input"
+                  cols={30}
+                  disabled={this.props.isLoading}
+                  onChange={(e) => {
+                    this.setState({ comment: e.target.value });
+                  }}
+                  rows={5}
+                  value={this.state.comment}
+                />
+              </div>
+              <div>
+                <button
+                  className="order-comment-submit"
+                  disabled={this.props.isLoading}
+                  onClick={handleSubmitOrderComment}
+                >
+                  {this.state.hasComment ? 'Update Comment' : 'Add Comment'}
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
