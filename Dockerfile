@@ -18,10 +18,8 @@ COPY ./ ./
 
 RUN npm run build
 
-COPY ./ ./
+COPY ./dist/ ./build
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "npm run dev & npm run dev:server"]
-
-# CMD ["sh", "-c", "npm run dev:server"] -for production
+CMD ["sh", "-c", "npm run dev:server"]
