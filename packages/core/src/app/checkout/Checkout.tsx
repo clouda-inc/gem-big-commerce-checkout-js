@@ -53,7 +53,6 @@ import { getSupportedMethodIds } from '../customer/getSupportedMethods';
 import mapCreateAccountFromFormValues from '../customer/mapCreateAccountFromFormValues';
 import { SubscribeSessionStorage } from '../customer/SubscribeSessionStorage';
 import { EmbeddedCheckoutStylesheet, isEmbedded } from '../embeddedCheckout';
-// import { OrderComments } from '../orderComments';
 import signinSigupImage from '../image/sigin-sigup-form-side-image.png';
 import { PromotionBannerList } from '../promotion';
 import { hasSelectedShippingOptions, isUsingMultiShipping, StaticConsignment } from '../shipping';
@@ -327,10 +326,7 @@ class Checkout extends Component<
         data-test="checkout-page-container"
         id="checkout-page-container"
       >
-        <div className="layout optimizedCheckout-contentPrimary">
-          {/* <div>ddddddd</div> */}
-          {this.renderContent()}
-        </div>
+        <div className="layout optimizedCheckout-contentPrimary">{this.renderContent()}</div>
         {errorModal}
       </div>
     );
@@ -468,24 +464,6 @@ class Checkout extends Component<
         return null;
     }
   }
-
-  // private renderShippingOptionStep(step: CheckoutStepStatus): ReactNode {
-  //   return (
-  //     <CheckoutStep
-  //       {...step}
-  //       heading={<TranslatedString id="shipping.shipping_heading" />}
-  //       key={step.type}
-  //       onEdit={this.handleEditStep}
-  //       onExpanded={this.handleExpanded}
-  //     >
-  //       <ShippingOption
-  //         checkEmbeddedSupport={this.checkEmbeddedSupport}
-  //         onReady={this.handleReady}
-  //         onUnhandledError={this.handleUnhandledError}
-  //       />
-  //     </CheckoutStep>
-  //   );
-  // }
 
   private renderCustomerStep(step: CheckoutStepStatus): ReactNode {
     const { isGuestEnabled, isShowingWalletButtonsOnTop } = this.props;
@@ -644,33 +622,6 @@ class Checkout extends Component<
           <BillingSummary {...this.props} formId="checkout-payment-form" />
         </div>
       </div>
-      // <MobileView>
-      //   {(matched) => {
-      //     if (matched) {
-      //       return (
-      //         <LazyContainer>
-      //           before extenstion matched
-      //           <Extension region={ExtensionRegion.SummaryAfter} />
-      //           after extenstion matched
-      //           <CartSummaryDrawer />
-      //           {/* <Extension region={ExtensionRegion.SummaryAfter} />
-      //             <OrderComments /> */}
-      //         </LazyContainer>
-      //       );
-      //     }
-
-      //     return (
-      //       <aside className="layout-cart">
-      //         <LazyContainer>
-      //           <CartSummary />
-      //           before extenstion
-      //           <Extension region={ExtensionRegion.SummaryAfter} />
-      //           {/* <OrderComments /> */}
-      //         </LazyContainer>
-      //       </aside>
-      //     );
-      //   }}
-      // </MobileView>
     );
   }
   private navigateToStep(type: CheckoutStepType, options?: { isDefault?: boolean }): void {
@@ -870,12 +821,9 @@ class Checkout extends Component<
   };
 
   private setCustomerViewType: (viewType: CustomerViewType) => void = (customerViewType) => {
-    // const { createAccountUrl } = this.props;
-
     if (customerViewType === CustomerViewType.CreateAccount && isEmbedded()) {
       if (window.top) {
         this.setState({ enableSignUp: true });
-        // window.top.location.replace(createAccountUrl);
       }
 
       return;

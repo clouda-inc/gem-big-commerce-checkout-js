@@ -7,12 +7,10 @@ import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-
 
 import { withCheckout } from '../checkout';
 import { isErrorWithType } from '../common/error';
-// import { Button, ButtonSize, ButtonVariant } from '../ui/button';
 
 import canSignOut, { isSupportedSignoutMethod } from './canSignOut';
 
 import './CustomerInfo.scss';
-// import { IconCheck } from '../ui/icon';
 
 export interface CustomerInfoProps {
   onSignOut?(event: CustomerSignOutEvent): void;
@@ -65,7 +63,6 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
         className="customerView-body optimizedCheckout-contentPrimary checkout-customer-info-email-container"
         data-test="customer-info"
       >
-        <div className="checkout-customer-info-email-heading">Email Address</div>
         <div className="checkout-customer-info-email">
           {email}{' '}
           {!!email && (

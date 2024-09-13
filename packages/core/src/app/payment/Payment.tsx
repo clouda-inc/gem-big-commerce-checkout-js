@@ -172,11 +172,11 @@ class Payment extends Component<
   render(): ReactNode {
     const {
       defaultMethod,
-      finalizeOrderError,
+      //   finalizeOrderError,
       isInitializingPayment,
       isUsingMultiShipping,
       methods,
-      applyStoreCredit,
+      //   applyStoreCredit,
       formId,
       ...rest
     } = this.props;

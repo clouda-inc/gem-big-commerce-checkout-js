@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 import React, { FunctionComponent, memo, ReactNode } from 'react';
 
 import { preventDefault } from '@bigcommerce/checkout/dom-utils';
-import { TranslatedString } from '@bigcommerce/checkout/locale';
+// import { TranslatedString } from '@bigcommerce/checkout/locale';
 
 // import { Button, ButtonSize, ButtonVariant } from '../ui/button';
 import { IconCheck } from '../ui/icon';
@@ -66,7 +66,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
         {/** summary of the checkout components - end */}
 
         {/** edit button of the checkout components - start */}
-        {isEditable && !isActive && (
+        {/* {isEditable && !isActive && (
           <div className="stepHeader-actions stepHeader-column checkout-summary-enable-edit">
             <div
               aria-expanded={isActive}
@@ -76,7 +76,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
               <TranslatedString id="common.change_action" />
             </div>
           </div>
-        )}
+        )} */}
         {/** edit button of the checkout components - end */}
       </div>
     </div>

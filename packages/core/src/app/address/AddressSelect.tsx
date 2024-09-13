@@ -51,7 +51,7 @@ const AddressSelectMenu: FunctionComponent<AddressSelectProps> = ({
               <input
                 checked={!!isEqualAddress(selectedAddress, address)}
                 className="address-with-selector-input"
-                onClick={preventDefault(() => onSelectAddress(address))}
+                onChange={preventDefault(() => onSelectAddress(address))}
                 type="radio"
               />
             </div>

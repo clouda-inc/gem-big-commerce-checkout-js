@@ -35,7 +35,10 @@ const StaticConsignment: FunctionComponent<StaticConsignmentProps> = ({
     <div className="staticConsignment">
       <div className="address-container">
         <div className="address-title">Shipping Address</div>
-        <StaticAddress address={address} type={AddressType.Shipping} />
+        <div className="static-consignment-address-container">
+          <StaticAddress address={address} type={AddressType.Shipping} />
+          <div className="static-consignment-address-change">Change</div>
+        </div>
       </div>
 
       {showPayPalFastlaneAddressLabel && <PoweredByPayPalFastlaneLabel />}

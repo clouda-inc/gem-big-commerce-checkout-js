@@ -32,7 +32,6 @@ import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { PaymentMethodId } from '../payment/paymentMethod';
 import { Fieldset, Form } from '../ui/form';
 
-// import BillingSameAsShippingField from './BillingSameAsShippingField';
 import hasSelectedShippingOptions from './hasSelectedShippingOptions';
 import ShippingAddress from './ShippingAddress';
 import { SHIPPING_ADDRESS_FIELDS } from './ShippingAddressFields';
@@ -70,6 +69,8 @@ export interface SingleShippingFormProps {
     address: Partial<Address>,
     options?: RequestOptions<CheckoutParams>,
   ): Promise<CheckoutSelectors>;
+  createCustomerAddress: any;
+  isGuest: boolean;
 }
 
 export interface SingleShippingFormValues {
@@ -82,7 +83,6 @@ interface SingleShippingFormState {
   isResettingAddress: boolean;
   isUpdatingShippingData: boolean;
   hasRequestedShippingOptions: boolean;
-  // billingSameAsShipping: boolean;
 }
 
 function shouldHaveCustomValidation(methodId?: string): boolean {
@@ -105,7 +105,6 @@ class SingleShippingForm extends PureComponent<
     isResettingAddress: false,
     isUpdatingShippingData: false,
     hasRequestedShippingOptions: false,
-    // billingSameAsShipping: localStorage.getItem('billingSameAsShipping') === 'true',
   };
 
   private debouncedUpdateAddress: any;
@@ -160,15 +159,11 @@ class SingleShippingForm extends PureComponent<
       values: { shippingAddress: addressForm },
       isShippingStepPending,
       isFloatingLabelEnabled,
-      // updateAddress,
+      createCustomerAddress,
+      isGuest,
     } = this.props;
 
     const { isResettingAddress, isUpdatingShippingData, hasRequestedShippingOptions } = this.state;
-
-    // const PAYMENT_METHOD_VALID = ['amazonpay'];
-    // const shouldShowBillingSameAsShipping = !PAYMENT_METHOD_VALID.some(
-    //   (method) => method === methodId,
-    // );
 
     return (
       <Form autoComplete="on">
@@ -178,12 +173,14 @@ class SingleShippingForm extends PureComponent<
             consignments={consignments}
             countries={countries}
             countriesWithAutocomplete={countriesWithAutocomplete}
+            createCustomerAddress={createCustomerAddress}
             deinitialize={deinitialize}
             formFields={this.getFields(addressForm && addressForm.countryCode)}
             googleMapsApiKey={googleMapsApiKey}
             hasRequestedShippingOptions={hasRequestedShippingOptions}
             initialize={initialize}
             isFloatingLabelEnabled={isFloatingLabelEnabled}
+            isGuest={isGuest}
             isLoading={isResettingAddress}
             isShippingStepPending={isShippingStepPending}
             methodId={methodId}
@@ -195,25 +192,6 @@ class SingleShippingForm extends PureComponent<
             shouldShowSaveAddress={shouldShowSaveAddress}
             updateShippingAddress={this.debouncedUpdateAddress}
           />
-          {/* {shouldShowBillingSameAsShipping && (
-            <div className="billing-same-as-shipping-container">
-              <input
-                checked={this.state.billingSameAsShipping}
-                className="billing-same-as-shipping-input"
-                data-test="billingSameAsShipping"
-                id="sameAsBilling"
-                name="billingSameAsShipping"
-                onChange={(e) => {
-                  this.setState({ billingSameAsShipping: e.target.checked });
-                  localStorage.setItem('isBillingSameAsShipping', e.target.checked.toString());
-                }}
-                type="checkbox"
-              />
-              <label className="billing-same-as-shipping-label" htmlFor="sameAsBilling">
-                Same as billing address
-              </label>
-            </div>
-          )} */}
         </Fieldset>
         <ShippingFormFooter
           cartHasChanged={cartHasChanged}
@@ -252,9 +230,7 @@ class SingleShippingForm extends PureComponent<
     await new Promise((resolve) => setTimeout(resolve));
 
     const isShippingField = SHIPPING_ADDRESS_FIELDS.includes(name);
-
     const { hasRequestedShippingOptions } = this.state;
-
     const { isValid } = this.props;
 
     if (!isValid) {
@@ -339,7 +315,7 @@ export default withLanguage(
     handleSubmit: (values, { props: { onSubmit } }) => {
       onSubmit({
         ...values,
-        billingSameAsShipping: localStorage.getItem('isBillingSameAsShipping') === 'true',
+        billingSameAsShipping: false,
       });
     },
     mapPropsToValues: ({

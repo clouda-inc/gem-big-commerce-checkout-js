@@ -41,6 +41,8 @@ export interface ShippingAddressProps {
   onUnhandledError?(error: Error): void;
   onUseNewAddress(): void;
   updateShippingAddress(address: Address, includeShippingOptions: boolean): void;
+  createCustomerAddress?(address: Address): any;
+  isGuest: boolean;
 }
 
 const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
@@ -61,6 +63,8 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
     shouldShowSaveAddress,
     isFloatingLabelEnabled,
     updateShippingAddress,
+    createCustomerAddress,
+    isGuest,
   } = props;
 
   const { shouldShowPayPalFastlaneShippingForm } = usePayPalFastlaneAddress();
@@ -100,9 +104,11 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
       consignments={consignments}
       countries={countries}
       countriesWithAutocomplete={countriesWithAutocomplete}
+      createCustomerAddress={createCustomerAddress}
       formFields={formFields}
       googleMapsApiKey={googleMapsApiKey}
       isFloatingLabelEnabled={isFloatingLabelEnabled}
+      isGuest={isGuest}
       isLoading={isLoading}
       onAddressSelect={onAddressSelect}
       onFieldChange={handleFieldChange}

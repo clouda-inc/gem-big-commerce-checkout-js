@@ -45,8 +45,6 @@ class OrderComment extends Component<
   render(): ReactNode {
     const { comment } = this.props;
 
-    console.log(comment);
-
     const handleSubmitOrderComment = async (event: any) => {
       event.preventDefault();
 
@@ -113,7 +111,13 @@ class OrderComment extends Component<
                 <div className="order-comment-input-lable">
                   <TranslatedString id="cart.orderComment.placeholder" />
                 </div>
-                <div className="order-comment-value">{this.state.comment}</div>
+                <textarea
+                  className="order-comment-value"
+                  cols={30}
+                  disabled
+                  rows={5}
+                  value={this.state.comment}
+                />
               </div>
               <div className="order-comment-value-action-container">
                 <button

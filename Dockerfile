@@ -1,3 +1,5 @@
+# FROM node:20.0.0
+
 FROM --platform=linux/x86_64 node:20.0.0
 
 WORKDIR /usr/app
@@ -16,6 +18,10 @@ COPY ./ ./
 
 RUN npm run build
 
+COPY ./ ./
+
 EXPOSE 8080
 
 CMD ["sh", "-c", "npm run dev & npm run dev:server"]
+
+# CMD ["sh", "-c", "npm run dev:server"] -for production

@@ -40,6 +40,7 @@
   text-align: right;
   cursor: pointer;
   text-decoration-line: underline;
+  height: 100%;
 }
 
 .add-new-address {
@@ -133,4 +134,60 @@
   border-radius: 8px;
   border: 1px solid #216574;
   background: #216574;
+}
+
+.add-new-shipping-address-cancel {
+  color: #787b93;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  border-radius: 10px;
+  border: 1px solid #b6bac2;
+  display: flex;
+  height: 40px;
+  padding: 13px 24px;
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  cursor: pointer;
+}
+
+.new-shipping-address-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.new-shipping-address-form .form-field,
+.new-shipping-address-form .form-field .form-field-input {
+  width: 100%;
+  margin: 0;
+}
+
+.new-shipping-address-form .form-field .form-field-input {
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--Dark-Dark-1, #b2bcca);
+  background: #fff;
+  padding-left: 1rem;
+}
+
+.new-shipping-address-form .form-field-saveAddress-input {
+  accent-color: #216574;
+}
+
+.new-shipping-address-form .form-field-saveAddress-label {
+  color: var(--Dark-Dark-3, #4f4f4f);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.new-shipping-address-form .form-field-saveAddress {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 0.5rem;
 }

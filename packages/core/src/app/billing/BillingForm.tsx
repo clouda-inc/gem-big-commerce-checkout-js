@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   CheckoutSelectors,
@@ -50,39 +49,26 @@ export interface BillingFormProps {
   onUnhandledError(error: Error): void;
   updateAddress(address: Partial<Address>): Promise<CheckoutSelectors>;
   selectedShippingAddress: Address;
+  navigateNextStep(): void;
 }
 
 const BillingForm = ({
   // googleMapsApiKey,
   billingAddress,
-  // countriesWithAutocomplete,
-  // customer: { addresses, isGuest },
-  // getFields,
   countries,
   isUpdating,
-  // setFieldValue,
-  //   shouldShowOrderComments,
-  // values,
   methodId,
-  // isFloatingLabelEnabled,
   updateAddress,
   onUnhandledError,
   selectedShippingAddress,
+  navigateNextStep,
 }: BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
   const [isResettingAddress, setIsResettingAddress] = useState(false);
   const addressFormRef: RefObject<HTMLFieldSetElement> = useRef(null);
   const { isPayPalFastlaneEnabled, paypalFastlaneAddresses } = usePayPalFastlaneAddress();
 
   const shouldRenderStaticAddress = methodId === 'amazonpay';
-  // const allFormFields = getFields(values.countryCode);
-  // const customFormFields = allFormFields.filter(({ custom }) => custom);
-  // const hasCustomFormFields = customFormFields.length > 0;
-  // const editableFormFields =
-  //   shouldRenderStaticAddress && hasCustomFormFields ? customFormFields : allFormFields;
 
-  // const hasValidCustomerAddress =
-  //   billingAddress &&
-  //   isValidCustomerAddress(billingAddress, billingAddresses, getFields(billingAddress.countryCode));
   const addressInStore = JSON.parse(localStorage.getItem('billingAddress') || '{}');
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [tempBillingAddress, setTempBillingAddress] = useState<Address>({
@@ -93,10 +79,6 @@ const BillingForm = ({
   });
 
   const [billingAddressFromProps, setBillingAddressFromProps] = useState<Address>(billingAddress);
-  const [sameAsShippingAddress, setSameAsShippingAddress] = useState<boolean>(
-    isEqualAddress(billingAddress, selectedShippingAddress) &&
-      localStorage.getItem('billingAddress') === 'true',
-  );
 
   const billingAddressesToShow = [{ ...selectedShippingAddress }, { ...tempBillingAddress }].filter(
     (addres) =>
@@ -111,28 +93,12 @@ const BillingForm = ({
       (addres?.postalCode?.length || 0) > 0,
   );
 
-  // const enableAddTempAddress = !(
-  //   isValidAddress(tempBillingAddress, []) &&
-  //   !!tempBillingAddress.firstName &&
-  //   tempBillingAddress.firstName !== '' &&
-  //   !!tempBillingAddress.lastName &&
-  //   tempBillingAddress.lastName !== '' &&
-  //   (tempBillingAddress?.address1?.length || 0) > 0 &&
-  //   (tempBillingAddress?.address2?.length || 0) > 0 &&
-  //   (tempBillingAddress?.city?.length || 0) > 0 &&
-  //   (tempBillingAddress?.postalCode?.length || 0) > 0
-  // );
-
   const billingAddresses = isPayPalFastlaneEnabled
     ? paypalFastlaneAddresses
     : billingAddressesToShow;
   const hasAddresses = billingAddresses?.length > 0;
 
   useEffect(() => {
-    const sameAsShipping = isValidAddress(addressInStore, []);
-
-    console.log('sameAsShipping', sameAsShipping);
-
     setTempBillingAddress({
       ...addressInStore,
       countryCode: 'US',
@@ -151,6 +117,7 @@ const BillingForm = ({
 
     try {
       await updateAddress(address);
+      navigateNextStep();
     } catch (error) {
       if (error instanceof Error) {
         onUnhandledError(error);
@@ -209,33 +176,6 @@ const BillingForm = ({
           <StaticBillingAddress address={billingAddress} />
         </div>
       )}
-      <div className="same-as-shipping-address-container">
-        <input
-          checked={sameAsShippingAddress}
-          className="same-as-shipping-address"
-          id="sameAsShippingAddress"
-          name="sameAsShippingAddress"
-          onChange={(e) => {
-            // e.preventDefault();
-            setSameAsShippingAddress(e.target.checked);
-            localStorage.setItem('isBillingSameAsShipping', String(e.target.checked));
-
-            if (e.target.checked) {
-              console.log('sameAsShippingAddress', e.target.checked);
-              handleSelectAddress({
-                ...selectedShippingAddress,
-                id: billingAddress?.id,
-              } as Address);
-            } else if (isValidAddress(tempBillingAddress, [])) {
-              handleSelectAddress({ ...tempBillingAddress, id: billingAddress?.id } as Address);
-            }
-          }}
-          type="checkbox"
-        />
-        <label className="same-as-shipping-address-label" htmlFor="sameAsShippingAddress">
-          Same as shipping address
-        </label>
-      </div>
       <div className="billing-address-add-new-container">
         <div className="billing-address-add-new" onClick={handleAddNewTempAddress}>
           Add new Address
@@ -253,7 +193,6 @@ const BillingForm = ({
                       key={index}
                       onClick={() => {
                         handleSelectAddress({ ...address, id: billingAddress?.id } as Address);
-                        setSameAsShippingAddress(isEqualAddress(address, selectedShippingAddress));
                       }}
                     >
                       <div className="custom-billing-address">
@@ -283,13 +222,6 @@ const BillingForm = ({
                   );
                 })}
               </div>
-              {/* <AddressSelect
-                addresses={[{ ...relatedCustomerAddress } as CustomerAddress]}
-                onSelectAddress={handleSelectAddress}
-                onUseNewAddress={handleUseNewAddress}
-                selectedAddress={hasValidCustomerAddress ? billingAddress : undefined}
-                type={AddressType.Billing}
-              /> */}
             </LoadingOverlay>
           </Fieldset>
         )}
@@ -475,21 +407,6 @@ const BillingForm = ({
             </div>
           </AddressFormSkeleton>
         )}
-
-        {/* {!hasValidCustomerAddress && (
-          <AddressFormSkeleton isLoading={isResettingAddress}>
-            <AddressForm
-              countries={countries}
-              countriesWithAutocomplete={countriesWithAutocomplete}
-              countryCode={values.countryCode}
-              formFields={editableFormFields}
-              googleMapsApiKey={googleMapsApiKey}
-              isFloatingLabelEnabled={isFloatingLabelEnabled}
-              setFieldValue={setFieldValue}
-              shouldShowSaveAddress={!isGuest}
-            />
-          </AddressFormSkeleton>
-        )} */}
       </Fieldset>
       <div className="form-actions">
         <Button

@@ -245,7 +245,7 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
   };
 
   private handleSingleShippingSubmit: (values: SingleShippingFormValues) => void = async ({
-    billingSameAsShipping,
+    // billingSameAsShipping,
     shippingAddress: addressValues,
     orderComment,
   }) => {
@@ -253,32 +253,23 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
       customerMessage,
       updateCheckout,
       updateShippingAddress,
-      updateBillingAddress,
+      // updateBillingAddress,
       navigateNextStep,
       onUnhandledError,
       shippingAddress,
-      billingAddress,
-      methodId,
+      // billingAddress,
+      // methodId,
     } = this.props;
 
     const updatedShippingAddress = addressValues && mapAddressFromFormValues(addressValues);
     const promises: Array<Promise<CheckoutSelectors>> = [];
-    const hasRemoteBilling = this.hasRemoteBilling(methodId);
+    // const hasRemoteBilling = this.hasRemoteBilling(methodId);
 
     if (
       !isEqualAddress(updatedShippingAddress, shippingAddress) ||
       shippingAddress?.shouldSaveAddress !== updatedShippingAddress?.shouldSaveAddress
     ) {
       promises.push(updateShippingAddress(updatedShippingAddress || {}));
-    }
-
-    if (
-      billingSameAsShipping &&
-      updatedShippingAddress &&
-      !isEqualAddress(updatedShippingAddress, billingAddress) &&
-      !hasRemoteBilling
-    ) {
-      promises.push(updateBillingAddress(updatedShippingAddress));
     }
 
     if (customerMessage !== orderComment) {
@@ -288,7 +279,7 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
     try {
       await Promise.all(promises);
 
-      navigateNextStep(billingSameAsShipping);
+      navigateNextStep(false);
     } catch (error) {
       if (error instanceof Error) {
         onUnhandledError(error);
@@ -296,11 +287,11 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
     }
   };
 
-  private hasRemoteBilling: (methodId?: string) => boolean = (methodId) => {
-    const PAYMENT_METHOD_VALID = ['amazonpay'];
+  // private hasRemoteBilling: (methodId?: string) => boolean = (methodId) => {
+  //   const PAYMENT_METHOD_VALID = ['amazonpay'];
 
-    return PAYMENT_METHOD_VALID.some((method) => method === methodId);
-  };
+  //   return PAYMENT_METHOD_VALID.some((method) => method === methodId);
+  // };
 
   private handleUseNewAddress: (address: Address, itemId: string) => void = async (
     address,

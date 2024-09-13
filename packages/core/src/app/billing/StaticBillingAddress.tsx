@@ -42,7 +42,10 @@ const StaticBillingAddress: FunctionComponent<
     <>
       <div className="billing-address-summary-container">
         <div className="billing-address-summary-title">Billing Address</div>
-        <StaticAddress address={address} type={AddressType.Billing} />
+        <div className="static-billing-address-container">
+          <StaticAddress address={address} type={AddressType.Billing} />
+          <div className="static-billing-address-change">Change</div>
+        </div>
       </div>
 
       {showPayPalFastlaneLabel && <PoweredByPayPalFastlaneLabel />}
