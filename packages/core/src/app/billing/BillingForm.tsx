@@ -129,6 +129,10 @@ const BillingForm = ({
   const hasAddresses = billingAddresses?.length > 0;
 
   useEffect(() => {
+    const sameAsShipping = isValidAddress(addressInStore, []);
+
+    console.log('sameAsShipping', sameAsShipping);
+
     setTempBillingAddress({
       ...addressInStore,
       countryCode: 'US',
