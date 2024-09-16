@@ -80,29 +80,6 @@ input:focus-visible {
   flex-basis: 100%;
 }
 
-.sign-up-modal-form-wrapper
-  .checkout-form
-  .form-fieldset
-  .form-body
-  .create-account-form
-  .form-field {
-  position: relative;
-}
-
-.sign-up-modal-form-wrapper
-  .checkout-form
-  .form-fieldset
-  .form-body
-  .create-account-form
-  .optimizedCheckout-form-label {
-  position: absolute;
-  top: -10px;
-  left: 4px;
-  background: #ffffff;
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
 .sign-up-modal-image-wrapper {
   position: relative;
   width: 46%;
@@ -239,6 +216,22 @@ input:focus-visible {
   top: unset;
   right: unset;
   width: 100%;
+}
+
+.form-field input:not(:placeholder-shown) + .floating-label,
+.form-field input:focus + .floating-label {
+  top: -11.7042px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background: white;
+  left: 0.5rem;
+}
+
+.form-field input:-webkit-autofill,
+.form-field input:-webkit-autofill:hover,
+.form-field input:-webkit-autofill:focus,
+.form-field input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 .checkout-step--shipping .checkout-form,

@@ -1,0 +1,31 @@
+.input-field-container {
+  position: relative;
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--Dark-Dark-1, #b2bcca);
+  background: #fff;
+  display: flex;
+}
+
+.input-field-title {
+  position: absolute;
+  top: -11px;
+  left: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background: #ffffff;
+}
+
+.input-field-input {
+  border: none;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+
+.input-field-input:-webkit-autofill,
+.input-field-input:-webkit-autofill:hover,
+.input-field-input:-webkit-autofill:focus,
+.input-field-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

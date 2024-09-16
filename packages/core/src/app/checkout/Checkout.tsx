@@ -426,6 +426,7 @@ class Checkout extends Component<
                 defaultShouldSubscribe={false}
                 fixNewsletterCheckboxExperimentEnabled={false}
                 formFields={customerAccountFields}
+                isFloatingLabelEnabled={true}
                 onCancel={this.handleCloseSignUpForm}
                 onSubmit={this.handleSignUpUserSubmit}
                 requiresMarketingConsent={false}
@@ -604,6 +605,12 @@ class Checkout extends Component<
   }
 
   private renderCartSummary(): ReactNode {
+    const { activeStepType, defaultStepType } = this.state;
+
+    const isPaymentStepActive = activeStepType
+      ? activeStepType === CheckoutStepType.Payment
+      : defaultStepType === CheckoutStepType.Payment;
+
     return (
       <div className="checkout-cart-summary">
         <div className="checkout-order-review">
@@ -619,7 +626,11 @@ class Checkout extends Component<
           <OrderComment {...this.props} />
         </div>
         <div className="checkout-billing-summary-wrapper">
-          <BillingSummary {...this.props} formId="checkout-payment-form" />
+          <BillingSummary
+            {...this.props}
+            formId="checkout-payment-form"
+            isPaymentStepActive={isPaymentStepActive}
+          />
         </div>
       </div>
     );

@@ -95,6 +95,10 @@
   height: 50px;
 }
 
+.billing-summary-payment-button:disabled {
+  background-color: rgba(2, 79, 96, 0.5);
+}
+
 .billing-summary-payment-button-section {
   display: flex;
   flex-direction: column;
@@ -114,7 +118,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  line-height: 20px;
 }
 
 .billing-summary-privacy-policy-link {

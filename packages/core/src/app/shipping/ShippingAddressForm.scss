@@ -191,3 +191,24 @@
   justify-content: flex-start;
   column-gap: 0.5rem;
 }
+
+.shipping-address-show-when-no-address {
+  border-radius: 4px;
+  border: 1px solid #b2bcca;
+  background: #fff;
+  padding: 1rem;
+}
+
+.form-field-country:-webkit-autofill,
+.form-field-country:-webkit-autofill:hover,
+.form-field-country:-webkit-autofill:focus,
+.form-field-country:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.form-field-stateOrProvince:-webkit-autofill,
+.form-field-stateOrProvince:-webkit-autofill:hover,
+.form-field-stateOrProvince:-webkit-autofill:focus,
+.form-field-stateOrProvince:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

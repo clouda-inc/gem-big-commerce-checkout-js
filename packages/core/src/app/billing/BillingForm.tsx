@@ -22,6 +22,7 @@ import {
   mapAddressToFormValues,
   StaticAddress,
 } from '../address';
+import { InputField } from '../common/input';
 import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { Button, ButtonVariant } from '../ui/button';
 import { Fieldset, Form } from '../ui/form';
@@ -232,55 +233,47 @@ const BillingForm = ({
               <div className="temp-billing-address-container">
                 <div className="temp-billing-address-name-container">
                   <div className="temp-billing-address-firstname">
-                    <input
-                      className="temp-billing-address-firstname-input"
+                    <InputField
                       id="firstName"
                       name="firstName"
-                      onChange={(e) =>
+                      onChange={(e: { target: { value: any } }) =>
                         setTempBillingAddress({ ...tempBillingAddress, firstName: e.target.value })
                       }
-                      placeholder="First Name"
-                      type="text"
+                      title="First Name"
                       value={tempBillingAddress.firstName}
                     />
                   </div>
                   <div className="temp-billing-address-lastname">
-                    <input
-                      className="temp-billing-address-lastname-input"
+                    <InputField
                       id="lastName"
                       name="lastName"
-                      onChange={(e) => {
+                      onChange={(e: { target: { value: any } }) => {
                         setTempBillingAddress({ ...tempBillingAddress, lastName: e.target.value });
                       }}
-                      placeholder="Last Name"
-                      type="text"
+                      title="Last Name"
                       value={tempBillingAddress.lastName}
                     />
                   </div>
                 </div>
                 <div className="temp-billing-address1-container">
-                  <input
-                    className="temp-billing-address1-input"
+                  <InputField
                     id="address1"
                     name="address1"
-                    onChange={(e) =>
+                    onChange={(e: { target: { value: any } }) =>
                       setTempBillingAddress({ ...tempBillingAddress, address1: e.target.value })
                     }
-                    placeholder="Address"
-                    type="text"
+                    title="Address"
                     value={tempBillingAddress.address1}
                   />
                 </div>
                 <div className="temp-billing-address2-container">
-                  <input
-                    className="temp-billing-address2-input"
+                  <InputField
                     id="address2"
                     name="address2"
-                    onChange={(e) =>
+                    onChange={(e: { target: { value: any } }) =>
                       setTempBillingAddress({ ...tempBillingAddress, address2: e.target.value })
                     }
-                    placeholder="Address"
-                    type="text"
+                    title="Address"
                     value={tempBillingAddress.address2}
                   />
                 </div>
@@ -328,61 +321,53 @@ const BillingForm = ({
                       </div>
                     ) : (
                       <div className="temp-billing-address-state-container">
-                        <input
-                          className="temp-billing-address-state-select"
+                        <InputField
                           id="stateOrProvince"
                           name="stateOrProvince"
-                          onChange={(e) =>
+                          onChange={(e: { target: { value: any } }) =>
                             setTempBillingAddress({
                               ...tempBillingAddress,
                               stateOrProvince: e.target.value,
                             })
                           }
-                          placeholder="State Or Province"
-                          type="text"
+                          title="State Or Province"
                           value={tempBillingAddress.stateOrProvince}
                         />
                       </div>
                     )}
                   </div>
                   <div className="temp-billing-address-city-container">
-                    <input
-                      className="temp-billing-address-city-input"
+                    <InputField
                       id="city"
                       name="city"
-                      onChange={(e) =>
+                      onChange={(e: { target: { value: any } }) =>
                         setTempBillingAddress({ ...tempBillingAddress, city: e.target.value })
                       }
-                      placeholder="City"
-                      type="text"
+                      title="City"
                       value={tempBillingAddress.city}
                     />
                   </div>
                 </div>
                 <div className="temp-billing-address-postalcode-phone-container">
                   <div className="temp-billing-address-postalcode-container">
-                    <input
-                      className="temp-billing-address-postalcode-input"
+                    <InputField
                       id="postalCode"
                       name="postalCode"
-                      onChange={(e) =>
+                      onChange={(e: { target: { value: any } }) =>
                         setTempBillingAddress({ ...tempBillingAddress, postalCode: e.target.value })
                       }
-                      placeholder="Postal Code"
-                      type="text"
+                      title="Postal Code"
                       value={tempBillingAddress.postalCode}
                     />
                   </div>
                   <div className="temp-billing-address-phone-container">
-                    <input
-                      className="temp-billing-address-phone-input"
+                    <InputField
                       id="phone"
                       name="phone"
-                      onChange={(e) => {
+                      onChange={(e: { target: { value: any } }) => {
                         setTempBillingAddress({ ...tempBillingAddress, phone: e.target.value });
                       }}
-                      placeholder="Phone"
-                      type="text"
+                      title="Phone"
                       value={tempBillingAddress.phone}
                     />
                   </div>
