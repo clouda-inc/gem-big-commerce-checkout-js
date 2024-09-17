@@ -11,6 +11,7 @@ import { TranslatedString } from '@bigcommerce/checkout/locale';
 
 import { AddressType, isEqualAddress, isValidCustomerAddress, StaticAddress } from '../address';
 import { connectFormik, ConnectFormikProps } from '../common/form';
+import { InputField } from '../common/input';
 import { Fieldset } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
@@ -18,7 +19,6 @@ import shiftGivenAddressToTop from './shiftGivenAddressToTop';
 import { SingleShippingFormValues } from './SingleShippingForm';
 
 import './ShippingAddressForm.scss';
-import { InputField } from '../common/input';
 
 export interface ShippingAddressFormProps {
   addresses: CustomerAddress[];
@@ -76,9 +76,16 @@ class ShippingAddressForm extends Component<
         countryCode: (this.props.countries ?? []).find((c) => c)?.code ?? 'US',
         stateOrProvinceCode:
           this.props.countries?.find((c) => c)?.subdivisions?.find((s) => s)?.code ?? 'AL',
-        ...shippingAddress,
       },
     });
+
+    if (this.props.addresses.length === 0) {
+      this.setState({
+        newStateAddress: {
+          ...(shippingAddress as CustomerAddress),
+        },
+      });
+    }
   }
 
   render(): ReactNode {
@@ -241,22 +248,22 @@ class ShippingAddressForm extends Component<
                   <InputField
                     id="firstName"
                     name="firstName"
-                    title="First Name"
-                    value={editAddress?.firstName}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({ editAddress: { ...editAddress, firstName: e.target.value } });
                     }}
+                    title="First Name"
+                    value={editAddress?.firstName}
                   />
                 </div>
                 <div className="form-field-last-name form-field">
                   <InputField
                     id="lastName"
                     name="lastName"
-                    title="Last Name"
-                    value={editAddress?.lastName}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({ editAddress: { ...editAddress, lastName: e.target.value } });
                     }}
+                    title="Last Name"
+                    value={editAddress?.lastName}
                   />
                 </div>
               </div>
@@ -264,33 +271,33 @@ class ShippingAddressForm extends Component<
                 <InputField
                   id="address1"
                   name="address1"
-                  title="Address 1"
-                  value={editAddress?.address1}
                   onChange={(e: { target: { value: any } }) => {
                     this.setState({ editAddress: { ...editAddress, address1: e.target.value } });
                   }}
+                  title="Address 1"
+                  value={editAddress?.address1}
                 />
               </div>
               <div className="form-field-address2 form-field">
                 <InputField
                   id="address2"
                   name="address2"
-                  title="Address 2"
-                  value={editAddress?.address2}
                   onChange={(e: { target: { value: any } }) => {
                     this.setState({ editAddress: { ...editAddress, address2: e.target.value } });
                   }}
+                  title="Address 2"
+                  value={editAddress?.address2}
                 />
               </div>
               <div className="form-field-country form-field">
                 <InputField
                   id="country"
                   name="country"
-                  title="Country"
-                  value={editAddress?.country}
                   onChange={(e: { target: { value: any } }) => {
                     this.setState({ editAddress: { ...editAddress, country: e.target.value } });
                   }}
+                  title="Country"
+                  value={editAddress?.country}
                 />
               </div>
               <div className="form-field-stateOrProvince-city-container">
@@ -298,26 +305,26 @@ class ShippingAddressForm extends Component<
                   <InputField
                     id="stateOrProvince"
                     name="stateOrProvince"
-                    title="State"
-                    value={editAddress?.stateOrProvince}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({
                         editAddress: { ...editAddress, stateOrProvince: e.target.value },
                       });
                     }}
+                    title="State"
+                    value={editAddress?.stateOrProvince}
                   />
                 </div>
                 <div className="form-field-city form-field">
                   <InputField
                     id="city"
                     name="city"
-                    title="City"
-                    value={editAddress?.city}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({
                         editAddress: { ...editAddress, city: e.target.value },
                       });
                     }}
+                    title="City"
+                    value={editAddress?.city}
                   />
                 </div>
               </div>
@@ -331,8 +338,8 @@ class ShippingAddressForm extends Component<
                         editAddress: { ...editAddress, postalCode: e.target.value },
                       });
                     }}
-                    value={editAddress?.postalCode}
                     title="Postal Code"
+                    value={editAddress?.postalCode}
                   />
                 </div>
                 <div className="form-field-phone form-field">
@@ -375,8 +382,6 @@ class ShippingAddressForm extends Component<
                     <InputField
                       id="firstName"
                       name="firstName"
-                      title="First name"
-                      value={this.state.newStateAddress?.firstName}
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: {
@@ -385,13 +390,14 @@ class ShippingAddressForm extends Component<
                           },
                         });
                       }}
+                      title="First name"
+                      value={this.state.newStateAddress?.firstName}
                     />
                   </div>
                   <div className="form-field-last-name form-field">
                     <InputField
                       id="lastName"
                       name="lastName"
-                      title="Last name"
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: {
@@ -400,6 +406,7 @@ class ShippingAddressForm extends Component<
                           },
                         });
                       }}
+                      title="Last name"
                       value={this.state.newStateAddress?.lastName}
                     />
                   </div>
@@ -408,8 +415,6 @@ class ShippingAddressForm extends Component<
                   <InputField
                     id="address1"
                     name="address1"
-                    title="Address line 1"
-                    value={this.state.newStateAddress?.address1}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({
                         newStateAddress: {
@@ -418,14 +423,14 @@ class ShippingAddressForm extends Component<
                         },
                       });
                     }}
+                    title="Address line 1"
+                    value={this.state.newStateAddress?.address1}
                   />
                 </div>
                 <div className="form-field-address2 form-field">
                   <InputField
                     id="address2"
                     name="address2"
-                    title="Address line 2"
-                    value={this.state.newStateAddress?.address2}
                     onChange={(e: { target: { value: any } }) => {
                       this.setState({
                         newStateAddress: {
@@ -434,6 +439,8 @@ class ShippingAddressForm extends Component<
                         },
                       });
                     }}
+                    title="Address line 2"
+                    value={this.state.newStateAddress?.address2}
                   />
                 </div>
                 <div className="form-field-country form-field">
@@ -461,8 +468,6 @@ class ShippingAddressForm extends Component<
                     <InputField
                       id="country"
                       name="country"
-                      title="Country"
-                      value={this.state.newStateAddress?.country}
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: {
@@ -471,6 +476,8 @@ class ShippingAddressForm extends Component<
                           },
                         });
                       }}
+                      title="Country"
+                      value={this.state.newStateAddress?.country}
                     />
                   )}
                 </div>
@@ -511,8 +518,7 @@ class ShippingAddressForm extends Component<
                         ?.subdivisions?.length === 0 && (
                         <InputField
                           id="stateOrProvince"
-                          title="State or province"
-                          value={this.state.newStateAddress?.stateOrProvince}
+                          name="stateOrProvince"
                           onChange={(e: { target: { value: any } }) => {
                             this.setState({
                               newStateAddress: {
@@ -521,7 +527,8 @@ class ShippingAddressForm extends Component<
                               },
                             });
                           }}
-                          name={'stateOrProvince'}
+                          title="State or province"
+                          value={this.state.newStateAddress?.stateOrProvince}
                         />
                       ))}
                   </div>
@@ -529,13 +536,13 @@ class ShippingAddressForm extends Component<
                     <InputField
                       id="city"
                       name="city"
-                      title="City"
-                      value={this.state.newStateAddress?.city}
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: { ...this.state.newStateAddress, city: e.target.value },
                         });
                       }}
+                      title="City"
+                      value={this.state.newStateAddress?.city}
                     />
                   </div>
                 </div>
@@ -544,8 +551,6 @@ class ShippingAddressForm extends Component<
                     <InputField
                       id="postalCode"
                       name="postalCode"
-                      title="Postal Code"
-                      value={this.state.newStateAddress?.postalCode}
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: {
@@ -554,19 +559,21 @@ class ShippingAddressForm extends Component<
                           },
                         });
                       }}
+                      title="Postal Code"
+                      value={this.state.newStateAddress?.postalCode}
                     />
                   </div>
                   <div className="form-field-phone form-field">
                     <InputField
                       id="phone"
                       name="phone"
-                      title="Phone"
-                      value={this.state.newStateAddress?.phone}
                       onChange={(e: { target: { value: any } }) => {
                         this.setState({
                           newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
                         });
                       }}
+                      title="Phone"
+                      value={this.state.newStateAddress?.phone}
                     />{' '}
                   </div>
                 </div>

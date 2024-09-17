@@ -189,14 +189,13 @@ const BillingForm = ({
               <div className="custom-billing-address-list">
                 {billingAddressesToShow.map((address, index: number) => {
                   return (
-                    <div
-                      className="custom-billing-address-container"
-                      key={index}
-                      onClick={() => {
-                        handleSelectAddress({ ...address, id: billingAddress?.id } as Address);
-                      }}
-                    >
-                      <div className="custom-billing-address">
+                    <div className="custom-billing-address-container" key={index}>
+                      <div
+                        className="custom-billing-address"
+                        onClick={() => {
+                          handleSelectAddress({ ...address, id: billingAddress?.id } as Address);
+                        }}
+                      >
                         <input
                           checked={isEqualAddress(address, billingAddressFromProps)}
                           className="billing-address-input"
@@ -214,7 +213,11 @@ const BillingForm = ({
                       {isEqualAddress(address, tempBillingAddress) && (
                         <div
                           className="billing-addres-edit-label"
-                          onClick={() => setOpenEdit(true)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenEdit(true);
+                            e.stopPropagation();
+                          }}
                         >
                           edit
                         </div>

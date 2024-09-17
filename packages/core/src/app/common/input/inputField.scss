@@ -9,11 +9,12 @@
 
 .input-field-title {
   position: absolute;
-  top: -11px;
+  top: 12px;
   left: 6px;
   padding-left: 8px;
   padding-right: 8px;
   background: #ffffff;
+  transition: top 0.2s ease-in-out;
 }
 
 .input-field-input {
@@ -28,4 +29,9 @@
 .input-field-input:-webkit-autofill:focus,
 .input-field-input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.focused-input-field-container .input-field-title,
+.input-field-container .input-field-title.active {
+  top: -11px;
 }
