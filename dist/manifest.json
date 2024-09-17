@@ -8,16 +8,16 @@
       "568-451dcb6c.js",
       "850-048e84f3.js",
       "904-08425d6b.js",
-      "billing-1e414bb6.js",
+      "billing-825ebe51.js",
       "order-summary-drawer-e77067d6.js",
       "order-summary-76f845f0.js",
       "payment-052b51ed.js",
-      "shipping-f7411867.js"
+      "shipping-b7c37e22.js"
     ],
     "css": [
-      "billing-0343e859.css",
+      "billing-731661ff.css",
       "payment-0037a6b1.css",
-      "shipping-6c2bdaea.css"
+      "shipping-7e6f7b09.css"
     ],
     "png": [
       "static/GIA-certificate-2a4cafcf.png",
@@ -29,7 +29,7 @@
     ]
   },
   "js": [
-    "runtime-26b3bb55.js",
+    "runtime-ea4d0660.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
