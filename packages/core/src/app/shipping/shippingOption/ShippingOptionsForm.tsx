@@ -141,6 +141,24 @@ class ShippingOptionsForm extends PureComponent<
   private renderNoShippingOptions(message: ReactNode): ReactNode {
     return (
       <div className="shippingOptions-panel optimizedCheckout-overlay">
+        <div className="shipping-option-error-title-container">
+          <div className="shipping-option-error-icon">
+            <svg
+              fill="none"
+              height="22"
+              viewBox="0 0 22 22"
+              width="22"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="10.5464" cy="10.5464" r="10.0464" stroke="#024F60" />
+              <path
+                d="M11.8647 15.8938C11.8647 16.2238 11.7258 16.5403 11.4786 16.7736C11.2313 17.0069 10.896 17.138 10.5464 17.138C10.1968 17.138 9.86144 17.0069 9.61421 16.7736C9.36698 16.5403 9.22809 16.2238 9.22809 15.8938C9.22809 15.5638 9.36698 15.2473 9.61421 15.014C9.86144 14.7806 10.1968 14.6496 10.5464 14.6496C10.896 14.6496 11.2313 14.7806 11.4786 15.014C11.7258 15.2473 11.8647 15.5638 11.8647 15.8938ZM11.2055 12.6277H9.88724C9.7966 12.6277 9.72245 12.5577 9.72245 12.4721V3.45143C9.72245 3.36589 9.7966 3.2959 9.88724 3.2959H11.2055C11.2962 3.2959 11.3703 3.36589 11.3703 3.45143V12.4721C11.3703 12.5577 11.2962 12.6277 11.2055 12.6277Z"
+                fill="#024F60"
+              />
+            </svg>
+          </div>
+          <div className="shipping-option-error-title">Requires a valid address</div>
+        </div>
         <p
           aria-live="polite"
           className="shippingOptions-panel-message optimizedCheckout-primaryContent"

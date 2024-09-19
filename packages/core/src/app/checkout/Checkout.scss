@@ -254,3 +254,15 @@ input:focus-visible {
   display: flex;
   justify-content: space-between;
 }
+
+.checkout-step--payment .optimizedCheckout-form-checklist {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 24px;
+}
+
+.checkout-step--payment .optimizedCheckout-form-checklist-item {
+  border: 1px solid #b2bcca;
+  border-radius: 4px;
+}

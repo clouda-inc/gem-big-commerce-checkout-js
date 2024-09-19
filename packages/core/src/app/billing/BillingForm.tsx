@@ -63,7 +63,9 @@ const BillingForm = ({
   onUnhandledError,
   selectedShippingAddress,
   navigateNextStep,
-}: BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
+}: // navigateTo,
+// navigateNextStep,
+BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
   const [isResettingAddress, setIsResettingAddress] = useState(false);
   const addressFormRef: RefObject<HTMLFieldSetElement> = useRef(null);
   const { isPayPalFastlaneEnabled, paypalFastlaneAddresses } = usePayPalFastlaneAddress();
@@ -118,7 +120,10 @@ const BillingForm = ({
 
     try {
       await updateAddress(address);
+
+      // if (isGuest) {
       navigateNextStep();
+      // }
     } catch (error) {
       if (error instanceof Error) {
         onUnhandledError(error);
@@ -174,7 +179,10 @@ const BillingForm = ({
     <Form autoComplete="on" className="billing-address-form">
       {shouldRenderStaticAddress && billingAddress && (
         <div className="form-fieldset">
-          <StaticBillingAddress address={billingAddress} />
+          <StaticBillingAddress
+            address={billingAddress}
+            showSameAsShippingLable={isEqualAddress(billingAddress, selectedShippingAddress)}
+          />
         </div>
       )}
       <div className="billing-address-add-new-container">
@@ -192,7 +200,8 @@ const BillingForm = ({
                     <div className="custom-billing-address-container" key={index}>
                       <div
                         className="custom-billing-address"
-                        onClick={() => {
+                        onClick={(event) => {
+                          event.preventDefault();
                           handleSelectAddress({ ...address, id: billingAddress?.id } as Address);
                         }}
                       >

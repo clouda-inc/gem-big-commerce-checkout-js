@@ -1,21 +1,50 @@
 @import '../../ui/Base';
 
 .shippingOptions-panel {
-    background-color: container("fill");
-    border: container("border");
-    border-radius: $global-radius;
-    display: flex;
-    min-height: 9.383rem;
-    text-align: center;
+  background-color: container('fill');
+  border: container('border');
+  border-radius: $global-radius;
+  display: flex;
+  min-height: 9.383rem;
+  text-align: center;
+  flex-direction: column;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  row-gap: 24px;
 }
 
 .shippingOptions-panel-message {
-    align-self: center;
-    flex: 1;
-    margin: 0;
-    padding: spacing("half");
+  align-self: flex-start;
+  margin: 0;
+  //   padding: spacing('half');
+  color: #4f4f4f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .shippingOptions-skeleton {
-    margin-left: 0;
+  margin-left: 0;
+}
+
+.shipping-option-error-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shipping-option-error-icon {
+  display: flex;
+  align-items: center;
+}
+
+.shipping-option-error-title {
+  color: #024f60;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 20px;
 }

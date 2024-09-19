@@ -16,6 +16,7 @@ import { AddressFormSkeleton } from '@bigcommerce/checkout/ui';
 
 import { isEqualAddress, mapAddressFromFormValues } from '../address';
 import { withCheckout } from '../checkout';
+// import CheckoutStepType from '../checkout/CheckoutStepType';
 import { EMPTY_ARRAY, isFloatingLabelEnabled } from '../common/utility';
 import { getShippableItemsCount } from '../shipping';
 import { Legend } from '../ui/form';
@@ -61,6 +62,8 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
       }
     }
   }
+
+  // /CheckoutStepType.Billing
 
   render(): ReactNode {
     const { updateAddress, isInitializing, selectedShippingAddress, ...props } = this.props;

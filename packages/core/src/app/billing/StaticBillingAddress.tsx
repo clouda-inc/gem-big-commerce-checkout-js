@@ -17,6 +17,7 @@ import './StaticBillingAddress.scss';
 
 export interface StaticBillingAddressProps {
   address: Address;
+  showSameAsShippingLable: boolean;
 }
 
 interface WithCheckoutStaticBillingAddressProps {
@@ -26,7 +27,7 @@ interface WithCheckoutStaticBillingAddressProps {
 
 const StaticBillingAddress: FunctionComponent<
   StaticBillingAddressProps & WithCheckoutStaticBillingAddressProps
-> = ({ address, payments = EMPTY_ARRAY }) => {
+> = ({ address, payments = EMPTY_ARRAY, showSameAsShippingLable }) => {
   const { paypalFastlaneAddresses } = usePayPalFastlaneAddress();
   const showPayPalFastlaneLabel = isPayPalFastlaneAddress(address, paypalFastlaneAddresses);
 
@@ -44,7 +45,12 @@ const StaticBillingAddress: FunctionComponent<
         <div className="billing-address-summary-title">Billing Address</div>
         <div className="static-billing-address-container">
           <StaticAddress address={address} type={AddressType.Billing} />
-          <div className="static-billing-address-change">Change</div>
+          <div className="static-billing-address-label-container">
+            <div className="static-billing-address-change">Change</div>
+            {showSameAsShippingLable && (
+              <div className="static-billing-address-same">Same as shipping address</div>
+            )}
+          </div>
         </div>
       </div>
 

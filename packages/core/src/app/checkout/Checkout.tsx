@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   Cart,
@@ -29,6 +30,7 @@ import { ErrorLogger } from '@bigcommerce/checkout/error-handling-utils';
 import { TranslatedString, withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
 import { AddressFormSkeleton, ChecklistSkeleton, Modal } from '@bigcommerce/checkout/ui';
 
+import { isEqualAddress } from '../address';
 import { withAnalytics } from '../analytics';
 import { StaticBillingAddress } from '../billing';
 import { EmptyCartMessage } from '../cart';
@@ -550,7 +552,7 @@ class Checkout extends Component<
   }
 
   private renderBillingStep(step: CheckoutStepStatus): ReactNode {
-    const { billingAddress } = this.props;
+    const { billingAddress, consignments } = this.props;
 
     return (
       <CheckoutStep
@@ -559,7 +561,17 @@ class Checkout extends Component<
         key={step.type}
         onEdit={this.handleEditStep}
         onExpanded={this.handleExpanded}
-        summary={billingAddress && <StaticBillingAddress address={billingAddress} />}
+        summary={
+          billingAddress && (
+            <StaticBillingAddress
+              address={billingAddress}
+              showSameAsShippingLable={isEqualAddress(
+                billingAddress,
+                (consignments ?? [])[0]?.shippingAddress,
+              )}
+            />
+          )
+        }
       >
         <LazyContainer loadingSkeleton={<AddressFormSkeleton />}>
           <Billing
@@ -668,13 +680,28 @@ class Checkout extends Component<
   private navigateToNextIncompleteStep: (options?: { isDefault?: boolean }) => void = (options) => {
     const { steps, analyticsTracker } = this.props;
     const activeStepIndex = findIndex(steps, { isActive: true });
+    const actStepIndex = steps.find((step, index) => {
+      if (step.isActive) {
+        return index;
+      }
+    });
     const activeStep = activeStepIndex >= 0 && steps[activeStepIndex];
+
+    console.log('[navigateToNextIncompleteStep] actStepIndex : ', actStepIndex);
+    console.log('[navigateToNextIncompleteStep] steps : ', steps);
+    console.log('steps 3 : ', steps[3]);
+    console.log('[navigateToNextIncompleteStep] activeStepIndex : ', activeStepIndex);
+    console.log('[navigateToNextIncompleteStep] active Step : ', activeStep);
 
     if (!activeStep) {
       return;
     }
 
+    console.log('Math.max(activeStepIndex - 1, 0) : ', Math.max(activeStepIndex - 1, 0));
+
     const previousStep = steps[Math.max(activeStepIndex - 1, 0)];
+
+    console.log('[navigateToNextIncompleteStep] previousStep : ', previousStep);
 
     if (previousStep) {
       analyticsTracker.trackStepCompleted(previousStep.type);

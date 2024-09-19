@@ -86,7 +86,20 @@ class DiscountCode extends Component<
             <div className="discount-code-status-container">
               {!!couponError && (
                 <div>
-                  <div>!</div>
+                  <div
+                    style={{
+                      color: '#FF0000',
+                      width: '2rem',
+                      height: '2rem',
+                      border: '1px solid #FF0000',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    !
+                  </div>
                 </div>
               )}
               {(isRemovingCoupon || isApplyingCoupon) && <div className="spinner" />}
@@ -98,9 +111,6 @@ class DiscountCode extends Component<
                 />
               )}
             </div>
-          </div>
-          <div style={{ width: '100%', color: 'red', fontSize: '10px' }}>
-            {!!couponError && <div>{couponError?.body?.detail}</div>}
           </div>
         </div>
 
@@ -155,6 +165,20 @@ class DiscountCode extends Component<
                 </button>
               )}
             </div>
+          </div>
+        )}
+        {!!couponError && (
+          <div
+            style={{
+              width: '100%',
+              color: 'red',
+              fontSize: '10px',
+              paddingLeft: '1.5rem',
+              paddingBottom: '1.5rem',
+              paddingRight: '1.5rem',
+            }}
+          >
+            <div>{couponError?.body?.detail}</div>
           </div>
         )}
       </div>
