@@ -69,3 +69,10 @@
   justify-content: space-between;
   gap: 1rem;
 }
+
+@media only screen and (max-width: 768px) {
+  .order-confirmation-body {
+    flex-direction: column;
+    align-items: center;
+  }
+}

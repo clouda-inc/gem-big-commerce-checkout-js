@@ -9,11 +9,13 @@ interface OrderBillingSummaryProps {
   shippingCost: number | string;
   tax: number | string;
   total: number | string;
+  customerId: number;
+  orderId: number | string;
 }
 
 class OrderBillingSummary extends Component<OrderBillingSummaryProps> {
   render(): ReactNode {
-    const { subTotal, discountAmount, shippingCost, tax, total } = this.props;
+    const { subTotal, discountAmount, shippingCost, tax, total, customerId, orderId } = this.props;
 
     return (
       <div className="order-billing-summary-container">
@@ -57,11 +59,16 @@ class OrderBillingSummary extends Component<OrderBillingSummaryProps> {
                 Keep Shopping
               </a>
             </div>
-            <div className="order-billing-summary-order-details-container">
-              <a className="order-billing-summary-order-details-link" href="/order/">
-                Order Details
-              </a>
-            </div>
+            {!!customerId && customerId !== 0 && (
+              <div className="order-billing-summary-order-details-container">
+                <a
+                  className="order-billing-summary-order-details-link"
+                  href={`/order?id=${orderId}`}
+                >
+                  Order Details
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

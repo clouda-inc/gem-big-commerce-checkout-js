@@ -10,7 +10,11 @@ import {
 } from '@bigcommerce/checkout-sdk';
 import classNames from 'classnames';
 // import DOMPurify from 'dompurify';
-import React, { Component, lazy, ReactNode } from 'react';
+import React, {
+  Component,
+  // , lazy,
+  ReactNode,
+} from 'react';
 
 import { AnalyticsContextProps } from '@bigcommerce/checkout/analytics';
 import { ErrorLogger } from '@bigcommerce/checkout/error-handling-utils';
@@ -128,13 +132,14 @@ class OrderConfirmation extends Component<
   }
 
   render(): ReactNode {
-    const { order, config, isLoadingOrder } = this.props;
-
-    console.log('order : ', order);
+    const { order, config, isLoadingOrder, customer } = this.props;
 
     if (!order || !config || isLoadingOrder()) {
       return <LoadingSpinner isLoading={true} />;
     }
+
+    console.log('customer : ', customer);
+    console.log('order ; ', order);
 
     // const paymentInstructions = getPaymentInstructions(order);
     // const {
@@ -171,7 +176,9 @@ class OrderConfirmation extends Component<
             <div className="order-confirmation-body">
               <OrderReviewSection lineItems={order?.lineItems} />
               <OrderBillingSummary
+                customerId={order?.customerId}
                 discountAmount={order?.discountAmount}
+                orderId={order?.orderId}
                 shippingCost={order?.shippingCostTotal}
                 subTotal={order.baseAmount}
                 tax={order?.taxTotal}
