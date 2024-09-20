@@ -101,6 +101,8 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
     : billingAddressesToShow;
   const hasAddresses = billingAddresses?.length > 0;
 
+  const email = billingAddress.email;
+
   useEffect(() => {
     setTempBillingAddress({
       ...addressInStore,
@@ -119,7 +121,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
     setIsResettingAddress(true);
 
     try {
-      await updateAddress(address);
+      await updateAddress({ ...address, email } as Address);
 
       // if (isGuest) {
       navigateNextStep();

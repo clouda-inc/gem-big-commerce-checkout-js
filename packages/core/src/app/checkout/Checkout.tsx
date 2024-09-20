@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   Cart,
@@ -680,28 +679,13 @@ class Checkout extends Component<
   private navigateToNextIncompleteStep: (options?: { isDefault?: boolean }) => void = (options) => {
     const { steps, analyticsTracker } = this.props;
     const activeStepIndex = findIndex(steps, { isActive: true });
-    const actStepIndex = steps.find((step, index) => {
-      if (step.isActive) {
-        return index;
-      }
-    });
     const activeStep = activeStepIndex >= 0 && steps[activeStepIndex];
-
-    console.log('[navigateToNextIncompleteStep] actStepIndex : ', actStepIndex);
-    console.log('[navigateToNextIncompleteStep] steps : ', steps);
-    console.log('steps 3 : ', steps[3]);
-    console.log('[navigateToNextIncompleteStep] activeStepIndex : ', activeStepIndex);
-    console.log('[navigateToNextIncompleteStep] active Step : ', activeStep);
 
     if (!activeStep) {
       return;
     }
 
-    console.log('Math.max(activeStepIndex - 1, 0) : ', Math.max(activeStepIndex - 1, 0));
-
     const previousStep = steps[Math.max(activeStepIndex - 1, 0)];
-
-    console.log('[navigateToNextIncompleteStep] previousStep : ', previousStep);
 
     if (previousStep) {
       analyticsTracker.trackStepCompleted(previousStep.type);
