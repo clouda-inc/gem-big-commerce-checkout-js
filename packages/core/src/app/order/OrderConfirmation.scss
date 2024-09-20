@@ -1,0 +1,71 @@
+.layout-main {
+  width: 100%;
+  padding: 0;
+}
+
+.order-confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.order-confirmation-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-confirmation-thanks-header {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  text-align: center;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 120%;
+}
+
+.order-confirmation-note-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.3rem;
+}
+
+.order-confirmation-note {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-confirmation-note-text {
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 350;
+  line-height: 130%;
+}
+
+.order-confirmation-note-status {
+  color: #4f4f4f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+.order-confirmation-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
