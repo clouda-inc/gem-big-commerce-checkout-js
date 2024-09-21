@@ -55,7 +55,10 @@ class OrderBillingSummary extends Component<OrderBillingSummaryProps> {
           </div>
           <div className="order-billing-summary-button-section">
             <div className="order-billing-summary-keep-shopping-container">
-              <a className="order-billing-summary-keep-shopping-link" href="/search">
+              <a
+                className="order-billing-summary-keep-shopping-link"
+                href="https://www.lucd.art/search"
+              >
                 Keep Shopping
               </a>
             </div>
@@ -63,7 +66,7 @@ class OrderBillingSummary extends Component<OrderBillingSummaryProps> {
               <div className="order-billing-summary-order-details-container">
                 <a
                   className="order-billing-summary-order-details-link"
-                  href={`/order?id=${orderId}`}
+                  href={`https://www.lucd.art/order?id=${orderId}`}
                 >
                   Order Details
                 </a>

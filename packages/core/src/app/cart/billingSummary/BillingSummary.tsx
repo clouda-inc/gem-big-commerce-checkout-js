@@ -31,7 +31,7 @@ class BillingSummary extends Component<
   WithCheckoutProps & WithLanguageProps & BillingSummaryProps & WithCurrencyProps & BilingProps
 > {
   render(): ReactNode {
-    const { checkout, currency, formId, isPaymentStepActive } = this.props;
+    const { checkout, currency, formId, isPaymentStepActive, isLoading, isPending } = this.props;
     const { subtotal, taxTotal, grandTotal, shippingCostTotal } = checkout;
     const { discountAmount } = checkout.cart;
 
@@ -87,7 +87,7 @@ class BillingSummary extends Component<
             <div className="billing-summary-payment-button-container">
               <button
                 className="billing-summary-payment-button"
-                disabled={!isPaymentStepActive}
+                disabled={!isPaymentStepActive || isLoading || isPending}
                 form={formId}
                 id="checkout-payment-continue"
                 type="submit"
