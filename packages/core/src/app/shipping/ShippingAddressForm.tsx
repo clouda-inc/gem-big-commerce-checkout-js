@@ -109,6 +109,12 @@ class ShippingAddressForm extends Component<
     const handleUseNewAddress = () => {
       onUseNewAddress(shippingAddress);
       this.setState({ showAddNewAddress: true });
+      this.setState({
+        newStateAddress: {
+          countryCode: countries?.find((country) => country.code === 'US') ?? 'US',
+          stateOrProvinceCode: '',
+        } as CustomerAddress,
+      });
     };
 
     const handleSelectAddress = (newAddress: Address) => {
@@ -376,6 +382,13 @@ class ShippingAddressForm extends Component<
         {this.state.showAddNewAddress && (
           <LoadingOverlay isLoading={isLoading} unmountContentWhenLoading>
             <div className="new-shipping-address-form">
+              <div
+                className="add-new-address"
+                data-test="add-new-address"
+                onClick={handleUseNewAddress}
+              >
+                <TranslatedString id="address.enter_address_action" />
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.875rem' }}>
                 <div className="form-field-name-container">
                   <div className="form-field-first-name form-field">

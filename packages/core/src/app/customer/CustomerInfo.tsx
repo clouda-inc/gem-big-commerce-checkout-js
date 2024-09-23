@@ -64,7 +64,10 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
         data-test="customer-info"
       >
         <div className="checkout-customer-info-email">
-          {email}{' '}
+          <span>
+            {email}
+            {!isSignedIn && ' (Guest)'}
+          </span>
           {!!email && (
             <div>
               <svg
@@ -97,6 +100,7 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
             </div>
           </div>
         )}
+        {!isSignedIn && <div>Change</div>}
       </div>
     </div>
   );
