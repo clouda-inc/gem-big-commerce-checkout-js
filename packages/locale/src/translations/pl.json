@@ -168,7 +168,8 @@
       "sign_out_error": "Podczas wylogowywania się wystąpił błąd. Proszę spróbować ponownie.",
       "subscribe_to_newsletter_text": "Tak, chcę otrzymywać aktualizacje.",
       "suggestion_text": "Wygląda na to, że masz konto na {provider}. Aby uzyskać szybką kasę, kontynuuj z {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Zarejestruj się"
     },
     "login_email": {
       "error_server": "Nie mogliśmy wysłać Ci linku do logowania. Spróbuj ponownie.",

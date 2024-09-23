@@ -168,7 +168,8 @@
       "sign_out_error": "サインアウト中にエラーが発生しました。もう一度やり直してください。",
       "subscribe_to_newsletter_text": "はい、アップデートします。",
       "suggestion_text": "{provider}のアカウントをお持ちのようですね。迅速な決済のために{providerFlow}を続けてください。",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "登録"
     },
     "login_email": {
       "error_server": "サインインリンクを送信できませんでした。もう一度やり直してください。",

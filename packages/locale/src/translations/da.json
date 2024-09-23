@@ -168,7 +168,8 @@
       "sign_out_error": "Der opstod en fejl, da du forsøgte at logge af. Prøv igen.",
       "subscribe_to_newsletter_text": "Ja, jeg vil gerne modtage opdateringer.",
       "suggestion_text": "Det ser ud til, at du har en konto hos {provider}. For hurtig betaling skal du fortsætte med {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registrer"
     },
     "login_email": {
       "error_server": "Vi kunne ikke sende dig et link til logon. Prøv igen.",

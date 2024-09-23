@@ -171,6 +171,7 @@ export interface WithCheckoutProps {
   customerAccountFields: FormField[];
   createAccount(values: CustomerAccountRequestBody): Promise<CheckoutSelectors>;
   onAccountCreated?(): void;
+  customerCreateError?: string;
 }
 
 class Checkout extends Component<
@@ -350,6 +351,7 @@ class Checkout extends Component<
       isShowingWalletButtonsOnTop,
       extensionState,
       customerAccountFields,
+      customerCreateError,
     } = this.props;
 
     const { activeStepType, defaultStepType, isCartEmpty, isRedirecting } = this.state;
@@ -432,6 +434,9 @@ class Checkout extends Component<
                 onSubmit={this.handleSignUpUserSubmit}
                 requiresMarketingConsent={false}
               />
+              <div className="sign-up-modal-error">
+                {!!customerCreateError && customerCreateError}
+              </div>
             </div>
             <div className="sign-up-modal-image-wrapper">
               <button className="sign-up-modal-close" onClick={this.handleCloseSignUpForm}>

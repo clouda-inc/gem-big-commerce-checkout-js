@@ -168,7 +168,8 @@
       "sign_out_error": "An error occurred while signing out. Please try again.",
       "subscribe_to_newsletter_text": "Yes, I'd like to receive updates.",
       "suggestion_text": "Looks like you have an account with {provider}. For fast checkout, continue with {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Register"
     },
     "login_email": {
       "error_server": "We couldn't send you a sign-in link. Please try again.",

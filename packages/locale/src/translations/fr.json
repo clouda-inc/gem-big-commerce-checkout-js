@@ -168,7 +168,8 @@
       "sign_out_error": "Une erreur s'est produite lors de la déconnexion. Veuillez réessayer.",
       "subscribe_to_newsletter_text": "Oui, je souhaite recevoir des informations concernant les nouveautés.",
       "suggestion_text": "Il semble que vous ayez déjà un compte {provider}. Continuez avec {providerFlow} pour procéder plus rapidement au paiement.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "S'enregistrer"
     },
     "login_email": {
       "error_server": "Envoi du lien de connexion impossible. Veuillez réessayer.",

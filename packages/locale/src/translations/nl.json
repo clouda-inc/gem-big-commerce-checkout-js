@@ -168,7 +168,8 @@
       "sign_out_error": "Er is een fout opgetreden bij het uitloggen. Probeer het opnieuw.",
       "subscribe_to_newsletter_text": "Ja, ik wil graag updates ontvangen.",
       "suggestion_text": "Het lijkt erop dat je al een account hebt bij {provider}. Ga verder met {providerFlow} om snel af te rekenen.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registreren"
     },
     "login_email": {
       "error_server": "We konden u geen inloglink sturen. Probeer het opnieuw.",

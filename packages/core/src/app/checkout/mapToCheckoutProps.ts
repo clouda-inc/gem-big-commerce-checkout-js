@@ -40,6 +40,8 @@ export default function mapToCheckoutProps({
 
   const walletButtonsOnTopFlag = Boolean(checkoutUserExperienceSettings.walletButtonsOnTop);
 
+  const customerCreateError = errors?.getCreateCustomerAccountError();
+
   return {
     billingAddress: data.getBillingAddress(),
     cart: data.getCart(),
@@ -65,5 +67,6 @@ export default function mapToCheckoutProps({
     signUp: checkoutService.createCustomerAccount,
     customerAccountFields: data.getCustomerAccountFields(),
     createAccount: checkoutService.createCustomerAccount,
+    customerCreateError: customerCreateError && customerCreateError.message,
   };
 }

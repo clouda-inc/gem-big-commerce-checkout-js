@@ -168,7 +168,8 @@
       "sign_out_error": "Ett fel inträffade vid utloggningen. Försök igen.",
       "subscribe_to_newsletter_text": "Ja, jag vill få uppdateringar.",
       "suggestion_text": "Det ser ut som om du har ett konto hos {provider}. För snabb betalning, fortsätt med {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Skapa konto"
     },
     "login_email": {
       "error_server": "Vi kunde inte skicka en inloggningslänk till dig. Försök igen.",

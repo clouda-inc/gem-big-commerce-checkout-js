@@ -168,7 +168,8 @@
       "sign_out_error": "Si è verificato un errore durante la disconnessione. Riprova.",
       "subscribe_to_newsletter_text": "Sì, vorrei ricevere aggiornamenti.",
       "suggestion_text": "Sembra che tu abbia un account {provider}. Accedi con {providerFlow} per un checkout più rapido.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registrati"
     },
     "login_email": {
       "error_server": "Non è stato possibile inviarti un link per l'accesso. Riprova.",

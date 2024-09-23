@@ -168,7 +168,8 @@
       "sign_out_error": "Det oppsto en feil da vi skulle logge deg ut. Prøv igjen.",
       "subscribe_to_newsletter_text": "Ja, jeg vil gjerne motta oppdateringer.",
       "suggestion_text": "Det ser ut til at du har en konto hos {provider}. For rask utsjekking, fortsett med {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register":"Registrer deg"
     },
     "login_email": {
       "error_server": "Vi kunne ikke sende deg en påloggingslenke. Prøv igjen.",

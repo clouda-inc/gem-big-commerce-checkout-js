@@ -168,7 +168,8 @@
       "sign_out_error": "Ocorreu um erro ao sair. Tente novamente.",
       "subscribe_to_newsletter_text": "Sim, quero receber atualizações.",
       "suggestion_text": "Parece que você tem uma conta com {provider}. Para agilizar a finalização da compra, continue com {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registrar"
     },
     "login_email": {
       "error_server": "Não conseguimos enviar om link de acesso para você. Tente novamente.",

@@ -165,7 +165,8 @@
       "sign_out_error": "Beim Abmelden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
       "subscribe_to_newsletter_text": "Ja, ich möchte gerne aktuelle Informationen enthalten.",
       "suggestion_text": "Anscheinend haben Sie schon ein Konto bei {provider}. Fahren Sie mit {providerFlow} fort, um schneller zu bezahlen.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registrieren"
     },
     "login_email": {
       "error_server": "Wir konnten Ihnen keinen Anmeldelink senden. Bitte versuchen Sie es erneut.",

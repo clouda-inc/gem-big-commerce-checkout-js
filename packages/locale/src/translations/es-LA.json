@@ -168,7 +168,8 @@
       "sign_out_error": "Ocurrió un error al cerrar la sesión. Vuelve a intentarlo.",
       "subscribe_to_newsletter_text": "Sí, me gustaría recibir actualizaciones.",
       "suggestion_text": "Al parecer, tienes una cuenta con {provider}. Para hacer el pago rápido, continúa con {providerFlow}.",
-      "suggestion_action": "{providerFlow}"
+      "suggestion_action": "{providerFlow}",
+      "register": "Registrarse"
     },
     "login_email": {
       "error_server": "No pudimos enviarte un enlace de inicio de sesión. Vuelve a intentarlo.",

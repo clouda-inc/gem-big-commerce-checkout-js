@@ -100,7 +100,7 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
             </div>
           </div>
         )}
-        {!isSignedIn && <div className='customerView-action-change'>Change</div>}
+        {!isSignedIn && <div className="customerView-action-change">Change</div>}
       </div>
     </div>
   );
