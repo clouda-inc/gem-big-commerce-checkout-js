@@ -57,4 +57,11 @@
   display: flex;
   justify-content: flex-end;
   color: #024f60;
+  cursor: pointer;
+}
+
+.customerView-action-change {
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: underline;
 }
