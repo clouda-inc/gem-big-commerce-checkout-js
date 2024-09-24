@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   CheckoutSelectors,
   Customer,
@@ -132,14 +131,11 @@ class OrderConfirmation extends Component<
   }
 
   render(): ReactNode {
-    const { order, config, isLoadingOrder, customer } = this.props;
+    const { order, config, isLoadingOrder } = this.props;
 
     if (!order || !config || isLoadingOrder()) {
       return <LoadingSpinner isLoading={true} />;
     }
-
-    console.log('customer : ', customer);
-    console.log('order ; ', order);
 
     // const paymentInstructions = getPaymentInstructions(order);
     // const {

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Cart, Consignment } from '@bigcommerce/checkout-sdk';
 import React, { FunctionComponent, memo } from 'react';
 
@@ -28,8 +27,6 @@ const StaticConsignment: FunctionComponent<StaticConsignmentProps> = ({
   const { paypalFastlaneAddresses } = usePayPalFastlaneAddress();
   const { shippingAddress: address, selectedShippingOption } = consignment;
   const showPayPalFastlaneAddressLabel = isPayPalFastlaneAddress(address, paypalFastlaneAddresses);
-
-  console.log('selectedShippingOption : ', selectedShippingOption);
 
   return (
     <div className="staticConsignment">

@@ -111,8 +111,8 @@ class ShippingAddressForm extends Component<
       this.setState({ showAddNewAddress: true });
       this.setState({
         newStateAddress: {
-          countryCode: countries?.find((country) => country.code === 'US') ?? 'US',
-          stateOrProvinceCode: '',
+          countryCode: countries?.find((country) => country.code === 'US')?.code ?? 'US',
+          stateOrProvinceCode: 'AL',
         } as CustomerAddress,
       });
     };
@@ -187,6 +187,9 @@ class ShippingAddressForm extends Component<
 
     const handleCreateNewAddress = (e: any) => {
       e.preventDefault();
+
+      // eslint-disable-next-line no-console
+      console.log('newStateAddress [handleCreateNewAddress] : ', this.state.newStateAddress);
 
       if (this.state.saveNewAddressToCustomerProfile) {
         createCustomerAddress(this.state.newStateAddress);

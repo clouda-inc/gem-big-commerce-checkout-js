@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CheckoutRequestBody, CheckoutSelectors } from '@bigcommerce/checkout-sdk';
 import React, { Component, ReactNode } from 'react';
 

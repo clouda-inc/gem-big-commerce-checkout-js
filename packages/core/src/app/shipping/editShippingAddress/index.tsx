@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CustomerAddress } from '@bigcommerce/checkout-sdk';
 import React, { Component, ReactNode } from 'react';
 
@@ -25,11 +24,8 @@ class ShippingAddressEditForm extends Component<
   }
 
   render(): ReactNode {
-    const { address, formId, updateAddress } = this.props;
+    const { formId, updateAddress } = this.props;
     const { editAddress } = this.state;
-
-    console.log('address', address);
-    // console.log('showEditAddressModal', showEditAddressModal);
 
     return (
       <div>
