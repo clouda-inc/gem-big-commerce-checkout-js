@@ -22,9 +22,21 @@ export const InputField = ({ id, name, title, value, onChange, ...rest }: InputF
   };
 
   return (
-    <div>
-      <div className={`input-field-container ${focused ? 'focused-input-field-container' : ''}`}>
-        <div className={`input-field-title ${focused || value ? 'active' : ''}`}>{title}</div>
+    <div onBlur={handleBlur} onFocus={handleFocus}>
+      <div
+        className={`input-field-container ${focused ? 'focused-input-field-container' : ''}`}
+        onBlur={handleBlur}
+        onClick={handleFocus}
+        onFocus={handleFocus}
+      >
+        <div
+          className={`input-field-title ${focused || value ? 'active' : ''}`}
+          onBlur={handleBlur}
+          onClick={handleFocus}
+          onFocus={handleFocus}
+        >
+          {title}
+        </div>
         <input
           {...rest}
           className={`input-field-input ${focused ? 'focused' : ''}`}

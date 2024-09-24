@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+.temp-billing-address-button-container {
+  justify-content: flex-end;
+}
+
 .temp-billing-address-firstname,
 .temp-billing-address-lastname,
 .temp-billing-address-state,
@@ -37,12 +41,12 @@
   padding: 13px 24px;
   justify-content: center;
   align-items: center;
-  gap: -4px;
   color: #787b93;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
+  width: 96px;
 }
 
 .temp-billing-address-save-button {
@@ -60,6 +64,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: 160%;
+  width: 81px;
 }
 
 .temp-billing-address-firstname-input,
