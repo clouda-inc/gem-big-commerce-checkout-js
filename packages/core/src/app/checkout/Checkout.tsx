@@ -435,7 +435,10 @@ class Checkout extends Component<
                 requiresMarketingConsent={false}
               />
               <div className="sign-up-modal-error">
-                {!!customerCreateError && customerCreateError}
+                {!!customerCreateError &&
+                  (customerCreateError === 'Could not create customer'
+                    ? 'User allready exist'
+                    : customerCreateError)}
               </div>
             </div>
             <div className="sign-up-modal-image-wrapper">

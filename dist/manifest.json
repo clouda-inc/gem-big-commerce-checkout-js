@@ -7,12 +7,15 @@
       "568-451dcb6c.js",
       "850-048e84f3.js",
       "904-08425d6b.js",
-      "billing-ebc658a6.js",
+      "billing-6be17f33.js",
       "payment-f617af84.js",
-      "shipping-dbd2f3f3.js"
+      "shipping-ed9f06c9.js"
+    ],
+    "ttf": [
+      "b58b1b9c574d4cabb0ab.ttf"
     ],
     "css": [
-      "billing-731661ff.css",
+      "billing-cfb8a680.css",
       "payment-0037a6b1.css",
       "shipping-5489c167.css"
     ],
@@ -26,14 +29,14 @@
     ]
   },
   "js": [
-    "runtime-2266c530.js",
+    "runtime-5ee1b87c.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
     "985-4e3c0cf4.js",
-    "checkout-e1f53c38.js"
+    "checkout-e933cd3f.js"
   ],
   "css": [
-    "checkout-5efd1126.css"
+    "checkout-3711daa3.css"
   ]
 }
