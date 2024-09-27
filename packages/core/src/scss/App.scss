@@ -76,10 +76,30 @@
 @import 'layouts/layouts';
 
 @font-face {
-  font-family: avenir-regular;
-  src: url('./fonts/AvenirRegular.ttf') format('truetype');
+  font-family: Avenir-Regular;
+  src: url('./fonts/Avenir-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Black;
+  src: url('./fonts/Avenir-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Book;
+  src: url('./fonts/Avenir-Book.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Heavy;
+  src: url('./fonts/Avenir-Heavy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Light;
+  src: url('./fonts/Avenir-Light.ttf') format('truetype');
 }
 
 * {
-  font-family: avenir-regular !important;
+  font-family: Avenir-Regular !important;
 }
