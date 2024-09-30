@@ -3,6 +3,10 @@ enum CheckoutStepType {
   Customer = 'customer',
   Payment = 'payment',
   Shipping = 'shipping',
+  OrderReview = 'orderReview',
+  discountCode = 'discountCode',
+  OrderNote = 'orderNote',
+  BillingSummary = 'billingSummary',
   //   shippingOption = 'shippingOption',
 }
 

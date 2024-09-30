@@ -271,3 +271,7 @@ input:focus-visible {
   color: #ff0000;
   font-size: 0.875rem;
 }
+
+.checkout-order-review .optimizedCheckout-checkoutStep::marker {
+  display: none;
+}

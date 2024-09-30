@@ -39,12 +39,18 @@ export interface ShippingAddressFormProps {
   isGuest: boolean;
 }
 
+interface NewStateAddressError {
+  field: string;
+  error: boolean;
+}
+
 interface ShippingEditFormState {
   editAddress: CustomerAddress;
   showEditAddressModal: boolean;
   showAddNewAddress: boolean;
   newStateAddress: CustomerAddress;
   saveNewAddressToCustomerProfile: boolean;
+  newStateAddressError: NewStateAddressError;
 }
 
 const token = 'q64h3xndgjcrd3vn1iggj9iypp2tyzi';
@@ -61,6 +67,7 @@ class ShippingAddressForm extends Component<
       showAddNewAddress: false,
       newStateAddress: {} as CustomerAddress,
       saveNewAddressToCustomerProfile: false,
+      newStateAddressError: {} as NewStateAddressError,
     };
   }
 
@@ -188,8 +195,55 @@ class ShippingAddressForm extends Component<
     const handleCreateNewAddress = (e: any) => {
       e.preventDefault();
 
-      // eslint-disable-next-line no-console
-      console.log('newStateAddress [handleCreateNewAddress] : ', this.state.newStateAddress);
+      const validFirstName = this.state.newStateAddress?.firstName;
+      const validLastName = this.state.newStateAddress?.lastName;
+      const validAddress1 = this.state.newStateAddress?.address1;
+      const validCity = this.state.newStateAddress?.city;
+      const validStateOrProvince = this.state.newStateAddress?.stateOrProvinceCode;
+      const validPostalCode = this.state.newStateAddress?.postalCode;
+      const validCountryCode = this.state.newStateAddress?.countryCode;
+
+      if (!validFirstName) {
+        this.setState({ newStateAddressError: { error: true, field: 'firstName' } });
+
+        return;
+      }
+
+      if (!validLastName) {
+        this.setState({ newStateAddressError: { error: true, field: 'lastName' } });
+
+        return;
+      }
+
+      if (!validAddress1) {
+        this.setState({ newStateAddressError: { error: true, field: 'address1' } });
+
+        return;
+      }
+
+      if (!validCity) {
+        this.setState({ newStateAddressError: { error: true, field: 'city' } });
+
+        return;
+      }
+
+      if (!validStateOrProvince) {
+        this.setState({ newStateAddressError: { error: true, field: 'stateOrProvince' } });
+
+        return;
+      }
+
+      if (!validPostalCode) {
+        this.setState({ newStateAddressError: { error: true, field: 'postalCode' } });
+
+        return;
+      }
+
+      if (!validCountryCode) {
+        this.setState({ newStateAddressError: { error: true, field: 'postalCode' } });
+
+        return 0;
+      }
 
       if (this.state.saveNewAddressToCustomerProfile) {
         createCustomerAddress(this.state.newStateAddress);
@@ -299,29 +353,110 @@ class ShippingAddressForm extends Component<
                 />
               </div>
               <div className="form-field-country form-field">
-                <InputField
-                  id="country"
-                  name="country"
-                  onChange={(e: { target: { value: any } }) => {
-                    this.setState({ editAddress: { ...editAddress, country: e.target.value } });
-                  }}
-                  title="Country"
-                  value={editAddress?.country}
-                />
+                {this.props.countries && this.props.countries?.length > 0 ? (
+                  <div>
+                    <select
+                      className="form-field-country form-field-input"
+                      id="country"
+                      name="country"
+                      onChange={(e) => {
+                        this.setState({
+                          editAddress: { ...this.state.editAddress, countryCode: e.target.value },
+                        });
+                      }}
+                      value={this.state.editAddress?.countryCode}
+                    >
+                      {this.props.countries?.map((country) => {
+                        return (
+                          <option
+                            className="country-selector-option"
+                            key={country?.code}
+                            value={country?.code}
+                          >
+                            {country?.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                ) : (
+                  <div>
+                    <InputField
+                      id="country"
+                      name="country"
+                      onChange={(e: { target: { value: any } }) => {
+                        this.setState({ editAddress: { ...editAddress, country: e.target.value } });
+                      }}
+                      title="Country"
+                      value={editAddress?.country}
+                    />
+                  </div>
+                )}
               </div>
               <div className="form-field-stateOrProvince-city-container">
                 <div className="form-field-stateOrProvince form-field">
-                  <InputField
-                    id="stateOrProvince"
-                    name="stateOrProvince"
-                    onChange={(e: { target: { value: any } }) => {
-                      this.setState({
-                        editAddress: { ...editAddress, stateOrProvince: e.target.value },
-                      });
-                    }}
-                    title="State"
-                    value={editAddress?.stateOrProvince}
-                  />
+                  {this.props.countries &&
+                  (
+                    this.props.countries.find(
+                      (country) => country?.code === this.state.editAddress?.countryCode,
+                    )?.subdivisions ?? []
+                  )?.length > 0 ? (
+                    <div>
+                      <select
+                        className="form-field-stateOrProvince form-field-input"
+                        id="stateOrProvince"
+                        name="stateOrProvince"
+                        onChange={(e) => {
+                          this.setState({
+                            editAddress: {
+                              ...this.state.editAddress,
+                              stateOrProvince: e.target.value,
+                            },
+                          });
+                        }}
+                        value={
+                          (
+                            this.props.countries.find(
+                              (country) => country?.code === this.state.editAddress?.countryCode,
+                            )?.subdivisions ?? []
+                          ).find(
+                            (stateOrProvince) =>
+                              stateOrProvince?.code === editAddress?.stateOrProvince,
+                          )?.code
+                        }
+                      >
+                        {(
+                          this.props.countries.find(
+                            (country) => country?.code === this.state.editAddress?.countryCode,
+                          )?.subdivisions ?? []
+                        ).map((stateOrProvince) => {
+                          return (
+                            <option
+                              className="stateOrProvince-selector-option"
+                              key={stateOrProvince?.code}
+                              value={stateOrProvince?.code}
+                            >
+                              {stateOrProvince?.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  ) : (
+                    <div>
+                      <InputField
+                        id="stateOrProvince"
+                        name="stateOrProvince"
+                        onChange={(e: { target: { value: any } }) => {
+                          this.setState({
+                            editAddress: { ...editAddress, stateOrProvince: e.target.value },
+                          });
+                        }}
+                        title="State"
+                        value={editAddress?.stateOrProvince}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="form-field-city form-field">
                   <InputField
@@ -399,6 +534,13 @@ class ShippingAddressForm extends Component<
                       id="firstName"
                       name="firstName"
                       onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'firstName' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
@@ -406,15 +548,27 @@ class ShippingAddressForm extends Component<
                           },
                         });
                       }}
+                      pattern={`\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+`}
                       title="First name"
                       value={this.state.newStateAddress?.firstName}
                     />
+                    {this.state.newStateAddressError?.field === 'firstName' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">First name is a Requied field</div>
+                      )}
                   </div>
                   <div className="form-field-last-name form-field">
                     <InputField
                       id="lastName"
                       name="lastName"
                       onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'lastName' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
@@ -425,6 +579,10 @@ class ShippingAddressForm extends Component<
                       title="Last name"
                       value={this.state.newStateAddress?.lastName}
                     />
+                    {this.state.newStateAddressError?.field === 'lastName' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">Last name is a Requied field</div>
+                      )}
                   </div>
                 </div>
                 <div className="form-field-address1 form-field">
@@ -432,6 +590,13 @@ class ShippingAddressForm extends Component<
                     id="address1"
                     name="address1"
                     onChange={(e: { target: { value: any } }) => {
+                      if (
+                        this.state.newStateAddressError?.field === 'address1' &&
+                        this.state.newStateAddressError?.error === true
+                      ) {
+                        this.setState({ newStateAddressError: { field: '', error: false } });
+                      }
+
                       this.setState({
                         newStateAddress: {
                           ...this.state.newStateAddress,
@@ -442,6 +607,10 @@ class ShippingAddressForm extends Component<
                     title="Address line 1"
                     value={this.state.newStateAddress?.address1}
                   />
+                  {this.state.newStateAddressError?.field === 'address1' &&
+                    this.state.newStateAddressError.error && (
+                      <div className="form-field-error-msg">Address 1 is a Requied field</div>
+                    )}
                 </div>
                 <div className="form-field-address2 form-field">
                   <InputField
@@ -463,7 +632,16 @@ class ShippingAddressForm extends Component<
                   {countries && countries?.length > 0 && (
                     <select
                       className="form-field-country form-field-input"
+                      id="country"
+                      name="country"
                       onChange={(e) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'country' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
@@ -485,6 +663,13 @@ class ShippingAddressForm extends Component<
                       id="country"
                       name="country"
                       onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'country' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
@@ -496,6 +681,10 @@ class ShippingAddressForm extends Component<
                       value={this.state.newStateAddress?.country}
                     />
                   )}
+                  {this.state.newStateAddressError?.field === 'country' &&
+                    this.state.newStateAddressError.error && (
+                      <div className="form-field-error-msg">Country is a Requied field</div>
+                    )}
                 </div>
                 <div className="form-field-stateOrProvince-city-container">
                   <div className="form-field-stateOrProvince form-field">
@@ -509,6 +698,13 @@ class ShippingAddressForm extends Component<
                           id="stateOrProvince"
                           name="stateOrProvince"
                           onChange={(e) => {
+                            if (
+                              this.state.newStateAddressError?.field === 'stateOrProvince' &&
+                              this.state.newStateAddressError?.error === true
+                            ) {
+                              this.setState({ newStateAddressError: { field: '', error: false } });
+                            }
+
                             this.setState({
                               newStateAddress: {
                                 ...this.state.newStateAddress,
@@ -536,6 +732,13 @@ class ShippingAddressForm extends Component<
                           id="stateOrProvince"
                           name="stateOrProvince"
                           onChange={(e: { target: { value: any } }) => {
+                            if (
+                              this.state.newStateAddressError?.field === 'stateOrProvince' &&
+                              this.state.newStateAddressError?.error === true
+                            ) {
+                              this.setState({ newStateAddressError: { field: '', error: false } });
+                            }
+
                             this.setState({
                               newStateAddress: {
                                 ...this.state.newStateAddress,
@@ -547,12 +750,25 @@ class ShippingAddressForm extends Component<
                           value={this.state.newStateAddress?.stateOrProvince}
                         />
                       ))}
+                    {this.state.newStateAddressError?.field === 'stateOrProvince' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">
+                          State or province is a Requied field
+                        </div>
+                      )}
                   </div>
                   <div className="form-field-city form-field">
                     <InputField
                       id="city"
                       name="city"
                       onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'city' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: { ...this.state.newStateAddress, city: e.target.value },
                         });
@@ -560,6 +776,10 @@ class ShippingAddressForm extends Component<
                       title="City"
                       value={this.state.newStateAddress?.city}
                     />
+                    {this.state.newStateAddressError?.field === 'city' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">City is a Requied field</div>
+                      )}
                   </div>
                 </div>
                 <div className="form-field-postalCode-phone-container">
@@ -568,6 +788,13 @@ class ShippingAddressForm extends Component<
                       id="postalCode"
                       name="postalCode"
                       onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'postalCode' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
@@ -578,6 +805,10 @@ class ShippingAddressForm extends Component<
                       title="Postal Code"
                       value={this.state.newStateAddress?.postalCode}
                     />
+                    {this.state.newStateAddressError?.field === 'postalCode' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">Postal Code is a Requied field</div>
+                      )}
                   </div>
                   <div className="form-field-phone form-field">
                     <InputField
@@ -590,7 +821,7 @@ class ShippingAddressForm extends Component<
                       }}
                       title="Phone"
                       value={this.state.newStateAddress?.phone}
-                    />{' '}
+                    />
                   </div>
                 </div>
                 {!isGuest && (

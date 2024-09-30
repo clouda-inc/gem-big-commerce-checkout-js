@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, ReactNode, Suspense } from 'react';
 
 import { withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
 
@@ -15,18 +15,25 @@ class CartSummaryWrapper extends Component<WithCheckoutProps & WithLanguageProps
     const { cart } = this.props;
 
     return (
-      <div className="checkout-cart-summary-item-list">
-        <div className="checkout-cart-summary-item-count">
-          {cart?.lineItems?.physicalItems?.length ?? 0} items in card
-        </div>
-        {cart?.lineItems?.physicalItems && (
-          <div className="checkout-cart-summary-line-items">
-            {cart.lineItems.physicalItems?.map((lineItem) => (
-              <CartLineItem key={lineItem?.id} lineItem={lineItem} />
-            ))}
+      <Suspense fallback={<div>Loading...</div>}>
+        {cart?.lineItems?.physicalItems && cart?.lineItems?.physicalItems?.length > 0 && (
+          <div>
+            <div className="checkout-cart-summary-title">Order Review</div>
+            <div className="checkout-cart-summary-item-list">
+              <div className="checkout-cart-summary-item-count">
+                {cart?.lineItems?.physicalItems?.length ?? 0} items in card
+              </div>
+              {cart?.lineItems?.physicalItems && (
+                <div className="checkout-cart-summary-line-items">
+                  {cart.lineItems.physicalItems?.map((lineItem) => (
+                    <CartLineItem key={lineItem?.id} lineItem={lineItem} />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
-      </div>
+      </Suspense>
     );
   }
 }

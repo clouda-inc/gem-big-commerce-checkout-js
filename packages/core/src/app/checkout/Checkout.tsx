@@ -34,9 +34,9 @@ import { withAnalytics } from '../analytics';
 import { StaticBillingAddress } from '../billing';
 import { EmptyCartMessage } from '../cart';
 import BillingSummary from '../cart/billingSummary/BillingSummary';
-import CartSummaryWrapper from '../cart/customeCart/CartSummaryWrapper';
-import DiscountCode from '../cart/discount-code/DiscountCode';
-import OrderComment from '../cart/order-comment/OrderComment';
+// import CartSummaryWrapper from '../cart/customeCart/CartSummaryWrapper';
+// import DiscountCode from '../cart/discount-code/DiscountCode';
+// import OrderComment from '../cart/order-comment/OrderComment';
 import { withCheckout } from '../checkout';
 import { CustomError, ErrorModal, isCustomError } from '../common/error';
 import { retry } from '../common/utility';
@@ -100,6 +100,36 @@ const Billing = lazy(() =>
 //       ),
 //   ),
 // );
+
+const CartSummaryWrapper = lazy(() =>
+  retry(
+    () =>
+      import(
+        /* webpackChunkName: "cart-summary-wrapper" */
+        '../cart/customeCart/CartSummaryWrapper'
+      ),
+  ),
+);
+
+const DiscountCode = lazy(() =>
+  retry(
+    () =>
+      import(
+        /* webpackChunkName: "discount-code" */
+        '../cart/discount-code/DiscountCode'
+      ),
+  ),
+);
+
+const OrderComment = lazy(() =>
+  retry(
+    () =>
+      import(
+        /* webpackChunkName: "order-comment" */
+        '../cart/order-comment/OrderComment'
+      ),
+  ),
+);
 
 const Payment = lazy(() =>
   retry(
@@ -633,23 +663,30 @@ class Checkout extends Component<
     return (
       <div className="checkout-cart-summary">
         <div className="checkout-order-review">
-          <div className="checkout-cart-summary-title">Order Review</div>
           <div>
-            <CartSummaryWrapper />
+            <LazyContainer loadingSkeleton={<AddressFormSkeleton />}>
+              <CartSummaryWrapper />
+            </LazyContainer>
           </div>
         </div>
-        <div className="checkout-discount-wrapper">
-          <DiscountCode {...this.props} />
+        <div className="">
+          <LazyContainer loadingSkeleton={<AddressFormSkeleton />}>
+            <DiscountCode {...this.props} />
+          </LazyContainer>
         </div>
-        <div className="checkout-order-wrapper">
-          <OrderComment {...this.props} />
+        <div className="">
+          <LazyContainer loadingSkeleton={<AddressFormSkeleton />}>
+            <OrderComment {...this.props} />
+          </LazyContainer>
         </div>
-        <div className="checkout-billing-summary-wrapper">
-          <BillingSummary
-            {...this.props}
-            formId="checkout-payment-form"
-            isPaymentStepActive={isPaymentStepActive}
-          />
+        <div className="">
+          <LazyContainer loadingSkeleton={<AddressFormSkeleton />}>
+            <BillingSummary
+              {...this.props}
+              formId="checkout-payment-form"
+              isPaymentStepActive={isPaymentStepActive}
+            />
+          </LazyContainer>
         </div>
       </div>
     );

@@ -67,106 +67,108 @@ class OrderComment extends Component<
     };
 
     return (
-      <div className="order-comment">
-        <div className="order-comment-label">
-          <TranslatedString id="cart.orderComment.title" />
+      <div className="checkout-order-wrapper">
+        <div className="order-comment">
+          <div className="order-comment-label">
+            <TranslatedString id="cart.orderComment.title" />
+          </div>
+          {!comment && !this.state.editing && (
+            <div>
+              <div>
+                <div className="order-comment-input-wrapper">
+                  <div className="order-comment-input-container">
+                    <div className="order-comment-input-lable">
+                      <TranslatedString id="cart.orderComment.placeholder" />
+                    </div>
+                    <textarea
+                      className="order-comment-input"
+                      cols={30}
+                      disabled={this.props.isLoading}
+                      onChange={(e) => {
+                        this.setState({ comment: e.target.value });
+                      }}
+                      rows={5}
+                      value={this.state.comment}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="order-comment-submit"
+                      disabled={this.props.isLoading}
+                      onClick={handleSubmitOrderComment}
+                    >
+                      Add Comment
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          {!!comment && !this.state.editing && (
+            <div>
+              <div className="order-comment-value-wrapper">
+                <div className="order-comment-value-container">
+                  <div className="order-comment-input-lable">
+                    <TranslatedString id="cart.orderComment.placeholder" />
+                  </div>
+                  <textarea
+                    className="order-comment-value"
+                    cols={30}
+                    disabled
+                    rows={5}
+                    value={this.state.comment}
+                  />
+                </div>
+                <div className="order-comment-value-action-container">
+                  <button
+                    className="order-comment-value-delete-button"
+                    onClick={handleDeleteOrderComment}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="order-comment-value-edit-button"
+                    onClick={() => this.setState({ editing: true })}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          {!!comment && this.state.editing && (
+            <div>
+              <div>
+                <div className="order-comment-input-wrapper">
+                  <div className="order-comment-input-container">
+                    <div className="order-comment-input-lable">
+                      <TranslatedString id="cart.orderComment.placeholder" />
+                    </div>
+                    <textarea
+                      className="order-comment-input"
+                      cols={30}
+                      disabled={this.props.isLoading}
+                      onChange={(e) => {
+                        this.setState({ comment: e.target.value });
+                      }}
+                      rows={5}
+                      value={this.state.comment}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="order-comment-submit"
+                      disabled={this.props.isLoading}
+                      onClick={handleSubmitOrderComment}
+                    >
+                      Update Comment
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        {!comment && !this.state.editing && (
-          <div>
-            <div>
-              <div className="order-comment-input-wrapper">
-                <div className="order-comment-input-container">
-                  <div className="order-comment-input-lable">
-                    <TranslatedString id="cart.orderComment.placeholder" />
-                  </div>
-                  <textarea
-                    className="order-comment-input"
-                    cols={30}
-                    disabled={this.props.isLoading}
-                    onChange={(e) => {
-                      this.setState({ comment: e.target.value });
-                    }}
-                    rows={5}
-                    value={this.state.comment}
-                  />
-                </div>
-                <div>
-                  <button
-                    className="order-comment-submit"
-                    disabled={this.props.isLoading}
-                    onClick={handleSubmitOrderComment}
-                  >
-                    Add Comment
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {!!comment && !this.state.editing && (
-          <div>
-            <div className="order-comment-value-wrapper">
-              <div className="order-comment-value-container">
-                <div className="order-comment-input-lable">
-                  <TranslatedString id="cart.orderComment.placeholder" />
-                </div>
-                <textarea
-                  className="order-comment-value"
-                  cols={30}
-                  disabled
-                  rows={5}
-                  value={this.state.comment}
-                />
-              </div>
-              <div className="order-comment-value-action-container">
-                <button
-                  className="order-comment-value-delete-button"
-                  onClick={handleDeleteOrderComment}
-                >
-                  Delete
-                </button>
-                <button
-                  className="order-comment-value-edit-button"
-                  onClick={() => this.setState({ editing: true })}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {!!comment && this.state.editing && (
-          <div>
-            <div>
-              <div className="order-comment-input-wrapper">
-                <div className="order-comment-input-container">
-                  <div className="order-comment-input-lable">
-                    <TranslatedString id="cart.orderComment.placeholder" />
-                  </div>
-                  <textarea
-                    className="order-comment-input"
-                    cols={30}
-                    disabled={this.props.isLoading}
-                    onChange={(e) => {
-                      this.setState({ comment: e.target.value });
-                    }}
-                    rows={5}
-                    value={this.state.comment}
-                  />
-                </div>
-                <div>
-                  <button
-                    className="order-comment-submit"
-                    disabled={this.props.isLoading}
-                    onClick={handleSubmitOrderComment}
-                  >
-                    Update Comment
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     );
   }

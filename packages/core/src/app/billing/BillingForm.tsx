@@ -91,7 +91,6 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
       !!addres.lastName &&
       addres.lastName !== '' &&
       (addres?.address1?.length || 0) > 0 &&
-      (addres?.address2?.length || 0) > 0 &&
       (addres?.city?.length || 0) > 0 &&
       (addres?.postalCode?.length || 0) > 0,
   );
