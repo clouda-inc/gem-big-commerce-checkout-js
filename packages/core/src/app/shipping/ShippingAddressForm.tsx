@@ -253,6 +253,8 @@ class ShippingAddressForm extends Component<
       this.setState({ showAddNewAddress: false });
     };
 
+    console.log('Addresses : ', addresses);
+
     return (
       <Fieldset id="checkoutShippingAddress">
         {!showEditAddressModal && hasAddresses && !this.state.showAddNewAddress && (

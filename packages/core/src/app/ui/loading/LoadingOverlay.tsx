@@ -2,41 +2,47 @@ import React, { FunctionComponent } from 'react';
 
 import LoadingSpinner from './LoadingSpinner';
 
+import './LoadingOverlay.scss';
+
 export interface LoadingOverlayProps {
-    isLoading: boolean;
-    hideContentWhenLoading?: boolean;
-    unmountContentWhenLoading?: boolean;
+  isLoading: boolean;
+  hideContentWhenLoading?: boolean;
+  unmountContentWhenLoading?: boolean;
 }
 
 const LoadingOverlay: FunctionComponent<LoadingOverlayProps> = ({
-    children,
-    hideContentWhenLoading,
-    unmountContentWhenLoading,
-    isLoading,
+  children,
+  hideContentWhenLoading,
+  unmountContentWhenLoading,
+  isLoading,
 }) => {
-    if (hideContentWhenLoading || unmountContentWhenLoading) {
-        return (
-            <>
-                <LoadingSpinner isLoading={isLoading} />
-                {unmountContentWhenLoading && isLoading ? null : (
-                    <div
-                        style={{
-                            display: hideContentWhenLoading && isLoading ? 'none' : undefined,
-                        }}
-                    >
-                        {children}
-                    </div>
-                )}
-            </>
-        );
-    }
-
+  if (hideContentWhenLoading || unmountContentWhenLoading) {
     return (
-        <div className="loadingOverlay-container">
+      <>
+        <LoadingSpinner isLoading={isLoading} />
+        {unmountContentWhenLoading && isLoading ? null : (
+          <div
+            style={{
+              display: hideContentWhenLoading && isLoading ? 'none' : undefined,
+            }}
+          >
             {children}
-            {isLoading && <div className="loadingOverlay optimizedCheckout-overlay" />}
-        </div>
+          </div>
+        )}
+      </>
     );
+  }
+
+  return (
+    <div className="loadingOverlay-container">
+      {children}
+      {isLoading && (
+        <div className="loadingOverlay optimizedCheckout-overlay">
+          <div className="loadingOverlaySpinner" />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default LoadingOverlay;

@@ -14,6 +14,7 @@ import { usePayPalFastlaneAddress } from '@bigcommerce/checkout/paypal-fastlane-
 import { AddressFormSkeleton } from '@bigcommerce/checkout/ui';
 
 import {
+  // AddressForm,
   AddressFormValues,
   getAddressFormFieldsValidationSchema,
   getTranslateAddressError,
@@ -403,6 +404,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                 </div>
               </div>
             </div>
+            {/* <AddressForm formFields={getFields(countryCode)} /> */}
           </AddressFormSkeleton>
         )}
       </Fieldset>

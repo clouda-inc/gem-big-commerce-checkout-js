@@ -193,6 +193,8 @@ class Payment extends Component<
     const uniqueSelectedMethodId =
       selectedMethod && getUniquePaymentMethodId(selectedMethod.id, selectedMethod.gateway);
 
+    console.log('isInitializingPayment : ', isInitializingPayment);
+
     return (
       <PaymentContext.Provider value={this.getContextValue()}>
         <ChecklistSkeleton isLoading={!isReady}>

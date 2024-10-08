@@ -41,33 +41,10 @@ $loadingOverlay-transitionProperty: all;
 $loadingOverlay-transitionSpeed: 250ms;
 $loadingOverlay-transitionEase: ease-out;
 
-$loadingOverlay-spinner-size: 300px;
-$loadingOverlay-spinner-borderWidth: 16px;
-$loadingOverlay-spinner-borderColor: color('#f3f3f3', 'bright') color('#f3f3f3', 'bright')
-  color('#024f60', 'medium') color('#024f60', 'medium');
+$loadingOverlay-spinner-size: 60px;
+$loadingOverlay-spinner-borderWidth: 1px;
+$loadingOverlay-spinner-borderColor: color('whites', 'bright') color('whites', 'bright')
+  color('#024F60', 'medium') color('#024F60', 'medium');
 $loadingOverlay-spinner-duration: 500ms;
 $loadingOverlay-spinner-easing: cubic-bezier(0.69, 0.31, 0.56, 0.83);
 $loadingOverlay-spinner-top--main: 40%; // 2
-
-.loadingSpinnerContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.loadingSpinner {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 12px solid;
-  border-color: #dbdcef;
-  border-right-color: #024f60;
-  animation: spinner-d3wgkg 1s infinite linear;
-}
-
-@keyframes spinner-d3wgkg {
-  to {
-    transform: rotate(1turn);
-  }
-}
