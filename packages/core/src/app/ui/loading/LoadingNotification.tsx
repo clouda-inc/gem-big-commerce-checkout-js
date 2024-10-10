@@ -1,6 +1,6 @@
 import React, { FunctionComponent, memo } from 'react';
 
-// import { TranslatedString } from '@bigcommerce/checkout/locale';
+import LargeLoadingSpinner from './LargeLoadingSpinner';
 
 export interface LoadingNotificationProps {
   isLoading: boolean;
@@ -14,11 +14,7 @@ const LoadingNotification: FunctionComponent<LoadingNotificationProps> = ({ isLo
   return (
     <div className="loadingNotification">
       <div className="loadingNotification-label-ss optimizedCheckout-loadingToaster">
-        <div className="initialspinner" />
-
-        {/* <span aria-live="assertive" className="label" role="alert">
-          <TranslatedString id="common.loading_text" />
-        </span> */}
+        <LargeLoadingSpinner isLoading={isLoading} />
       </div>
     </div>
   );

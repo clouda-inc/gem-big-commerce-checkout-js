@@ -819,19 +819,21 @@ class ShippingAddressForm extends Component<
                       id="postalCode"
                       name="postalCode"
                       onChange={(e: { target: { value: any } }) => {
+                        const postalCode = e.target.value;
+
+                        this.setState({
+                          newStateAddress: {
+                            ...this.state.newStateAddress,
+                            postalCode,
+                          },
+                        });
+
                         if (
                           this.state.newStateAddressError?.field === 'postalCode' &&
                           this.state.newStateAddressError?.error === true
                         ) {
                           this.setState({ newStateAddressError: { field: '', error: false } });
                         }
-
-                        this.setState({
-                          newStateAddress: {
-                            ...this.state.newStateAddress,
-                            postalCode: e.target.value,
-                          },
-                        });
                       }}
                       title="Postal Code"
                       value={this.state.newStateAddress?.postalCode}
@@ -839,6 +841,10 @@ class ShippingAddressForm extends Component<
                     {this.state.newStateAddressError?.field === 'postalCode' &&
                       this.state.newStateAddressError.error && (
                         <div className="form-field-error-msg">Postal Code is a Requied field</div>
+                      )}
+                    {this.state.newStateAddressError?.field === 'postalCodeValidation' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">Invalid Postal Code</div>
                       )}
                   </div>
                   <div className="form-field-phone form-field">
@@ -852,18 +858,13 @@ class ShippingAddressForm extends Component<
                           newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
                         });
 
-                        const pattern = new RegExp('^\\+?[1-9][0-9]{3,14}([0-9]{9,14})$');
+                        const pattern = new RegExp('^[+]{0,1}[0-9]{1,4}[0-9]*$');
 
                         if (pattern.test(phoneNumnerTemp)) {
                           this.setState({ newStateAddressError: { field: 'phone', error: false } });
                         } else {
                           this.setState({ newStateAddressError: { field: 'phone', error: true } });
                         }
-
-                        console.log(
-                          'pattern.match(phoneNumnerTemp) : ',
-                          pattern.test(phoneNumnerTemp),
-                        );
                       }}
                       title="Phone"
                       value={this.state.newStateAddress?.phone}

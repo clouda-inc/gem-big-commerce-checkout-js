@@ -42,9 +42,8 @@ $loadingOverlay-transitionSpeed: 250ms;
 $loadingOverlay-transitionEase: ease-out;
 
 $loadingOverlay-spinner-size: 60px;
-$loadingOverlay-spinner-borderWidth: 1px;
-$loadingOverlay-spinner-borderColor: color('whites', 'bright') color('whites', 'bright')
-  color('#024F60', 'medium') color('#024F60', 'medium');
+$loadingOverlay-spinner-borderWidth: 8px;
+$loadingOverlay-spinner-borderColor: #d9d9d9 #d9d9d9 #024f60 #024f60;
 $loadingOverlay-spinner-duration: 500ms;
 $loadingOverlay-spinner-easing: cubic-bezier(0.69, 0.31, 0.56, 0.83);
 $loadingOverlay-spinner-top--main: 40%; // 2
