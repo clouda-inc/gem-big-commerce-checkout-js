@@ -95,6 +95,10 @@
   height: 50px;
 }
 
+.billing-summary-payment-button:hover {
+  opacity: 0.9;
+}
+
 .billing-summary-payment-button:disabled {
   background-color: rgba(2, 79, 96, 0.5);
 }

@@ -223,6 +223,18 @@ function appConfig(options, argv) {
             test: /\.(ttf|otf|woff|woff2)$/i,
             type: 'asset/resource',
           },
+          {
+            test: /\.ttf$/i,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  name: `${outputFilename}.[ext]`,
+                  outputPath: 'fonts',
+                },
+              },
+            ],
+          },
         ],
       },
     };

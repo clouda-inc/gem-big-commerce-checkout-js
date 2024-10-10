@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   Consignment,
@@ -15,6 +16,7 @@ import { InputField } from '../common/input';
 import { Fieldset } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
+import { updateCustomerAddress } from './querry';
 import shiftGivenAddressToTop from './shiftGivenAddressToTop';
 import { SingleShippingFormValues } from './SingleShippingForm';
 
@@ -51,9 +53,10 @@ interface ShippingEditFormState {
   newStateAddress: CustomerAddress;
   saveNewAddressToCustomerProfile: boolean;
   newStateAddressError: NewStateAddressError;
+  customerAddressList: CustomerAddress[];
 }
 
-const token = 'q64h3xndgjcrd3vn1iggj9iypp2tyzi';
+// const token = 'q64h3xndgjcrd3vn1iggj9iypp2tyzi';
 
 class ShippingAddressForm extends Component<
   ShippingAddressFormProps & ConnectFormikProps<SingleShippingFormValues>,
@@ -68,6 +71,7 @@ class ShippingAddressForm extends Component<
       newStateAddress: {} as CustomerAddress,
       saveNewAddressToCustomerProfile: false,
       newStateAddressError: {} as NewStateAddressError,
+      customerAddressList: [] as CustomerAddress[],
     };
   }
 
@@ -75,8 +79,13 @@ class ShippingAddressForm extends Component<
     const { addresses, address: shippingAddress, formFields } = this.props;
 
     this.setState({
+      customerAddressList: [...addresses],
+    });
+
+    this.setState({
       showAddNewAddress: !isValidCustomerAddress(shippingAddress, addresses, formFields),
     });
+
     this.setState({
       newStateAddress: {
         ...this.state.newStateAddress,
@@ -97,7 +106,6 @@ class ShippingAddressForm extends Component<
 
   render(): ReactNode {
     const {
-      addresses,
       address: shippingAddress,
       onAddressSelect,
       onUseNewAddress,
@@ -109,9 +117,9 @@ class ShippingAddressForm extends Component<
       // googleMapsApiKey,
     } = this.props;
 
-    const { editAddress, showEditAddressModal } = this.state;
+    const { editAddress, showEditAddressModal, customerAddressList } = this.state;
 
-    const hasAddresses = addresses && addresses.length > 0;
+    const hasAddresses = customerAddressList && customerAddressList.length > 0;
 
     const handleUseNewAddress = () => {
       onUseNewAddress(shippingAddress);
@@ -141,55 +149,73 @@ class ShippingAddressForm extends Component<
     const onSubmit = (e: any) => {
       e.preventDefault();
 
-      const editedaddress = {
-        id: editAddress?.id,
-        first_name: editAddress?.firstName,
-        last_name: editAddress?.lastName,
+      const variable = {
+        addressEntityId: editAddress?.id,
         address1: editAddress?.address1,
         address2: editAddress?.address2,
         city: editAddress?.city,
-        state_or_province: editAddress?.stateOrProvince,
-        postal_code: editAddress?.postalCode,
-        country_code: editAddress?.countryCode,
+        countryCode: editAddress?.countryCode,
+        firstName: editAddress?.firstName,
+        lastName: editAddress?.lastName,
         phone: editAddress?.phone,
-        address_type: editAddress?.type,
+        postalCode: editAddress?.postalCode,
+        stateOrProvince: editAddress?.stateOrProvince,
       };
 
-      fetch('https://api.bigcommerce.com/stores/qxtizk9ym4/v3/customers/addresses', {
-        method: 'PUT',
+      fetch('/graphql', {
+        method: 'POST',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
-          'X-Auth-Token': token,
+          Authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJjaWQiOlsxXSwiY29ycyI6WyJodHRwczovL2FwaS5iaWdjb21tZXJjZS5jb20iLCJodHRwczovL2NoZWNrb3V0Lmx1Y2QuYXJ0Il0sImVhdCI6MjE0NzQ4MzY0NywiaWF0IjoxNzI4NDcwNDg3LCJpc3MiOiJCQyIsInNpZCI6MTAwMjg3MjY5Mywic3ViIjoibWxuZ2hybWFyeHZsaXY0MzUwMHJ3NmI3b2FudGI0MyIsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxfQ.Y5jjaoHnIhLL_wscLd4BP5Qw0CyiPGtJqbrwHYXcDFJxX5mNamdeJNLlAUVeJhujHF3urxsVJz3vV5AEk-40Rg',
+          Origin: 'https://checkout.lucd.art',
         },
-        body: JSON.stringify([{ ...editedaddress }]),
+        body: JSON.stringify({
+          query: updateCustomerAddress,
+          variables: variable,
+        }),
       })
-        .then((r) => r.json())
-        .then((r) => {
+        .then((response) => response.json())
+        .then((result) => {
+          const updateResult = result?.data?.customer?.updateCustomerAddress?.address;
+
           handleCloseEditAddressModal();
           updateShippingAddress(
             {
-              firstName: r.data[0].first_name,
-              lastName: r.data[0].last_name,
-              address1: r.data[0].address1,
-              address2: r.data[0].address2,
-              city: r.data[0].city,
-              stateOrProvince: r.data[0].state_or_province,
-              postalCode: r.data[0].postal_code,
-              countryCode: r.data[0].country_code,
-              phone: r.data[0].phone,
-              country: r.data[0].country,
-              company: r.data[0].company,
-              stateOrProvinceCode: r.data[0].state_or_province_code,
+              firstName: updateResult.firstName,
+              lastName: updateResult.lastName,
+              address1: updateResult.address1,
+              address2: updateResult.address2,
+              city: updateResult.city,
+              stateOrProvince: updateResult.stateOrProvince,
+              postalCode: updateResult.postalCode,
+              countryCode: updateResult.countryCode,
+              phone: updateResult.phone,
+              country: updateResult.country,
+              company: updateResult.company,
+              stateOrProvinceCode: updateResult.stateOrProvinceCode,
               customFields: [],
             },
             true,
           );
+
+          const tt = [
+            ...(this.state.customerAddressList ?? []).filter(
+              (address) => address?.id !== editAddress?.id,
+            ),
+            { ...updateResult, id: updateResult?.entityId },
+          ];
+
+          console.log('tt :: ', tt);
+
+          this.setState({
+            customerAddressList: tt,
+          });
+
+          console.log('this.props.addresses : ', this.props.addresses);
         })
-        .catch((e) => {
-          // eslint-disable-next-line no-console
-          console.error('Error : ', e);
-        });
+        .catch((error) => console.error(error));
     };
 
     const handleCreateNewAddress = (e: any) => {
@@ -202,6 +228,7 @@ class ShippingAddressForm extends Component<
       const validStateOrProvince = this.state.newStateAddress?.stateOrProvinceCode;
       const validPostalCode = this.state.newStateAddress?.postalCode;
       const validCountryCode = this.state.newStateAddress?.countryCode;
+      const validPhone = this.state.newStateAddress?.phone;
 
       if (!validFirstName) {
         this.setState({ newStateAddressError: { error: true, field: 'firstName' } });
@@ -245,6 +272,10 @@ class ShippingAddressForm extends Component<
         return 0;
       }
 
+      if (!validPhone) {
+        this.setState({ newStateAddressError: { error: true, field: 'phone' } });
+      }
+
       if (this.state.saveNewAddressToCustomerProfile) {
         createCustomerAddress(this.state.newStateAddress);
       }
@@ -252,8 +283,6 @@ class ShippingAddressForm extends Component<
       onAddressSelect(this.state.newStateAddress);
       this.setState({ showAddNewAddress: false });
     };
-
-    console.log('Addresses : ', addresses);
 
     return (
       <Fieldset id="checkoutShippingAddress">
@@ -269,9 +298,9 @@ class ShippingAddressForm extends Component<
                   <TranslatedString id="address.enter_address_action" />
                 </div>
                 <div className="shipping-address-list-container">
-                  {addresses &&
+                  {this.state.customerAddressList &&
                     shiftGivenAddressToTop<CustomerAddress>(
-                      addresses,
+                      this.state.customerAddressList,
                       shippingAddress as CustomerAddress,
                     )?.map((address, index: number) => {
                       return (
@@ -817,13 +846,32 @@ class ShippingAddressForm extends Component<
                       id="phone"
                       name="phone"
                       onChange={(e: { target: { value: any } }) => {
+                        const phoneNumnerTemp = e.target.value;
+
                         this.setState({
                           newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
                         });
+
+                        const pattern = new RegExp('^\\+?[1-9][0-9]{3,14}([0-9]{9,14})$');
+
+                        if (pattern.test(phoneNumnerTemp)) {
+                          this.setState({ newStateAddressError: { field: 'phone', error: false } });
+                        } else {
+                          this.setState({ newStateAddressError: { field: 'phone', error: true } });
+                        }
+
+                        console.log(
+                          'pattern.match(phoneNumnerTemp) : ',
+                          pattern.test(phoneNumnerTemp),
+                        );
                       }}
                       title="Phone"
                       value={this.state.newStateAddress?.phone}
                     />
+                    {this.state.newStateAddressError?.field === 'phone' &&
+                      this.state.newStateAddressError.error && (
+                        <div className="form-field-error-msg">Phone Number is a invalid</div>
+                      )}
                   </div>
                 </div>
                 {!isGuest && (

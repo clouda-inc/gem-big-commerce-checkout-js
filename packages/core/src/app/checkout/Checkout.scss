@@ -291,3 +291,10 @@ input:focus-visible {
     transform: rotate(1turn);
   }
 }
+
+.button--primary:hover {
+  background-color: #024f60;
+  border-color: #024f60;
+  color: #fff;
+  opacity: 0.9;
+}

@@ -12,6 +12,20 @@
   overflow-y: auto;
 }
 
+.shipping-address-list-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.shipping-address-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.shipping-address-list-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
 .shipping-address {
   padding: 1rem;
   border: 1px solid rgb(178, 188, 202);

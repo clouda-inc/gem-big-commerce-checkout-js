@@ -453,7 +453,7 @@ class Checkout extends Component<
                 <div className="sign-up-modal-title">
                   Discover Your Preferred Gemstone Selection Here
                 </div>
-                <div className="sign-up-modal-description">Sing up</div>
+                <div className="sign-up-modal-description">Sign up</div>
               </div>
               <CreateAccountForm
                 defaultShouldSubscribe={false}

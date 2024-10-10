@@ -67,6 +67,10 @@
   padding: 11px 24px;
 }
 
+.discount-code-button:hover {
+  opacity: 0.9;
+}
+
 .discount-code-button:disabled {
   opacity: 0.5;
 }

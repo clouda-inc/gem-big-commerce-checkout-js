@@ -6,9 +6,7 @@ export default function shiftGivenAddressToTop<Address>(
   array: CustomerAddress[],
   given: CustomerAddress,
 ): Address[] {
-  const filterdArray = array.filter(
-    (item) => !isEqualAddress(item as CustomerAddress, given as CustomerAddress),
-  );
+  const filterdArray = array.filter((item) => !isEqualAddress(item, given));
 
   const isValid =
     given.firstName !== '' &&
