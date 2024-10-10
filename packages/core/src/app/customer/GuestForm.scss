@@ -1,0 +1,25 @@
+.customerEmail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.customerEmail-body {
+  width: 100%;
+}
+
+.customerEmail-action {
+  padding-left: 0 !important;
+}
+
+// .guest-customer-login {
+//   margin-bottom: 0;
+// }
+
+.guest-customer-login a {
+  color: #024f60;
+}
+
+.button--primary {
+  background-color: #024f60;
+}

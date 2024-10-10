@@ -18,8 +18,8 @@
 //
 // -----------------------------------------------------------------------------
 
-@import "../../../../node_modules/@bigcommerce/citadel/dist/tools/toolkit"; // 1
-@import "../../../../node_modules/react-datepicker/dist/react-datepicker";
+@import '../../../../node_modules/@bigcommerce/citadel/dist/tools/toolkit'; // 1
+@import '../../../../node_modules/react-datepicker/dist/react-datepicker';
 
 // Settings
 // -----------------------------------------------------------------------------
@@ -33,27 +33,27 @@
 // -----------------------------------------------------------------------------
 
 // global app defined settings must be set first
-@import "settings/global/global"; // 1
+@import 'settings/global/global'; // 1
 
-@import "../../../../node_modules/@bigcommerce/citadel/dist/settings/global/global"; // 2
-@import "../../../../node_modules/@bigcommerce/citadel/dist/settings/normalize/normalize"; // 2
-@import "../../../../node_modules/@bigcommerce/citadel/dist/settings/foundation/foundation"; // 2
-@import "../../../../node_modules/@bigcommerce/citadel/dist/settings/bigcommerce/bigcommerce"; // 2
-@import "settings/foundation/foundation"; // 2
+@import '../../../../node_modules/@bigcommerce/citadel/dist/settings/global/global'; // 2
+@import '../../../../node_modules/@bigcommerce/citadel/dist/settings/normalize/normalize'; // 2
+@import '../../../../node_modules/@bigcommerce/citadel/dist/settings/foundation/foundation'; // 2
+@import '../../../../node_modules/@bigcommerce/citadel/dist/settings/bigcommerce/bigcommerce'; // 2
+@import 'settings/foundation/foundation'; // 2
 
-@import "../../../../node_modules/@bigcommerce/citadel/dist/vendor/foundation/foundation"; // 3
+@import '../../../../node_modules/@bigcommerce/citadel/dist/vendor/foundation/foundation'; // 3
 
-@import "settings/normalize/normalize"; // 4
-@import "settings/utilities/utilities"; // 4
-@import "settings/bigcommerce/bigcommerce"; // 4
-@import "settings/checkout/checkout"; // 4
+@import 'settings/normalize/normalize'; // 4
+@import 'settings/utilities/utilities'; // 4
+@import 'settings/bigcommerce/bigcommerce'; // 4
+@import 'settings/checkout/checkout'; // 4
 
 // Utilities
 // -----------------------------------------------------------------------------
 
-@import "../../../../node_modules/@bigcommerce/citadel/dist/utilities/utilities";
+@import '../../../../node_modules/@bigcommerce/citadel/dist/utilities/utilities';
 
-@import "tools/toolkit";
+@import 'tools/toolkit';
 
 // Components
 // -----------------------------------------------------------------------------
@@ -64,13 +64,77 @@
 //
 // -----------------------------------------------------------------------------
 
-@import "../../../../node_modules/@bigcommerce/citadel/dist/vendor/normalize/normalize"; // 1
-@import "../../../../node_modules/@bigcommerce/citadel/dist/components/components"; // 2
+@import '../../../../node_modules/@bigcommerce/citadel/dist/vendor/normalize/normalize'; // 1
+@import '../../../../node_modules/@bigcommerce/citadel/dist/components/components'; // 2
 
-@import "components/components";
+@import 'components/components';
 
 // =============================================================================
 // LAYOUTS
 // =============================================================================
 
-@import "layouts/layouts";
+@import 'layouts/layouts';
+
+@font-face {
+  font-family: Avenir-Regular;
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Regular';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Black;
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Black';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Book;
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBook.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Book';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBook.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Heavy;
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirHeavy.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Heavy';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirHeavy.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: Avenir-Light;
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirLight.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Light';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirLight.ttf')
+    format('truetype');
+}
+
+* {
+  font-family: Avenir-Regular, 'Avenir Regular', 'Open Sans', sans-serif !important;
+}
