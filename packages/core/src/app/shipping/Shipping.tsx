@@ -145,8 +145,6 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
 
     const { isInitializing } = this.state;
 
-    console.log('customer : ', customer);
-
     if (shouldRenderStripeForm && !customer.email && this.props.countries.length > 0) {
       return (
         <StripeShipping

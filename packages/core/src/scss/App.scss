@@ -77,29 +77,64 @@
 
 @font-face {
   font-family: Avenir-Regular;
-  src: url('./fonts/Avenir-Regular.ttf') format('truetype');
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Regular';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: Avenir-Black;
-  src: url('./fonts/Avenir-Black.ttf') format('truetype');
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Black';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: Avenir-Book;
-  src: url('./fonts/Avenir-Book.ttf') format('truetype');
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBook.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Book';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBook.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: Avenir-Heavy;
-  src: url('./fonts/Avenir-Heavy.ttf') format('truetype');
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirHeavy.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Heavy';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirHeavy.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: Avenir-Light;
-  src: url('./fonts/Avenir-Light.ttf') format('truetype');
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirLight.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Avenir Light';
+  src: url('https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirLight.ttf')
+    format('truetype');
 }
 
 * {
-  font-family: Avenir-Regular !important;
+  font-family: Avenir-Regular, 'Avenir Regular', 'Open Sans', sans-serif !important;
 }

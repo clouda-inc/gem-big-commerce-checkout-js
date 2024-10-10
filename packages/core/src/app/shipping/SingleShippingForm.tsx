@@ -313,7 +313,6 @@ class SingleShippingForm extends PureComponent<
 export default withLanguage(
   withFormikExtended<SingleShippingFormProps & WithLanguageProps, SingleShippingFormValues>({
     handleSubmit: (values, { props: { onSubmit } }) => {
-      console.log('Value : ', values);
       onSubmit({
         ...values,
         billingSameAsShipping: false,
