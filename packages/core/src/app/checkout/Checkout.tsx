@@ -457,6 +457,9 @@ class Checkout extends Component<
               </div>
               <CreateAccountForm
                 defaultShouldSubscribe={false}
+                errorInSignInEmail={
+                  !!customerCreateError && customerCreateError === 'Could not create customer'
+                }
                 fixNewsletterCheckboxExperimentEnabled={false}
                 formFields={customerAccountFields}
                 isFloatingLabelEnabled={true}
@@ -464,12 +467,12 @@ class Checkout extends Component<
                 onSubmit={this.handleSignUpUserSubmit}
                 requiresMarketingConsent={false}
               />
-              <div className="sign-up-modal-error">
+              {/* <div className="sign-up-modal-error">
                 {!!customerCreateError &&
                   (customerCreateError === 'Could not create customer'
                     ? 'User allready exist'
                     : customerCreateError)}
-              </div>
+              </div> */}
             </div>
             <div className="sign-up-modal-image-wrapper">
               <button className="sign-up-modal-close" onClick={this.handleCloseSignUpForm}>

@@ -53,6 +53,7 @@ interface ShippingEditFormState {
   newStateAddress: CustomerAddress;
   saveNewAddressToCustomerProfile: boolean;
   newStateAddressError: NewStateAddressError;
+  editStateAddressError: NewStateAddressError;
   customerAddressList: CustomerAddress[];
 }
 
@@ -71,6 +72,7 @@ class ShippingAddressForm extends Component<
       newStateAddress: {} as CustomerAddress,
       saveNewAddressToCustomerProfile: false,
       newStateAddressError: {} as NewStateAddressError,
+      editStateAddressError: {} as NewStateAddressError,
       customerAddressList: [] as CustomerAddress[],
     };
   }
@@ -509,24 +511,60 @@ class ShippingAddressForm extends Component<
                     id="postalCode"
                     name="postalCode"
                     onChange={(e: { target: { value: any } }) => {
+                      const postalCode = e.target.value;
+                      const postalCodeRegex = /^[#.0-9a-zA-Z\s-]{4,12}$/;
+
                       this.setState({
                         editAddress: { ...editAddress, postalCode: e.target.value },
                       });
+
+                      if (!postalCodeRegex.test(postalCode)) {
+                        this.setState({
+                          editStateAddressError: {
+                            field: 'postalCodeValidation',
+                            error: true,
+                          },
+                        });
+                      } else {
+                        this.setState({
+                          editStateAddressError: {
+                            field: 'postalCodeValidation',
+                            error: false,
+                          },
+                        });
+                      }
                     }}
                     title="Postal Code"
                     value={editAddress?.postalCode}
                   />
+                  {this.state.editStateAddressError?.field === 'postalCodeValidation' &&
+                    this.state.newStateAddressError.error && (
+                      <div className="form-field-error-msg">Invalid Postal Code</div>
+                    )}
                 </div>
                 <div className="form-field-phone form-field">
                   <InputField
                     id="phone"
                     name="phone"
                     onChange={(e: { target: { value: any } }) => {
-                      this.setState({ editAddress: { ...editAddress, phone: e.target.value } });
+                      const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
+                      const phoneNumnerTemp = e.target.value;
+
+                      this.setState({ editAddress: { ...editAddress, phone: phoneNumnerTemp } });
+
+                      if (pattern.test(phoneNumnerTemp)) {
+                        this.setState({ editStateAddressError: { field: 'phone', error: false } });
+                      } else {
+                        this.setState({ editStateAddressError: { field: 'phone', error: true } });
+                      }
                     }}
                     title="Phone"
                     value={editAddress.phone}
                   />
+                  {this.state.editStateAddressError?.field === 'phone' &&
+                    this.state.editStateAddressError.error && (
+                      <div className="form-field-error-msg">Phone Number is a invalid</div>
+                    )}
                 </div>
               </div>
               <div className="form-field-saveAddress-button">
@@ -821,12 +859,30 @@ class ShippingAddressForm extends Component<
                       onChange={(e: { target: { value: any } }) => {
                         const postalCode = e.target.value;
 
+                        const postalCodeRegex = /^[#.0-9a-zA-Z\s-]{4,12}$/;
+
                         this.setState({
                           newStateAddress: {
                             ...this.state.newStateAddress,
                             postalCode,
                           },
                         });
+
+                        if (!postalCodeRegex.test(postalCode)) {
+                          this.setState({
+                            newStateAddressError: {
+                              field: 'postalCodeValidation',
+                              error: true,
+                            },
+                          });
+                        } else {
+                          this.setState({
+                            newStateAddressError: {
+                              field: 'postalCodeValidation',
+                              error: false,
+                            },
+                          });
+                        }
 
                         if (
                           this.state.newStateAddressError?.field === 'postalCode' &&
@@ -835,6 +891,7 @@ class ShippingAddressForm extends Component<
                           this.setState({ newStateAddressError: { field: '', error: false } });
                         }
                       }}
+                      pattern="^[#.0-9a-zA-Z\s-]{4,12}$"
                       title="Postal Code"
                       value={this.state.newStateAddress?.postalCode}
                     />
@@ -858,7 +915,7 @@ class ShippingAddressForm extends Component<
                           newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
                         });
 
-                        const pattern = new RegExp('^[+]{0,1}[0-9]{1,4}[0-9]*$');
+                        const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
 
                         if (pattern.test(phoneNumnerTemp)) {
                           this.setState({ newStateAddressError: { field: 'phone', error: false } });

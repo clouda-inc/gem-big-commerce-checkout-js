@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FormField } from '@bigcommerce/checkout-sdk';
 import { FormikProps, withFormik } from 'formik';
 import { noop } from 'lodash';
@@ -28,6 +29,7 @@ export interface CreateAccountFormProps {
   isFloatingLabelEnabled?: boolean;
   onCancel?(): void;
   onSubmit(values: CreateAccountFormValues): void;
+  errorInSignInEmail?: boolean;
 }
 
 function getAcceptsMarketingEmailsDefault(
@@ -80,6 +82,7 @@ const CreateAccountForm: FunctionComponent<
   onCancel,
   isFloatingLabelEnabled,
   defaultShouldSubscribe,
+  errorInSignInEmail = false,
 }) => {
   const createAccountErrorMessage = useMemo(() => {
     if (!createAccountError) {
@@ -119,16 +122,31 @@ const CreateAccountForm: FunctionComponent<
           <Alert type={AlertType.Error}>{createAccountErrorMessage}</Alert>
         )}
         <div className="create-account-form">
-          {fields.map((field) => (
-            <DynamicFormField
-              autocomplete={field.name}
-              extraClass={`dynamic-form-field--${field.name}`}
-              field={field}
-              isFloatingLabelEnabled={isFloatingLabelEnabled}
-              key={field.id}
-              parentFieldName={field.custom ? 'customFields' : undefined}
-            />
-          ))}
+          {fields.map((field) => {
+            console.log(field);
+
+            return (
+              <>
+                <DynamicFormField
+                  autocomplete={field.name}
+                  extraClass={`dynamic-form-field--${field.name} ${
+                    field.name === 'email' && errorInSignInEmail
+                      ? `dynamic-form-field-error--${field.name}`
+                      : ''
+                  }`}
+                  field={field}
+                  isFloatingLabelEnabled={isFloatingLabelEnabled}
+                  key={field.id}
+                  parentFieldName={field.custom ? 'customFields' : undefined}
+                />
+                {field.name === 'email' && (
+                  <div className="sign-up-modal-error">
+                    {errorInSignInEmail && 'User allready exist'}
+                  </div>
+                )}
+              </>
+            );
+          })}
         </div>
       </Fieldset>
 
