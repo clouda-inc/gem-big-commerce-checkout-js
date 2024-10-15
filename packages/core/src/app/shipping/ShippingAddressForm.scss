@@ -213,6 +213,16 @@
   padding: 1rem;
 }
 
+.form-field-country .form-field-input,
+.form-field-stateOrProvince .form-field-input {
+  color: #828282;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+}
+
 .form-field-country:-webkit-autofill,
 .form-field-country:-webkit-autofill:hover,
 .form-field-country:-webkit-autofill:focus,

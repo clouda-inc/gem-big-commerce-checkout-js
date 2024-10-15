@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   Consignment,
@@ -219,9 +220,11 @@ class ShippingAddressForm extends Component<
             { ...updateResult, id: updateResult?.entityId },
           ];
 
-          this.setState({
-            customerAddressList: tt,
-          });
+          console.log('tt', tt);
+
+          // this.setState({
+          //   customerAddressList: tt,
+          // });
         })
         // eslint-disable-next-line no-console
         .catch((error) => console.error(error));
@@ -766,8 +769,10 @@ class ShippingAddressForm extends Component<
                       libraries={['places']}
                       onAddressSelect={handleSelectGoogleNewAddress}
                       onChange={(value) => {
+                        // eslint-disable-next-line no-console
+                        console.log('value : ', value);
                         this.setState({
-                          editAddress: { ...this?.state?.newStateAddress, address1: value },
+                          newStateAddress: { ...this?.state?.newStateAddress, address1: value },
                         });
                       }}
                       title="Address 1"
