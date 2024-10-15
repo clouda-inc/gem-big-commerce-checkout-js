@@ -255,6 +255,18 @@ input:focus-visible {
   justify-content: space-between;
 }
 
+.checkout-step--billing
+  .summary-is-complete
+  .static-billing-address-container
+  .checkout-address--static,
+.checkout-step--shipping
+  .summary-is-complete
+  .static-consignment-address-container
+  .checkout-address--static {
+  width: 100%;
+  max-width: 350px;
+}
+
 .checkout-step--payment .optimizedCheckout-form-checklist {
   display: flex;
   flex-direction: column;

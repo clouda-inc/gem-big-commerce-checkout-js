@@ -6,13 +6,13 @@
       "102-d7d9e669.js",
       "568-1e86db57.js",
       "850-048e84f3.js",
-      "904-08425d6b.js",
-      "billing-c056cc2a.js",
+      "907-7563532d.js",
+      "billing-830aff41.js",
       "cart-summary-wrapper-d00b9ddf.js",
       "discount-code-c25feecc.js",
       "order-comment-9c1cbca6.js",
       "payment-c7412640.js",
-      "shipping-d6621d07.js"
+      "shipping-073d8470.js"
     ],
     "css": [
       "billing-49faf9f9.css",
@@ -20,7 +20,7 @@
       "discount-code-bbc46adb.css",
       "order-comment-7896c00b.css",
       "payment-0037a6b1.css",
-      "shipping-424a39d4.css"
+      "shipping-038aa511.css"
     ],
     "png": [
       "static/GIA-certificate-2a4cafcf.png",
@@ -32,14 +32,14 @@
     ]
   },
   "js": [
-    "runtime-4dda7fd3.js",
+    "runtime-3a5b2341.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
     "985-4e3c0cf4.js",
-    "checkout-19cc0d6e.js"
+    "checkout-65948711.js"
   ],
   "css": [
-    "checkout-b57b84f2.css"
+    "checkout-0d103294.css"
   ]
 }

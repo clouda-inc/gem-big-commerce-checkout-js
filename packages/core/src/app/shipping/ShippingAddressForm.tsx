@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Address,
   Consignment,
@@ -10,15 +9,25 @@ import React, { Component, ReactNode } from 'react';
 
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 
-import { AddressType, isEqualAddress, isValidCustomerAddress, StaticAddress } from '../address';
+import {
+  AddressType,
+  isEqualAddress,
+  isValidAddress,
+  isValidCustomerAddress,
+  // isValidCustomerAddress,
+  StaticAddress,
+} from '../address';
 import { connectFormik, ConnectFormikProps } from '../common/form';
+import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
 import { Fieldset } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
 import { updateCustomerAddress } from './querry';
-import shiftGivenAddressToTop from './shiftGivenAddressToTop';
 import { SingleShippingFormValues } from './SingleShippingForm';
+import { addShippingAddress } from './util';
+
+// import shiftGivenAddressToTop from './shiftGivenAddressToTop';
 
 import './ShippingAddressForm.scss';
 
@@ -85,7 +94,8 @@ class ShippingAddressForm extends Component<
     });
 
     this.setState({
-      showAddNewAddress: !isValidCustomerAddress(shippingAddress, addresses, formFields),
+      showAddNewAddress:
+        !isValidAddress(shippingAddress as Address, formFields) && addresses.length === 0,
     });
 
     this.setState({
@@ -209,14 +219,11 @@ class ShippingAddressForm extends Component<
             { ...updateResult, id: updateResult?.entityId },
           ];
 
-          console.log('tt :: ', tt);
-
           this.setState({
             customerAddressList: tt,
           });
-
-          console.log('this.props.addresses : ', this.props.addresses);
         })
+        // eslint-disable-next-line no-console
         .catch((error) => console.error(error));
     };
 
@@ -286,6 +293,84 @@ class ShippingAddressForm extends Component<
       this.setState({ showAddNewAddress: false });
     };
 
+    const handleSelectGoogleEditAddress = (address: any) => {
+      const address1 = address?.name;
+
+      const address2 = address?.vicinity;
+
+      const city = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_2'),
+      )?.long_name;
+
+      const stateOrProvince = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+      );
+
+      const stateOrProvinceCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+      )?.short_name;
+
+      const countryCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'country'),
+      );
+
+      const postalCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'postal_code'),
+      );
+
+      this.setState({
+        editAddress: {
+          ...this.state.editAddress,
+          address1,
+          address2,
+          city,
+          postalCode,
+          countryCode,
+          stateOrProvince,
+          stateOrProvinceCode,
+        },
+      });
+    };
+
+    const handleSelectGoogleNewAddress = (address: any) => {
+      const address1 = address?.name;
+
+      const address2 = address?.vicinity;
+
+      const city = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_2'),
+      )?.long_name;
+
+      const stateOrProvince = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+      )?.long_name;
+
+      const stateOrProvinceCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+      )?.short_name;
+
+      const countryCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'country'),
+      )?.short_name;
+
+      const postalCode = address?.address_components?.find((addressComponent: any) =>
+        addressComponent.types?.find((type: string) => type === 'postal_code'),
+      )?.long_name;
+
+      this.setState({
+        newStateAddress: {
+          ...this.state.newStateAddress,
+          address1,
+          address2,
+          city,
+          countryCode,
+          stateOrProvince,
+          stateOrProvinceCode,
+          postalCode,
+        },
+      });
+    };
+
     return (
       <Fieldset id="checkoutShippingAddress">
         {!showEditAddressModal && hasAddresses && !this.state.showAddNewAddress && (
@@ -301,35 +386,40 @@ class ShippingAddressForm extends Component<
                 </div>
                 <div className="shipping-address-list-container">
                   {this.state.customerAddressList &&
-                    shiftGivenAddressToTop<CustomerAddress>(
-                      this.state.customerAddressList,
-                      shippingAddress as CustomerAddress,
-                    )?.map((address, index: number) => {
-                      return (
-                        <div className="shipping-address" key={index}>
-                          <div className="shipping-address-with-selector">
-                            <div>
-                              <input
-                                checked={!!isEqualAddress(shippingAddress, address)}
-                                className="shipping-address-with-selector-input"
-                                onChange={() => handleSelectAddress(address)}
-                                type="radio"
-                              />
+                    addShippingAddress(shippingAddress, this.state.customerAddressList).map(
+                      (address, index: number) => {
+                        return (
+                          <div className="shipping-address" key={index}>
+                            <div className="shipping-address-with-selector">
+                              <div>
+                                <input
+                                  checked={!!isEqualAddress(shippingAddress, address)}
+                                  className="shipping-address-with-selector-input"
+                                  onChange={() => handleSelectAddress(address)}
+                                  type="radio"
+                                />
+                              </div>
+                              <StaticAddress address={address} type={AddressType.Shipping} />
                             </div>
-                            <StaticAddress address={address} type={AddressType.Shipping} />
+                            {isValidCustomerAddress(
+                              address,
+                              this.state.customerAddressList,
+                              this.props.formFields,
+                            ) && (
+                              <button
+                                className="shipping-address-edit-button"
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  handleEditAddress(address);
+                                }}
+                              >
+                                Edit
+                              </button>
+                            )}
                           </div>
-                          <button
-                            className="shipping-address-edit-button"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              handleEditAddress(address);
-                            }}
-                          >
-                            Edit
-                          </button>
-                        </div>
-                      );
-                    })}
+                        );
+                      },
+                    )}
                 </div>
               </div>
             </LoadingOverlay>
@@ -364,15 +454,30 @@ class ShippingAddressForm extends Component<
                 </div>
               </div>
               <div className="form-field-address1 form-field">
-                <InputField
-                  id="address1"
-                  name="address1"
-                  onChange={(e: { target: { value: any } }) => {
-                    this.setState({ editAddress: { ...editAddress, address1: e.target.value } });
-                  }}
-                  title="Address 1"
-                  value={editAddress?.address1}
-                />
+                {this.props?.googleMapsApiKey ? (
+                  <CustomGoogleAutocomplete
+                    googleMapsApiKey={this.props.googleMapsApiKey}
+                    libraries={['places']}
+                    onAddressSelect={handleSelectGoogleEditAddress}
+                    onChange={(value) => {
+                      this.setState({
+                        editAddress: { ...this?.state?.editAddress, address1: value },
+                      });
+                    }}
+                    title="Address 1"
+                    value={this.state.editAddress.address1}
+                  />
+                ) : (
+                  <InputField
+                    id="address1"
+                    name="address1"
+                    onChange={(e: { target: { value: any } }) => {
+                      this.setState({ editAddress: { ...editAddress, address1: e.target.value } });
+                    }}
+                    title="Address 1"
+                    value={editAddress?.address1}
+                  />
+                )}
               </div>
               <div className="form-field-address2 form-field">
                 <InputField
@@ -381,7 +486,7 @@ class ShippingAddressForm extends Component<
                   onChange={(e: { target: { value: any } }) => {
                     this.setState({ editAddress: { ...editAddress, address2: e.target.value } });
                   }}
-                  title="Address 2"
+                  title="Address 2 (Optional)"
                   value={editAddress?.address2}
                 />
               </div>
@@ -558,7 +663,7 @@ class ShippingAddressForm extends Component<
                         this.setState({ editStateAddressError: { field: 'phone', error: true } });
                       }
                     }}
-                    title="Phone"
+                    title="Phone (Optional)"
                     value={editAddress.phone}
                   />
                   {this.state.editStateAddressError?.field === 'phone' &&
@@ -655,27 +760,43 @@ class ShippingAddressForm extends Component<
                   </div>
                 </div>
                 <div className="form-field-address1 form-field">
-                  <InputField
-                    id="address1"
-                    name="address1"
-                    onChange={(e: { target: { value: any } }) => {
-                      if (
-                        this.state.newStateAddressError?.field === 'address1' &&
-                        this.state.newStateAddressError?.error === true
-                      ) {
-                        this.setState({ newStateAddressError: { field: '', error: false } });
-                      }
+                  {this?.props?.googleMapsApiKey ? (
+                    <CustomGoogleAutocomplete
+                      googleMapsApiKey={this.props.googleMapsApiKey}
+                      libraries={['places']}
+                      onAddressSelect={handleSelectGoogleNewAddress}
+                      onChange={(value) => {
+                        this.setState({
+                          editAddress: { ...this?.state?.newStateAddress, address1: value },
+                        });
+                      }}
+                      title="Address 1"
+                      value={this.state.newStateAddress.address1}
+                    />
+                  ) : (
+                    <InputField
+                      id="address1"
+                      name="address1"
+                      onChange={(e: { target: { value: any } }) => {
+                        if (
+                          this.state.newStateAddressError?.field === 'address1' &&
+                          this.state.newStateAddressError?.error === true
+                        ) {
+                          this.setState({ newStateAddressError: { field: '', error: false } });
+                        }
 
-                      this.setState({
-                        newStateAddress: {
-                          ...this.state.newStateAddress,
-                          address1: e.target.value,
-                        },
-                      });
-                    }}
-                    title="Address line 1"
-                    value={this.state.newStateAddress?.address1}
-                  />
+                        this.setState({
+                          newStateAddress: {
+                            ...this.state.newStateAddress,
+                            address1: e.target.value,
+                          },
+                        });
+                      }}
+                      title="Address 1"
+                      value={this.state.newStateAddress?.address1}
+                    />
+                  )}
+
                   {this.state.newStateAddressError?.field === 'address1' &&
                     this.state.newStateAddressError.error && (
                       <div className="form-field-error-msg">Address 1 is a Requied field</div>
@@ -693,7 +814,7 @@ class ShippingAddressForm extends Component<
                         },
                       });
                     }}
-                    title="Address line 2"
+                    title="Address line 2 (Optional)"
                     value={this.state.newStateAddress?.address2}
                   />
                 </div>
@@ -923,7 +1044,7 @@ class ShippingAddressForm extends Component<
                           this.setState({ newStateAddressError: { field: 'phone', error: true } });
                         }
                       }}
-                      title="Phone"
+                      title="Phone (Optional)"
                       value={this.state.newStateAddress?.phone}
                     />
                     {this.state.newStateAddressError?.field === 'phone' &&
