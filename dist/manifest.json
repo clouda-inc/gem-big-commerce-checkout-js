@@ -12,15 +12,15 @@
       "discount-code-c25feecc.js",
       "order-comment-9c1cbca6.js",
       "payment-c7412640.js",
-      "shipping-073d8470.js"
+      "shipping-752f046a.js"
     ],
     "css": [
       "billing-49faf9f9.css",
       "cart-summary-wrapper-65e3040e.css",
-      "discount-code-bbc46adb.css",
-      "order-comment-7896c00b.css",
+      "discount-code-a207f92d.css",
+      "order-comment-6e4e6f2d.css",
       "payment-0037a6b1.css",
-      "shipping-038aa511.css"
+      "shipping-973f5207.css"
     ],
     "png": [
       "static/GIA-certificate-2a4cafcf.png",
@@ -32,7 +32,7 @@
     ]
   },
   "js": [
-    "runtime-3a5b2341.js",
+    "runtime-d23e2527.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",

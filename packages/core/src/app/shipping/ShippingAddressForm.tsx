@@ -222,11 +222,11 @@ class ShippingAddressForm extends Component<
 
           console.log('tt', tt);
 
-          // this.setState({
-          //   customerAddressList: tt,
-          // });
+          this.setState({
+            customerAddressList: tt,
+          });
         })
-        // eslint-disable-next-line no-console
+
         .catch((error) => console.error(error));
     };
 
