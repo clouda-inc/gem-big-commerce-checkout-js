@@ -8,8 +8,16 @@
   background-color: #e7e7e7;
 }
 
+.discount-code-container {
+  padding-bottom: 1.5rem;
+  border-right: 1px solid #edeff8;
+  border-bottom: 1px solid #edeff8;
+  border-left: 1px solid #edeff8;
+  border-radius: 0px 0px 4px 4px;
+}
+
 .discount-code-input-wrapper {
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 0rem 1.5rem;
   display: flex;
   width: 100%;
   column-gap: 0.5rem;

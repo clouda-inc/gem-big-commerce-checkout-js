@@ -279,6 +279,18 @@ input:focus-visible {
   border-radius: 4px;
 }
 
+.checkout-step--payment
+  .optimizedCheckout-form-checklist-item
+  .form-checklist-checkbox:focus
+  ~ .form-label {
+  outline: none;
+  box-shadow: none;
+}
+
+.checkout-step--payment .checkout-view-content .form-checklist {
+  border-radius: 0 0 4px 4px;
+}
+
 .sign-up-modal-error {
   color: #ff0000;
   font-size: 0.875rem;

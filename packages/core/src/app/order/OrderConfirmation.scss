@@ -3,6 +3,31 @@
   padding: 0;
 }
 
+.order-confirmation-loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-confirmation-loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-confirmation-loading-text {
+  color: #4f4f4f;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding-top: 2rem;
+}
+
 .order-confirmation {
   display: flex;
   flex-direction: column;

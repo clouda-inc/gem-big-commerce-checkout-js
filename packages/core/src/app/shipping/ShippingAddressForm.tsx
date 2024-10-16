@@ -10,14 +10,7 @@ import React, { Component, ReactNode } from 'react';
 
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 
-import {
-  AddressType,
-  isEqualAddress,
-  isValidAddress,
-  isValidCustomerAddress,
-  // isValidCustomerAddress,
-  StaticAddress,
-} from '../address';
+import { AddressType, isEqualAddress, isValidAddress, StaticAddress } from '../address';
 import { connectFormik, ConnectFormikProps } from '../common/form';
 import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
@@ -27,8 +20,6 @@ import { LoadingOverlay } from '../ui/loading';
 import { updateCustomerAddress } from './querry';
 import { SingleShippingFormValues } from './SingleShippingForm';
 import { addShippingAddress } from './util';
-
-// import shiftGivenAddressToTop from './shiftGivenAddressToTop';
 
 import './ShippingAddressForm.scss';
 
@@ -213,18 +204,36 @@ class ShippingAddressForm extends Component<
             true,
           );
 
-          const tt = [
-            ...(this.state.customerAddressList ?? []).filter(
-              (address) => address?.id !== editAddress?.id,
-            ),
-            { ...updateResult, id: updateResult?.entityId },
+          const updatedAddress = {
+            ...updateResult,
+            id: updateResult?.entityId,
+          };
+
+          console.log('updatedAddress', updatedAddress);
+
+          const newCustomerAddressList = [
+            {
+              address1: updatedAddress?.address1,
+              address2: updatedAddress?.address2,
+              city: updatedAddress?.city,
+              company: updatedAddress?.company,
+              country: updatedAddress?.country,
+              countryCode: updatedAddress?.countryCode,
+              customFields: [],
+              firstName: updatedAddress?.firstName,
+              id: updatedAddress?.entityId,
+              lastName: updatedAddress?.lastName,
+              phone: updatedAddress?.phone,
+              postalCode: updatedAddress?.postalCode,
+              shouldSaveAddress: updatedAddress?.shouldSaveAddress,
+              stateOrProvince: updatedAddress?.stateOrProvince,
+              stateOrProvinceCode: updatedAddress?.stateOrProvinceCode,
+              type: updatedAddress?.type,
+            },
+            ...this.props.addresses.filter((address) => address?.id !== editAddress?.id),
           ];
 
-          console.log('tt', tt);
-
-          this.setState({
-            customerAddressList: tt,
-          });
+          this.setState({ customerAddressList: newCustomerAddressList });
         })
 
         .catch((error) => console.error(error));
@@ -307,7 +316,7 @@ class ShippingAddressForm extends Component<
 
       const stateOrProvince = address?.address_components?.find((addressComponent: any) =>
         addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
-      );
+      )?.long_name;
 
       const stateOrProvinceCode = address?.address_components?.find((addressComponent: any) =>
         addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
@@ -315,11 +324,11 @@ class ShippingAddressForm extends Component<
 
       const countryCode = address?.address_components?.find((addressComponent: any) =>
         addressComponent.types?.find((type: string) => type === 'country'),
-      );
+      )?.short_name;
 
       const postalCode = address?.address_components?.find((addressComponent: any) =>
         addressComponent.types?.find((type: string) => type === 'postal_code'),
-      );
+      )?.long_name;
 
       this.setState({
         editAddress: {
@@ -404,11 +413,7 @@ class ShippingAddressForm extends Component<
                               </div>
                               <StaticAddress address={address} type={AddressType.Shipping} />
                             </div>
-                            {isValidCustomerAddress(
-                              address,
-                              this.state.customerAddressList,
-                              this.props.formFields,
-                            ) && (
+                            {address?.id && (
                               <button
                                 className="shipping-address-edit-button"
                                 onClick={(event) => {

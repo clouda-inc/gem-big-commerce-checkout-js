@@ -75,7 +75,7 @@ class DiscountCode extends Component<
       <div className='checkout-discount-wrapper"'>
         <div className="discount-code">
           {this.props.checkout && (
-            <div>
+            <div className="discount-code-container">
               <div className="discount-code-label">
                 <div
                   style={{
@@ -179,7 +179,7 @@ class DiscountCode extends Component<
                     color: 'red',
                     fontSize: '10px',
                     paddingLeft: '1.5rem',
-                    paddingBottom: '1.5rem',
+                    paddingTop: '0.5rem',
                     paddingRight: '1.5rem',
                   }}
                 >
