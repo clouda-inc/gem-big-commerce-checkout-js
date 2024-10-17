@@ -60,8 +60,7 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
   }
 
   render(): ReactNode {
-    const { heading, isActive, isComplete, isEditable, onEdit, suggestion, summary, type } =
-      this.props;
+    const { heading, isActive, isComplete, isEditable, suggestion, summary, type } = this.props;
 
     const { isClosed } = this.state;
 
@@ -78,9 +77,9 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
             isActive={isActive}
             isComplete={isComplete}
             isEditable={isEditable}
-            onEdit={onEdit}
+            // onEdit={onEdit}
             summary={summary}
-            type={type}
+            // type={type}
           />
         </div>
 

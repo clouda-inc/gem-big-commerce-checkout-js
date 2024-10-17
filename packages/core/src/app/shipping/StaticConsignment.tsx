@@ -1,6 +1,8 @@
 import { Cart, Consignment } from '@bigcommerce/checkout-sdk';
+import { noop } from 'lodash';
 import React, { FunctionComponent, memo } from 'react';
 
+import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import {
   isPayPalFastlaneAddress,
   PoweredByPayPalFastlaneLabel,
@@ -10,19 +12,26 @@ import {
 import { AddressType, StaticAddress } from '../address';
 
 import { StaticShippingOption } from './shippingOption';
-import './StaticConsignment.scss';
 import StaticConsignmentItemList from './StaticConsignmentItemList';
+
+import './StaticConsignment.scss';
 
 interface StaticConsignmentProps {
   consignment: Consignment;
   cart: Cart;
   compactView?: boolean;
+  isEditable: boolean;
+  onEdit: any;
+  type: any;
 }
 
 const StaticConsignment: FunctionComponent<StaticConsignmentProps> = ({
   consignment,
   cart,
   compactView,
+  isEditable,
+  onEdit,
+  type,
 }) => {
   const { paypalFastlaneAddresses } = usePayPalFastlaneAddress();
   const { shippingAddress: address, selectedShippingOption } = consignment;
@@ -34,7 +43,14 @@ const StaticConsignment: FunctionComponent<StaticConsignmentProps> = ({
         <div className="address-title">Shipping Address</div>
         <div className="static-consignment-address-container">
           <StaticAddress address={address} type={AddressType.Shipping} />
-          <div className="static-consignment-address-change">Change</div>
+          {isEditable && (
+            <div
+              className="static-consignment-address-change"
+              onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+            >
+              Change
+            </div>
+          )}
         </div>
       </div>
 

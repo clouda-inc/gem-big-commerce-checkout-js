@@ -14,7 +14,6 @@ import { usePayPalFastlaneAddress } from '@bigcommerce/checkout/paypal-fastlane-
 import { AddressFormSkeleton } from '@bigcommerce/checkout/ui';
 
 import {
-  // AddressForm,
   AddressFormValues,
   getAddressFormFieldsValidationSchema,
   getTranslateAddressError,
@@ -23,6 +22,8 @@ import {
   mapAddressToFormValues,
   StaticAddress,
 } from '../address';
+import CheckoutStepType from '../checkout/CheckoutStepType';
+import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
 import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { Button, ButtonVariant } from '../ui/button';
@@ -34,6 +35,12 @@ import StaticBillingAddress from './StaticBillingAddress';
 import './BillingForm.scss';
 
 export type BillingFormValues = AddressFormValues & { orderComment: string };
+
+interface InputFieldErrorType {
+  input: string;
+  error: boolean;
+  type: 'validationMessage' | 'noError';
+}
 
 export interface BillingFormProps {
   billingAddress?: any;
@@ -55,7 +62,7 @@ export interface BillingFormProps {
 }
 
 const BillingForm = ({
-  // googleMapsApiKey,
+  googleMapsApiKey,
   billingAddress,
   countries,
   isUpdating,
@@ -83,6 +90,12 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
   });
 
   const [billingAddressFromProps, setBillingAddressFromProps] = useState<Address>(billingAddress);
+
+  const [inputError, setInputError] = useState<InputFieldErrorType>({
+    input: '',
+    error: false,
+    type: 'noError',
+  });
 
   const billingAddressesToShow = [{ ...selectedShippingAddress }, { ...tempBillingAddress }].filter(
     (addres) =>
@@ -155,6 +168,10 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
   const handleSaveTempAddress = (e: any) => {
     e.preventDefault();
 
+    if (inputError?.error) {
+      return;
+    }
+
     const add = {
       ...tempBillingAddress,
       country: countries.find((country) => country.code === tempBillingAddress.countryCode)?.name,
@@ -177,13 +194,53 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
     setOpenEdit(false);
   };
 
+  const handleSelectGoogleNewAddress = (address: any) => {
+    const address1 = address?.name;
+
+    const address2 = address?.vicinity;
+
+    const city = address?.address_components?.find((addressComponent: any) =>
+      addressComponent.types?.find((type: string) => type === 'administrative_area_level_2'),
+    )?.long_name;
+
+    const stateOrProvince = address?.address_components?.find((addressComponent: any) =>
+      addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+    )?.long_name;
+
+    const stateOrProvinceCode = address?.address_components?.find((addressComponent: any) =>
+      addressComponent.types?.find((type: string) => type === 'administrative_area_level_1'),
+    )?.short_name;
+
+    const countryCode = address?.address_components?.find((addressComponent: any) =>
+      addressComponent.types?.find((type: string) => type === 'country'),
+    )?.short_name;
+
+    const postalCode = address?.address_components?.find((addressComponent: any) =>
+      addressComponent.types?.find((type: string) => type === 'postal_code'),
+    )?.long_name;
+
+    setTempBillingAddress({
+      ...tempBillingAddress,
+      address1,
+      address2,
+      city,
+      stateOrProvince,
+      stateOrProvinceCode,
+      countryCode,
+      postalCode,
+    });
+  };
+
   return (
     <Form autoComplete="on" className="billing-address-form">
       {shouldRenderStaticAddress && billingAddress && (
         <div className="form-fieldset">
           <StaticBillingAddress
             address={billingAddress}
+            isEditable={false}
+            onEdit={() => {}}
             showSameAsShippingLable={isEqualAddress(billingAddress, selectedShippingAddress)}
+            type={CheckoutStepType?.Billing}
           />
         </div>
       )}
@@ -270,15 +327,28 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                   </div>
                 </div>
                 <div className="temp-billing-address1-container">
-                  <InputField
-                    id="address1"
-                    name="address1"
-                    onChange={(e: { target: { value: any } }) =>
-                      setTempBillingAddress({ ...tempBillingAddress, address1: e.target.value })
-                    }
-                    title="Address"
-                    value={tempBillingAddress.address1}
-                  />
+                  {googleMapsApiKey ? (
+                    <CustomGoogleAutocomplete
+                      googleMapsApiKey={googleMapsApiKey}
+                      libraries={['places']}
+                      onAddressSelect={handleSelectGoogleNewAddress}
+                      onChange={(value) => {
+                        setTempBillingAddress({ ...tempBillingAddress, address1: value });
+                      }}
+                      title="Address 1"
+                      value={tempBillingAddress?.address1 ?? ''}
+                    />
+                  ) : (
+                    <InputField
+                      id="address1"
+                      name="address1"
+                      onChange={(e: { target: { value: any } }) =>
+                        setTempBillingAddress({ ...tempBillingAddress, address1: e.target.value })
+                      }
+                      title="Address"
+                      value={tempBillingAddress.address1}
+                    />
+                  )}
                 </div>
                 <div className="temp-billing-address2-container">
                   <InputField
@@ -309,8 +379,10 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                 <div className="temp-billing-address-state-city-container">
                   <div className="temp-billing-address-state">
                     {(
-                      countries?.find((c) => c.code === tempBillingAddress.countryCode)
-                        ?.subdivisions ?? []
+                      (countries?.find((c) => c.code === tempBillingAddress.countryCode) &&
+                        countries?.find((c) => c.code === tempBillingAddress.countryCode)
+                          ?.subdivisions) ??
+                      []
                     )?.length > 0 ? (
                       <div className="temp-billing-address-state-container">
                         <select
@@ -367,23 +439,66 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     <InputField
                       id="postalCode"
                       name="postalCode"
-                      onChange={(e: { target: { value: any } }) =>
-                        setTempBillingAddress({ ...tempBillingAddress, postalCode: e.target.value })
-                      }
+                      onChange={(e: { target: { value: any } }) => {
+                        const value = e.target.value;
+                        const pattern = /^[#.0-9a-zA-Z\s-]{4,12}$/;
+
+                        if (!pattern.test(value)) {
+                          setInputError({
+                            input: 'postalCode',
+                            error: true,
+                            type: 'validationMessage',
+                          });
+                        } else {
+                          setInputError({
+                            input: 'postalCode',
+                            error: false,
+                            type: 'noError',
+                          });
+                        }
+
+                        setTempBillingAddress({
+                          ...tempBillingAddress,
+                          postalCode: value,
+                        });
+                      }}
                       title="Postal Code"
                       value={tempBillingAddress.postalCode}
                     />
+                    {inputError.input === 'postalCode' && inputError.error && (
+                      <div className="form-field-error-message">Enter a valid postal code</div>
+                    )}
                   </div>
                   <div className="temp-billing-address-phone-container">
                     <InputField
                       id="phone"
                       name="phone"
                       onChange={(e: { target: { value: any } }) => {
-                        setTempBillingAddress({ ...tempBillingAddress, phone: e.target.value });
+                        const value = e.target.value;
+                        const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
+
+                        setTempBillingAddress({ ...tempBillingAddress, phone: value });
+
+                        if (!pattern.test(value)) {
+                          setInputError({
+                            input: 'phone',
+                            error: true,
+                            type: 'validationMessage',
+                          });
+                        } else {
+                          setInputError({
+                            input: 'phone',
+                            error: false,
+                            type: 'noError',
+                          });
+                        }
                       }}
                       title="Phone"
                       value={tempBillingAddress.phone}
                     />
+                    {inputError.input === 'phone' && inputError.error && (
+                      <div className="form-field-error-message">Enter a valid phone number</div>
+                    )}
                   </div>
                 </div>
                 <div className="temp-billing-address-button-container">

@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import { noop } from 'lodash';
+// import { noop } from 'lodash';
 import React, { FunctionComponent, memo, ReactNode } from 'react';
 
-import { preventDefault } from '@bigcommerce/checkout/dom-utils';
+// import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 // import { TranslatedString } from '@bigcommerce/checkout/locale';
 
 // import { Button, ButtonSize, ButtonVariant } from '../ui/button';
 import { IconCheck } from '../ui/icon';
 
-import CheckoutStepType from './CheckoutStepType';
+// import CheckoutStepType from './CheckoutStepType';
 import './CheckoutStepHeader.scss';
 
 export interface CheckoutStepHeaderProps {
@@ -17,8 +17,8 @@ export interface CheckoutStepHeaderProps {
   isComplete?: boolean;
   isEditable?: boolean;
   summary?: ReactNode;
-  type: CheckoutStepType;
-  onEdit?(type: CheckoutStepType): void;
+  // type: CheckoutStepType;
+  // onEdit?(type: CheckoutStepType): void;
 }
 
 const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
@@ -26,17 +26,17 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
   isActive,
   isComplete,
   isEditable,
-  onEdit,
+  // onEdit,
   summary,
-  type,
+  // type,
 }) => {
   return (
     <div
       className={classNames('stepHeader checkout-summary-wrapper ', {
         'is-readonly': !isEditable,
-        'is-clickable': isEditable && !isActive,
+        'is-summary': isEditable && !isActive,
       })}
-      onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+      // onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
     >
       {/** Heading of the checkout components - start */}
       <div className="stepHeader-figure stepHeader-column checkout-summary-heading">

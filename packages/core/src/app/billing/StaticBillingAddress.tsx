@@ -1,6 +1,8 @@
 import { Address, CheckoutPayment, FormField } from '@bigcommerce/checkout-sdk';
+import { noop } from 'lodash';
 import React, { FunctionComponent, memo } from 'react';
 
+import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
 import {
@@ -11,6 +13,7 @@ import {
 
 import { AddressType, StaticAddress } from '../address';
 import { withCheckout } from '../checkout';
+import CheckoutStepType from '../checkout/CheckoutStepType';
 import { EMPTY_ARRAY } from '../common/utility';
 
 import './StaticBillingAddress.scss';
@@ -18,6 +21,9 @@ import './StaticBillingAddress.scss';
 export interface StaticBillingAddressProps {
   address: Address;
   showSameAsShippingLable: boolean;
+  isEditable: boolean;
+  onEdit: any;
+  type: CheckoutStepType;
 }
 
 interface WithCheckoutStaticBillingAddressProps {
@@ -27,7 +33,7 @@ interface WithCheckoutStaticBillingAddressProps {
 
 const StaticBillingAddress: FunctionComponent<
   StaticBillingAddressProps & WithCheckoutStaticBillingAddressProps
-> = ({ address, payments = EMPTY_ARRAY, showSameAsShippingLable }) => {
+> = ({ address, payments = EMPTY_ARRAY, showSameAsShippingLable, isEditable, onEdit, type }) => {
   const { paypalFastlaneAddresses } = usePayPalFastlaneAddress();
   const showPayPalFastlaneLabel = isPayPalFastlaneAddress(address, paypalFastlaneAddresses);
 
@@ -46,7 +52,15 @@ const StaticBillingAddress: FunctionComponent<
         <div className="static-billing-address-container">
           <StaticAddress address={address} type={AddressType.Billing} />
           <div className="static-billing-address-label-container">
-            <div className="static-billing-address-change">Change</div>
+            {isEditable && (
+              <div
+                className="static-billing-address-change"
+                onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+              >
+                Change
+              </div>
+            )}
+
             {showSameAsShippingLable && (
               <div className="static-billing-address-same">Same as shipping address</div>
             )}

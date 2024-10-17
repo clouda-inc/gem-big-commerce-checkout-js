@@ -153,6 +153,12 @@ class ShippingAddressForm extends Component<
     const onSubmit = (e: any) => {
       e.preventDefault();
 
+      const { editStateAddressError } = this.state;
+
+      if (editStateAddressError?.error) {
+        return;
+      }
+
       const variable = {
         addressEntityId: editAddress?.id,
         address1: editAddress?.address1,
@@ -204,31 +210,24 @@ class ShippingAddressForm extends Component<
             true,
           );
 
-          const updatedAddress = {
-            ...updateResult,
-            id: updateResult?.entityId,
-          };
-
-          console.log('updatedAddress', updatedAddress);
-
           const newCustomerAddressList = [
             {
-              address1: updatedAddress?.address1,
-              address2: updatedAddress?.address2,
-              city: updatedAddress?.city,
-              company: updatedAddress?.company,
-              country: updatedAddress?.country,
-              countryCode: updatedAddress?.countryCode,
+              address1: updateResult?.address1 ?? '',
+              address2: updateResult?.address2 ?? '',
+              city: updateResult?.city ?? '',
+              company: updateResult?.company ?? '',
+              country: updateResult?.country ?? '',
+              countryCode: updateResult?.countryCode ?? '',
               customFields: [],
-              firstName: updatedAddress?.firstName,
-              id: updatedAddress?.entityId,
-              lastName: updatedAddress?.lastName,
-              phone: updatedAddress?.phone,
-              postalCode: updatedAddress?.postalCode,
-              shouldSaveAddress: updatedAddress?.shouldSaveAddress,
-              stateOrProvince: updatedAddress?.stateOrProvince,
-              stateOrProvinceCode: updatedAddress?.stateOrProvinceCode,
-              type: updatedAddress?.type,
+              firstName: updateResult?.firstName ?? '',
+              id: updateResult?.entityId,
+              lastName: updateResult?.lastName ?? '',
+              phone: updateResult?.phone ?? '',
+              postalCode: updateResult?.postalCode ?? '',
+              shouldSaveAddress: updateResult?.shouldSaveAddress ?? '',
+              stateOrProvince: updateResult?.stateOrProvince ?? '',
+              stateOrProvinceCode: updateResult?.stateOrProvinceCode ?? '',
+              type: updateResult?.type ?? '',
             },
             ...this.props.addresses.filter((address) => address?.id !== editAddress?.id),
           ];
@@ -241,6 +240,12 @@ class ShippingAddressForm extends Component<
 
     const handleCreateNewAddress = (e: any) => {
       e.preventDefault();
+
+      const { newStateAddressError } = this.state;
+
+      if (newStateAddressError?.error) {
+        return;
+      }
 
       const validFirstName = this.state.newStateAddress?.firstName;
       const validLastName = this.state.newStateAddress?.lastName;
@@ -369,6 +374,11 @@ class ShippingAddressForm extends Component<
         addressComponent.types?.find((type: string) => type === 'postal_code'),
       )?.long_name;
 
+      console.log(
+        'countries?.find((c) => c.code === this.state.newStateAddress?.countryCode) ; ',
+        !countries?.find((c) => c.code === countryCode),
+      );
+
       this.setState({
         newStateAddress: {
           ...this.state.newStateAddress,
@@ -435,7 +445,6 @@ class ShippingAddressForm extends Component<
         )}
         {showEditAddressModal && !this.state.showAddNewAddress && (
           <div className="edit-shipping-address-form">
-            <div className="edit-shipping-address-title">Edit Shipping Address</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.875rem' }}>
               <div className="form-field-name-container">
                 <div className="form-field-first-name form-field">
@@ -541,9 +550,12 @@ class ShippingAddressForm extends Component<
               </div>
               <div className="form-field-stateOrProvince-city-container">
                 <div className="form-field-stateOrProvince form-field">
-                  {this.props.countries &&
+                  {countries &&
+                  !!countries.find(
+                    (country) => country?.code === this.state.editAddress?.countryCode,
+                  ) &&
                   (
-                    this.props.countries.find(
+                    countries.find(
                       (country) => country?.code === this.state.editAddress?.countryCode,
                     )?.subdivisions ?? []
                   )?.length > 0 ? (
@@ -562,7 +574,7 @@ class ShippingAddressForm extends Component<
                         }}
                         value={
                           (
-                            this.props.countries.find(
+                            countries.find(
                               (country) => country?.code === this.state.editAddress?.countryCode,
                             )?.subdivisions ?? []
                           ).find(
@@ -572,7 +584,7 @@ class ShippingAddressForm extends Component<
                         }
                       >
                         {(
-                          this.props.countries.find(
+                          countries.find(
                             (country) => country?.code === this.state.editAddress?.countryCode,
                           )?.subdivisions ?? []
                         ).map((stateOrProvince) => {
@@ -774,7 +786,6 @@ class ShippingAddressForm extends Component<
                       libraries={['places']}
                       onAddressSelect={handleSelectGoogleNewAddress}
                       onChange={(value) => {
-                        // eslint-disable-next-line no-console
                         console.log('value : ', value);
                         this.setState({
                           newStateAddress: { ...this?.state?.newStateAddress, address1: value },
@@ -886,6 +897,7 @@ class ShippingAddressForm extends Component<
                       <div className="form-field-error-msg">Country is a Requied field</div>
                     )}
                 </div>
+
                 <div className="form-field-stateOrProvince-city-container">
                   <div className="form-field-stateOrProvince form-field">
                     {countries &&
@@ -950,6 +962,31 @@ class ShippingAddressForm extends Component<
                           value={this.state.newStateAddress?.stateOrProvince}
                         />
                       ))}
+                    {!countries?.find(
+                      (c) => c.code === this.state.newStateAddress?.countryCode,
+                    ) && (
+                      <InputField
+                        id="stateOrProvince"
+                        name="stateOrProvince"
+                        onChange={(e: { target: { value: any } }) => {
+                          if (
+                            this.state.newStateAddressError?.field === 'stateOrProvince' &&
+                            this.state.newStateAddressError?.error === true
+                          ) {
+                            this.setState({ newStateAddressError: { field: '', error: false } });
+                          }
+
+                          this.setState({
+                            newStateAddress: {
+                              ...this.state.newStateAddress,
+                              stateOrProvince: e.target.value,
+                            },
+                          });
+                        }}
+                        title="State or province"
+                        value={this.state.newStateAddress?.stateOrProvince}
+                      />
+                    )}
                     {this.state.newStateAddressError?.field === 'stateOrProvince' &&
                       this.state.newStateAddressError.error && (
                         <div className="form-field-error-msg">

@@ -569,6 +569,9 @@ class Checkout extends Component<
               cart={cart}
               compactView={consignments.length < 2}
               consignment={consignment}
+              isEditable={step.isEditable}
+              onEdit={this.handleEditStep}
+              type={step.type}
             />
           </div>
         ))}
@@ -605,10 +608,13 @@ class Checkout extends Component<
           billingAddress && (
             <StaticBillingAddress
               address={billingAddress}
+              isEditable={step.isEditable}
+              onEdit={this.handleEditStep}
               showSameAsShippingLable={isEqualAddress(
                 billingAddress,
                 (consignments ?? [])[0]?.shippingAddress,
               )}
+              type={step.type}
             />
           )
         }
