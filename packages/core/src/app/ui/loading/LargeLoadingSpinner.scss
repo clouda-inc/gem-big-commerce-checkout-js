@@ -1,0 +1,21 @@
+.large-loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.large-loading-spinner {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  border: 16px solid;
+  border-color: #d9d9d9;
+  border-right-color: #024f60;
+  animation: spinner-d3wgkg 1s infinite linear;
+}
+
+@keyframes spinner-d3wgkg {
+  to {
+    transform: rotate(1turn);
+  }
+}

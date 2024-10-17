@@ -1,0 +1,9 @@
+.order-item {
+  width: 100%;
+}
+
+.order-item-physical-item-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}

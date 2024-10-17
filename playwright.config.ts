@@ -38,12 +38,7 @@ const config: PlaywrightTestConfig = {
     forbidOnly: true,
     retries: 3,
     workers: process.env.IS_CI ? 3 : undefined,
-    reporter: [
-        [
-            'html',
-            { outputFolder: './packages/test-framework/report', open: 'never' },
-        ],
-    ],
+    reporter: [['html', { outputFolder: './packages/test-framework/report', open: 'never' }]],
     use: {
         baseURL: `http://localhost:${process.env.PORT}`,
         screenshot: 'only-on-failure',
