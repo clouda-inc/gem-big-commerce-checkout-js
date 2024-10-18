@@ -80,16 +80,18 @@ class OrderComment extends Component<
                     <div className="order-comment-input-lable">
                       <TranslatedString id="cart.orderComment.placeholder" />
                     </div>
-                    <textarea
-                      className="order-comment-input"
-                      cols={30}
-                      disabled={this.props.isLoading}
-                      onChange={(e) => {
-                        this.setState({ comment: e.target.value });
-                      }}
-                      rows={5}
-                      value={this.state.comment}
-                    />
+                    <div className="order-comment-input-textarea">
+                      <textarea
+                        className="order-comment-input"
+                        cols={30}
+                        disabled={this.props.isLoading}
+                        onChange={(e) => {
+                          this.setState({ comment: e.target.value });
+                        }}
+                        rows={5}
+                        value={this.state.comment}
+                      />
+                    </div>
                   </div>
                   <div>
                     <button
@@ -111,13 +113,15 @@ class OrderComment extends Component<
                   <div className="order-comment-input-lable">
                     <TranslatedString id="cart.orderComment.placeholder" />
                   </div>
-                  <textarea
-                    className="order-comment-value"
-                    cols={30}
-                    disabled
-                    rows={5}
-                    value={this.state.comment}
-                  />
+                  <div className="order-comment-input-textarea">
+                    <textarea
+                      className="order-comment-value"
+                      cols={30}
+                      disabled
+                      rows={5}
+                      value={this.state.comment}
+                    />
+                  </div>
                 </div>
                 <div className="order-comment-value-action-container">
                   <button
@@ -144,16 +148,18 @@ class OrderComment extends Component<
                     <div className="order-comment-input-lable">
                       <TranslatedString id="cart.orderComment.placeholder" />
                     </div>
-                    <textarea
-                      className="order-comment-input"
-                      cols={30}
-                      disabled={this.props.isLoading}
-                      onChange={(e) => {
-                        this.setState({ comment: e.target.value });
-                      }}
-                      rows={5}
-                      value={this.state.comment}
-                    />
+                    <div className="order-comment-input-textarea">
+                      <textarea
+                        className="order-comment-input"
+                        cols={30}
+                        disabled={this.props.isLoading}
+                        onChange={(e) => {
+                          this.setState({ comment: e.target.value });
+                        }}
+                        rows={5}
+                        value={this.state.comment}
+                      />
+                    </div>
                   </div>
                   <div>
                     <button

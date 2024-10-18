@@ -97,7 +97,7 @@
   border-radius: 4px;
   border: 1px solid var(--Dark-Dark-1, #b2bcca);
   background: #fff;
-  color: var(--Dark-Dark-3, #4f4f4f);
+  color: #828282;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -161,6 +161,7 @@
   text-transform: capitalize;
   text-decoration: underline;
   cursor: pointer;
+  height: fit-content;
 }
 
 .billing-address-input {
@@ -195,4 +196,17 @@
   flex-direction: row;
   column-gap: 1rem;
   align-items: center;
+}
+
+.temp-billing-address-country-select:-webkit-autofill,
+.temp-billing-address-country-select:-webkit-autofill:hover,
+.temp-billing-address-country-select:-webkit-autofill:focus,
+.temp-billing-address-country-select:-webkit-autofill:active,
+.temp-billing-address-state-select:-webkit-autofill,
+.temp-billing-address-state-select:-webkit-autofill:hover,
+.temp-billing-address-state-select:-webkit-autofill:focus,
+.temp-billing-address-state-select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
 }

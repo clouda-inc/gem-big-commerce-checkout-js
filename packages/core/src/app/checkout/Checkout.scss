@@ -322,3 +322,8 @@ input:focus-visible {
   color: #fff;
   opacity: 0.9;
 }
+
+.form-checklist-checkbox:focus ~ .form-label {
+  box-shadow: none;
+  outline: none;
+}

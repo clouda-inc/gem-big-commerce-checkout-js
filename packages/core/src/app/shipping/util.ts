@@ -14,7 +14,12 @@ export const addShippingAddress = (shippingAddress: any, addressList: any[]) => 
   let addressTemp = addressList;
 
   if (similarAddress) {
-    addressTemp = [...addressList];
+    addressTemp = [
+      similarAddress,
+      ...addressList.filter(
+        (address: any) => JSON.stringify(address) !== JSON.stringify(similarAddress),
+      ),
+    ];
   } else {
     addressTemp = [shippingAddress, ...addressList];
   }
@@ -23,7 +28,7 @@ export const addShippingAddress = (shippingAddress: any, addressList: any[]) => 
 };
 
 export const getAddressString = (address: Address) => {
-  return `${address.address1} ${address.address2} ${address.city} ${address.stateOrProvince} ${address.countryCode} ${address.postalCode}`;
+  return `${address?.firstName} ${address?.lastName} ${address.address1} ${address.address2} ${address.city} ${address.stateOrProvince} ${address.countryCode} ${address.postalCode}`;
 };
 
 export const compareAddress = (address1: string, address2: string) => {

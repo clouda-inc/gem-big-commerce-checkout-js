@@ -63,3 +63,12 @@
   top: -11px;
   padding: 0 8px;
 }
+
+.input-field-input:-webkit-autofill,
+.input-field-input:-webkit-autofill:hover,
+.input-field-input:-webkit-autofill:focus,
+.input-field-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
+}

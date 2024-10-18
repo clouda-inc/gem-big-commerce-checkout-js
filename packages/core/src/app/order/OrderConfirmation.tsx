@@ -18,7 +18,7 @@ import { withCheckout } from '../checkout';
 import { ErrorModal } from '../common/error';
 import { EmbeddedCheckoutStylesheet, isEmbedded } from '../embeddedCheckout';
 import { CreatedCustomer, SignUpFormValues } from '../guestSignup';
-import LargeLoadingSpinner from '../ui/loading/LargeLoadingSpinner';
+import { LargeLoadingSpinner } from '../ui/loading';
 
 import { OrderBillingSummary, OrderReviewSection } from './customSections';
 import ThankYouHeader from './ThankYouHeader';

@@ -479,12 +479,20 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
 
                         setTempBillingAddress({ ...tempBillingAddress, phone: value });
 
-                        if (!pattern.test(value)) {
-                          setInputError({
-                            input: 'phone',
-                            error: true,
-                            type: 'validationMessage',
-                          });
+                        if (value.length > 0) {
+                          if (!pattern.test(value)) {
+                            setInputError({
+                              input: 'phone',
+                              error: true,
+                              type: 'validationMessage',
+                            });
+                          } else {
+                            setInputError({
+                              input: 'phone',
+                              error: false,
+                              type: 'noError',
+                            });
+                          }
                         } else {
                           setInputError({
                             input: 'phone',

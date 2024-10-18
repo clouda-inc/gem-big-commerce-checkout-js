@@ -2,10 +2,12 @@ import { CheckoutSelectors, CustomerRequestOptions, CustomError } from '@bigcomm
 import { noop } from 'lodash';
 import React, { FunctionComponent } from 'react';
 
+import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
 
 import { withCheckout } from '../checkout';
+import CheckoutStepType from '../checkout/CheckoutStepType';
 import { isErrorWithType } from '../common/error';
 
 import canSignOut, { isSupportedSignoutMethod } from './canSignOut';
@@ -15,6 +17,9 @@ import './CustomerInfo.scss';
 export interface CustomerInfoProps {
   onSignOut?(event: CustomerSignOutEvent): void;
   onSignOutError?(error: CustomError): void;
+  isEditable: boolean;
+  onEdit: (type: CheckoutStepType) => void;
+  type: CheckoutStepType;
 }
 
 export interface CustomerSignOutEvent {
@@ -33,10 +38,13 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
   email,
   methodId,
   isSignedIn,
+  isEditable,
+  type,
   // isSigningOut,
   onSignOut = noop,
   onSignOutError = noop,
   signOut,
+  onEdit,
 }) => {
   const handleSignOut: () => Promise<void> = async () => {
     try {
@@ -100,7 +108,14 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
             </div>
           </div>
         )}
-        {!isSignedIn && <div className="customerView-action-change">Change</div>}
+        {!isSignedIn && (
+          <div
+            className="customerView-action-change"
+            onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+          >
+            Change
+          </div>
+        )}
       </div>
     </div>
   );

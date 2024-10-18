@@ -226,15 +226,24 @@
 .form-field-country:-webkit-autofill,
 .form-field-country:-webkit-autofill:hover,
 .form-field-country:-webkit-autofill:focus,
-.form-field-country:-webkit-autofill:active {
+.form-field-country:-webkit-autofill:active,
+.form-field-country:focus-visible,
+.form-field-country:-webkit-autofill:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+  outline: none;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
 }
 
 .form-field-stateOrProvince:-webkit-autofill,
 .form-field-stateOrProvince:-webkit-autofill:hover,
 .form-field-stateOrProvince:-webkit-autofill:focus,
-.form-field-stateOrProvince:-webkit-autofill:active {
+.form-field-stateOrProvince:-webkit-autofill:active,
+.form-field-stateOrProvince:-webkit-autofill:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+  outline: none;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
 }
 
 .country-selector-option:hover {

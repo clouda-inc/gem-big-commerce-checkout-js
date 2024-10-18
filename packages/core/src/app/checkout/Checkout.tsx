@@ -395,7 +395,7 @@ class Checkout extends Component<
       : defaultStepType === CheckoutStepType.Payment;
 
     return (
-      <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting}>
+      <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting} showLoader={false}>
         <div
           className="checkout-page-container"
           style={{ display: 'flex', flexDirection: 'row', height: '100%' }}
@@ -523,7 +523,15 @@ class Checkout extends Component<
         onEdit={this.handleEditStep}
         onExpanded={this.handleExpanded}
         suggestion={<CheckoutSuggestion />}
-        summary={<CustomerInfo onSignOut={this.handleSignOut} onSignOutError={this.handleError} />}
+        summary={
+          <CustomerInfo
+            isEditable={step.isEditable}
+            onEdit={this.handleEditStep}
+            onSignOut={this.handleSignOut}
+            onSignOutError={this.handleError}
+            type={step.type}
+          />
+        }
       >
         <Customer
           checkEmbeddedSupport={this.checkEmbeddedSupport}

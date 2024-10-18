@@ -8,6 +8,7 @@ export interface LoadingOverlayProps {
   isLoading: boolean;
   hideContentWhenLoading?: boolean;
   unmountContentWhenLoading?: boolean;
+  showLoader?: boolean;
 }
 
 const LoadingOverlay: FunctionComponent<LoadingOverlayProps> = ({
@@ -15,11 +16,12 @@ const LoadingOverlay: FunctionComponent<LoadingOverlayProps> = ({
   hideContentWhenLoading,
   unmountContentWhenLoading,
   isLoading,
+  showLoader = true,
 }) => {
   if (hideContentWhenLoading || unmountContentWhenLoading) {
     return (
       <>
-        <LoadingSpinner isLoading={isLoading} />
+        {showLoader && <LoadingSpinner isLoading={isLoading} />}
         {unmountContentWhenLoading && isLoading ? null : (
           <div
             style={{
