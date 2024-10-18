@@ -1,0 +1,26 @@
+.is-loading {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.button {
+  border-radius: 6px;
+}
+
+.button-spinner {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: #dbdcef;
+  border-right-color: #024f60;
+  animation: spinner-button-loading 1s infinite linear;
+}
+
+@keyframes spinner-button-loading {
+  to {
+    transform: rotate(1turn);
+  }
+}

@@ -1,0 +1,260 @@
+.shipping-address-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.shipping-address-list-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.shipping-address-list-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.shipping-address-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.shipping-address-list-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.shipping-address {
+  padding: 1rem;
+  border: 1px solid rgb(178, 188, 202);
+  border-radius: 0.25rem;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+
+.shipping-address-with-selector {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+
+.shipping-address-with-selector-input {
+  accent-color: #024f60;
+}
+
+.shipping-address-edit-button {
+  color: #024f60;
+  line-height: 160%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  text-align: right;
+  cursor: pointer;
+  text-decoration-line: underline;
+  height: 100%;
+}
+
+.add-new-address {
+  text-decoration-line: underline;
+  color: #024f60;
+  letter-spacing: 0.12px;
+  line-height: 150%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.edit-shipping-address-title {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.edit-shipping-address-modal .edit-shipping-address-modal-body {
+  padding: 2rem !important;
+}
+
+.form-field-name-container,
+.form-field-stateOrProvince-city-container,
+.form-field-postalCode-phone-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+  width: 100%;
+  // align-items: center
+}
+
+.edit-shipping-address-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.edit-shipping-address-form .form-field,
+.edit-shipping-address-form .form-field .form-field-input {
+  width: 100%;
+  margin: 0;
+}
+
+.edit-shipping-address-form .form-field .form-field-input {
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--Dark-Dark-1, #b2bcca);
+  background: #fff;
+  padding-left: 1rem;
+}
+
+.form-field-saveAddress-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  column-gap: 0.5rem;
+}
+
+.form-field-saveAddress-button .edit-shipping-address-cancel {
+  color: #787b93;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  display: flex;
+  height: 40px;
+  padding: 13px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #b6bac2;
+}
+
+.form-field-saveAddress-button .edit-shipping-address-submit {
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 160%;
+  display: flex;
+  height: 40px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #216574;
+  background: #216574;
+}
+
+.add-new-shipping-address-cancel {
+  color: #787b93;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  border-radius: 10px;
+  border: 1px solid #b6bac2;
+  display: flex;
+  height: 40px;
+  padding: 13px 24px;
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  cursor: pointer;
+}
+
+.new-shipping-address-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.new-shipping-address-form .form-field,
+.new-shipping-address-form .form-field .form-field-input {
+  width: 100%;
+  margin: 0;
+}
+
+.new-shipping-address-form .form-field .form-field-input {
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--Dark-Dark-1, #b2bcca);
+  background: #fff;
+  padding-left: 1rem;
+}
+
+.new-shipping-address-form .form-field-saveAddress-input {
+  accent-color: #216574;
+}
+
+.new-shipping-address-form .form-field-saveAddress-label {
+  color: var(--Dark-Dark-3, #4f4f4f);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.new-shipping-address-form .form-field-saveAddress {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 0.5rem;
+}
+
+.shipping-address-show-when-no-address {
+  border-radius: 4px;
+  border: 1px solid #b2bcca;
+  background: #fff;
+  padding: 1rem;
+}
+
+.form-field-country .form-field-input,
+.form-field-stateOrProvince .form-field-input {
+  color: #828282;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+}
+
+.form-field-country:-webkit-autofill,
+.form-field-country:-webkit-autofill:hover,
+.form-field-country:-webkit-autofill:focus,
+.form-field-country:-webkit-autofill:active,
+.form-field-country:focus-visible,
+.form-field-country:-webkit-autofill:focus-visible {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  outline: none;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
+}
+
+.form-field-stateOrProvince:-webkit-autofill,
+.form-field-stateOrProvince:-webkit-autofill:hover,
+.form-field-stateOrProvince:-webkit-autofill:focus,
+.form-field-stateOrProvince:-webkit-autofill:active,
+.form-field-stateOrProvince:-webkit-autofill:focus-visible {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  outline: none;
+  -webkit-text-fill-color: #828282 !important;
+  color: #828282 !important;
+}
+
+.country-selector-option:hover {
+  background-color: #024f60;
+}
+
+.form-field-error-msg {
+  color: #ff0000;
+  font-size: 10px;
+}
+
+.form-field-address2 {
+  z-index: 1;
+}

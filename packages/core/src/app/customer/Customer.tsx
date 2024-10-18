@@ -311,7 +311,7 @@ class Customer extends Component<
     const {
       isEmbedded,
       email,
-      forgotPasswordUrl,
+      // forgotPasswordUrl,
       isSignInEmailEnabled,
       isGuestEnabled,
       isSendingSignInEmail,
@@ -331,7 +331,8 @@ class Customer extends Component<
           providerWithCustomCheckout ? 'customer.continue' : 'customer.continue_as_guest_action'
         }
         email={this.draftEmail || email}
-        forgotPasswordUrl={forgotPasswordUrl}
+        // forgotPasswordUrl={forgotPasswordUrl}
+        forgotPasswordUrl="https://www.lucd.art/auth/forgot-password"
         isExecutingPaymentMethodCheckout={isExecutingPaymentMethodCheckout}
         isFloatingLabelEnabled={isFloatingLabelEnabled}
         isSendingSignInEmail={isSendingSignInEmail}

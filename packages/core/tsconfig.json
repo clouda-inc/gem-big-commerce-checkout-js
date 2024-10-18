@@ -4,5 +4,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/*.d.ts"
-  ]
+, "src/app/cart/customeCart/CartSummaryWrapper.tsx"  ]
 }

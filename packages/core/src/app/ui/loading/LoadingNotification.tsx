@@ -1,27 +1,26 @@
 import React, { FunctionComponent, memo } from 'react';
 
-import { TranslatedString } from '@bigcommerce/checkout/locale';
+import LargeLoadingSpinner from './LargeLoadingSpinner';
+
+import './LoadingNotification.scss';
 
 export interface LoadingNotificationProps {
-    isLoading: boolean;
+  isLoading: boolean;
 }
 
 const LoadingNotification: FunctionComponent<LoadingNotificationProps> = ({ isLoading }) => {
-    if (!isLoading) {
-        return null;
-    }
+  if (!isLoading) {
+    return null;
+  }
 
-    return (
-        <div className="loadingNotification">
-            <div className="loadingNotification-label optimizedCheckout-loadingToaster">
-                <div className="spinner" />
-
-                <span aria-live="assertive" className="label" role="alert">
-                    <TranslatedString id="common.loading_text" />
-                </span>
-            </div>
-        </div>
-    );
+  return (
+    <div className="loadingNotification">
+      <div className="loadingNotification-label-ss optimizedCheckout-loadingToaster">
+        <LargeLoadingSpinner isLoading={isLoading} />
+        <div className="loadingNotification-label-text">Loading...</div>
+      </div>
+    </div>
+  );
 };
 
 export default memo(LoadingNotification);

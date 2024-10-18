@@ -13,36 +13,37 @@
 //
 // -----------------------------------------------------------------------------
 
-$exportCSS--loading:                          true;
+$exportCSS--loading: true;
 
 // =============================================================================
 // LOADING NOTIFICATION
 // =============================================================================
 
-$loadingNotification-top:                     spacing("double") * 2;
-$loadingNotification-top--startPosition:      spacing("double") * 2.5;
-$loadingNotification-textAlign:               center;
+$loadingNotification-top: spacing('double') * 2;
+$loadingNotification-top--startPosition: spacing('double') * 2.5;
+$loadingNotification-textAlign: center;
 
-$loadingNotification-label-background:        color("greys", "darker");
-$loadingNotification-label-color:             color("whites", "bright");
-$loadingNotification-label-spinnerColor:      color("whites", "bright") color("whites", "bright") color("greys", "dark")  color("greys", "dark");
-$loadingNotification-label-fontSize:          fontSize("smaller");
-$loadingNotification-label-radius:            $global-radius;
-$loadingNotification-label-verticalSpacing:   spacing("quarter") + spacing("eighth");
-$loadingNotification-label-horizontalSpacing: spacing("base") + spacing("eighth");
+$loadingNotification-label-background: color('greys', 'darker');
+$loadingNotification-label-color: color('whites', 'bright');
+$loadingNotification-label-spinnerColor: color('whites', 'bright') color('whites', 'bright')
+  color('greys', 'dark') color('greys', 'dark');
+$loadingNotification-label-fontSize: fontSize('smaller');
+$loadingNotification-label-radius: $global-radius;
+$loadingNotification-label-verticalSpacing: spacing('quarter') + spacing('eighth');
+$loadingNotification-label-horizontalSpacing: spacing('base') + spacing('eighth');
 
 // =============================================================================
 // LOADING OVERLAY
 // =============================================================================
 
-$loadingOverlay-minHeight:                    0;
-$loadingOverlay-transitionProperty:           all;
-$loadingOverlay-transitionSpeed:              250ms;
-$loadingOverlay-transitionEase:               ease-out;
+$loadingOverlay-minHeight: 0;
+$loadingOverlay-transitionProperty: all;
+$loadingOverlay-transitionSpeed: 250ms;
+$loadingOverlay-transitionEase: ease-out;
 
-$loadingOverlay-spinner-size:                 60px;
-$loadingOverlay-spinner-borderWidth:          1px;
-$loadingOverlay-spinner-borderColor:          color("whites", "bright") color("whites", "bright") color("greys", "medium")  color("greys", "medium");
-$loadingOverlay-spinner-duration:             500ms;
-$loadingOverlay-spinner-easing:               cubic-bezier(0.69, 0.31, 0.56, 0.83);
-$loadingOverlay-spinner-top--main:            40%; // 2
+$loadingOverlay-spinner-size: 60px;
+$loadingOverlay-spinner-borderWidth: 8px;
+$loadingOverlay-spinner-borderColor: #d9d9d9 #d9d9d9 #024f60 #024f60;
+$loadingOverlay-spinner-duration: 500ms;
+$loadingOverlay-spinner-easing: cubic-bezier(0.69, 0.31, 0.56, 0.83);
+$loadingOverlay-spinner-top--main: 40%; // 2

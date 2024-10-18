@@ -1,44 +1,46 @@
 {
   "version": 2,
-  "appVersion": "1.523.0",
+  "appVersion": "1.524.0",
   "dynamicChunks": {
     "js": [
-      "134-d365e539.js",
-      "51-cf457229.js",
-      "568-451dcb6c.js",
-      "850-83a0e1bc.js",
+      "102-d7d9e669.js",
+      "479-12c34af2.js",
+      "568-1e86db57.js",
+      "850-048e84f3.js",
       "904-08425d6b.js",
-      "billing-b6771b36.js",
-      "cart-summary-drawer-9b6fbb46.js",
-      "cart-summary-4231e961.js",
-      "order-summary-drawer-1c084426.js",
-      "order-summary-0737cb58.js",
-      "payment-99d7332f.js",
-      "shipping-eaeab028.js"
+      "billing-853a03e4.js",
+      "cart-summary-wrapper-d00b9ddf.js",
+      "discount-code-5745a678.js",
+      "order-comment-e5b6be0a.js",
+      "payment-c7412640.js",
+      "shipping-1318d8b0.js"
     ],
     "css": [
-      "billing-5cb3e9e6.css",
-      "cart-summary-drawer-5084b1db.css",
-      "cart-summary-5084b1db.css",
+      "billing-62c970c7.css",
+      "cart-summary-wrapper-f968bd3f.css",
+      "discount-code-a7a7e99a.css",
+      "order-comment-9bed9d54.css",
       "payment-0037a6b1.css",
-      "shipping-cf90d815.css"
+      "shipping-9e7c80c0.css"
+    ],
+    "png": [
+      "static/GIA-certificate-2a4cafcf.png",
+      "static/powered_by_google_on_white-46afd78d.png",
+      "static/sigin-sigup-form-side-image-95b13ad5.png"
     ],
     "svg": [
       "static/card-9f708a7a.svg"
-    ],
-    "png": [
-      "static/powered_by_google_on_white-46afd78d.png"
     ]
   },
   "js": [
-    "runtime-129c9cc1.js",
+    "runtime-c06031b0.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
-    "985-bb857b71.js",
-    "checkout-230e9c57.js"
+    "985-4e3c0cf4.js",
+    "checkout-4711411a.js"
   ],
   "css": [
-    "checkout-3fb8e02d.css"
+    "checkout-d87c66e2.css"
   ]
 }

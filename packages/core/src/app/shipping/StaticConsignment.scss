@@ -1,21 +1,62 @@
 @import '../ui/Base';
 
 .staticConsignment {
-    width: 100%;
+  width: 100%;
 }
 
 .staticConsignmentContainer {
-    ul {
-        list-style: none;
-        margin: 0;
-    }
+  ul {
+    list-style: none;
+    margin: 0;
+  }
 
-    & + .staticConsignmentContainer {
-        margin-top: spacing("single");
-        padding-top: spacing("single");
-    }
+  & + .staticConsignmentContainer {
+    margin-top: spacing('single');
+    padding-top: spacing('single');
+  }
 }
 
 .staticConsignment-items {
-    margin: spacing("quarter") 0;
+  margin: spacing('quarter') 0;
+}
+
+.shippingOption--selected {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+}
+
+.shippingOptionLabel {
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.staticConsignment .address-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+}
+
+.staticConsignment .address-container .address-title {
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.static-consignment-address-change {
+  color: #024f60;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-transform: capitalize;
+  text-decoration: underline;
+  cursor: pointer;
+  height: fit-content;
 }
