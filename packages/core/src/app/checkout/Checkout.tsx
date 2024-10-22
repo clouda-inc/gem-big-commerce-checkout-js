@@ -70,6 +70,8 @@ import mapToCheckoutProps from './mapToCheckoutProps';
 import navigateToOrderConfirmation from './navigateToOrderConfirmation';
 
 import './Checkout.scss';
+import { Header } from '../common/header';
+import { BreadCrumb } from '../common/breadCrumb';
 
 const Billing = lazy(() =>
   retry(
@@ -358,6 +360,22 @@ class Checkout extends Component<
         data-test="checkout-page-container"
         id="checkout-page-container"
       >
+        <Header />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            paddingBottom: '30px',
+            paddingTop: '30px',
+          }}
+        >
+          <BreadCrumb />
+          <div className="checkout-page-title-container">
+            <span className="checkout-page-title">Checkout</span>
+          </div>
+        </div>
+
         <div className="layout optimizedCheckout-contentPrimary">{this.renderContent()}</div>
         {errorModal}
       </div>

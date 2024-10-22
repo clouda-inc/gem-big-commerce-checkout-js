@@ -1,0 +1,24 @@
+.breadCrumbContainer {
+  width: 100%;
+}
+
+.breadCrumbWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  height: 16px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 89rem;
+  margin: 0 auto;
+}
+
+.breadCrumbIcon {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
