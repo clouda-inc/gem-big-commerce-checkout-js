@@ -16,6 +16,8 @@ import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-
 import { withAnalytics } from '../analytics';
 import { withCheckout } from '../checkout';
 import { ErrorModal } from '../common/error';
+import { Footer } from '../common/footer';
+import { Header } from '../common/header';
 import { EmbeddedCheckoutStylesheet, isEmbedded } from '../embeddedCheckout';
 import { CreatedCustomer, SignUpFormValues } from '../guestSignup';
 import { LargeLoadingSpinner } from '../ui/loading';
@@ -97,8 +99,9 @@ class OrderConfirmation extends Component<
 
     return (
       <>
+        <Header />
         <div
-          className={classNames('layout optimizedCheckout-contentPrimary', {
+          className={classNames('layout optimizedCheckout-contentPrimary order-confirmation-main-page', {
             'is-embedded': isEmbedded(),
           })}
         >
@@ -140,6 +143,7 @@ class OrderConfirmation extends Component<
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }
