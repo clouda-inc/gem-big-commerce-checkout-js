@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "appVersion": "1.524.0",
+  "appVersion": "1.525.0",
   "dynamicChunks": {
     "js": [
       "102-d7d9e669.js",
@@ -29,7 +29,8 @@
       "static/sigin-sigup-form-side-image-95b13ad5.png"
     ],
     "svg": [
-      "static/card-9f708a7a.svg"
+      "static/card-9f708a7a.svg",
+      "static/logo-4288ee5e.svg"
     ]
   },
   "js": [
@@ -38,9 +39,9 @@
     "608-6573dede.js",
     "375-dd5e60e7.js",
     "985-4e3c0cf4.js",
-    "checkout-4711411a.js"
+    "checkout-d0e17dbf.js"
   ],
   "css": [
-    "checkout-d87c66e2.css"
+    "checkout-dd152473.css"
   ]
 }
