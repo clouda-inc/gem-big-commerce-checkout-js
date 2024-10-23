@@ -96,47 +96,51 @@ class OrderConfirmation extends Component<
     }
 
     return (
-      <div
-        className={classNames('layout optimizedCheckout-contentPrimary', {
-          'is-embedded': isEmbedded(),
-        })}
-      >
-        <div className="layout-main">
-          <div className="order-confirmation">
-            <div className="order-confirmation-header">
-              <div className="order-confirmation-thanks-header">
-                <ThankYouHeader name={order.billingAddress.firstName} />
-              </div>
-              <div className="order-confirmation-note-container">
-                <div className="order-confirmation-note">
-                  <div className="order-confirmation-note-text">
-                    Your order was completed successfully.
+      <>
+        <div
+          className={classNames('layout optimizedCheckout-contentPrimary', {
+            'is-embedded': isEmbedded(),
+          })}
+        >
+          <div className="layout-main">
+            <div className="order-confirmation">
+              <div className="order-confirmation-header">
+                <div className="order-confirmation-thanks-header">
+                  <ThankYouHeader name={order.billingAddress.firstName} />
+                </div>
+                <div className="order-confirmation-note-container">
+                  <div className="order-confirmation-note">
+                    <div className="order-confirmation-note-text">
+                      Your order was completed successfully.
+                    </div>
+                    <div className="order-confirmation-note-text">
+                      An e-mail reciept including the details about your order has been sent to the
+                      e-mail address provided. Please keep it for your records.
+                    </div>
                   </div>
-                  <div className="order-confirmation-note-text">
-                    An e-mail reciept including the details about your order has been sent to the
-                    e-mail address provided. Please keep it for your records.
+                  <div className="order-confirmation-note-status">
+                    Order Number {order?.orderId}
                   </div>
                 </div>
-                <div className="order-confirmation-note-status">Order Number {order?.orderId}</div>
               </div>
-            </div>
-            <div className="order-confirmation-body">
-              <OrderReviewSection lineItems={order?.lineItems} />
-              <OrderBillingSummary
-                customerId={order?.customerId}
-                discountAmount={order?.discountAmount}
-                orderId={order?.orderId}
-                shippingCost={order?.shippingCostTotal}
-                subTotal={order.baseAmount}
-                tax={order?.taxTotal}
-                total={order?.orderAmount}
-              />
-            </div>
+              <div className="order-confirmation-body">
+                <OrderReviewSection lineItems={order?.lineItems} />
+                <OrderBillingSummary
+                  customerId={order?.customerId}
+                  discountAmount={order?.discountAmount}
+                  orderId={order?.orderId}
+                  shippingCost={order?.shippingCostTotal}
+                  subTotal={order.baseAmount}
+                  tax={order?.taxTotal}
+                  total={order?.orderAmount}
+                />
+              </div>
 
-            {this.renderErrorModal()}
+              {this.renderErrorModal()}
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 

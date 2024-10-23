@@ -38,7 +38,10 @@ import BillingSummary from '../cart/billingSummary/BillingSummary';
 // import DiscountCode from '../cart/discount-code/DiscountCode';
 // import OrderComment from '../cart/order-comment/OrderComment';
 import { withCheckout } from '../checkout';
+import { BreadCrumb } from '../common/breadCrumb';
 import { CustomError, ErrorModal, isCustomError } from '../common/error';
+import { Footer } from '../common/footer';
+import { Header } from '../common/header';
 import { retry } from '../common/utility';
 import {
   CheckoutButtonContainer,
@@ -70,8 +73,6 @@ import mapToCheckoutProps from './mapToCheckoutProps';
 import navigateToOrderConfirmation from './navigateToOrderConfirmation';
 
 import './Checkout.scss';
-import { Header } from '../common/header';
-import { BreadCrumb } from '../common/breadCrumb';
 
 const Billing = lazy(() =>
   retry(
@@ -378,6 +379,7 @@ class Checkout extends Component<
 
         <div className="layout optimizedCheckout-contentPrimary">{this.renderContent()}</div>
         {errorModal}
+        <Footer />
       </div>
     );
   }
