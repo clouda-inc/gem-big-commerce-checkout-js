@@ -19,7 +19,7 @@
   border-radius: 4px;
   background-color: transparent;
   transition: 0.1s ease-in-out;
-  color: #828282;
+  color: #4f4f4f;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -69,6 +69,6 @@
 .google-autocomplete-input-field-input:-webkit-autofill:focus,
 .google-autocomplete-input-field-input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-  -webkit-text-fill-color: #828282 !important;
-  color: #828282 !important;
+  -webkit-text-fill-color: #4F4F4F !important;
+  color: #4f4f4f !important;
 }

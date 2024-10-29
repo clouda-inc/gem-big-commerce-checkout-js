@@ -342,8 +342,15 @@ class Checkout extends Component<
   };
 
   render(): ReactNode {
-    const { error } = this.state;
+    const { error, isRedirecting } = this.state;
     let errorModal = null;
+
+    const { isPending, isShowingWalletButtonsOnTop, extensionState } = this.props;
+
+    const isLoading =
+      (!isShowingWalletButtonsOnTop && isPending) ||
+      extensionState.isShowingLoadingIndicator ||
+      isRedirecting;
 
     if (error) {
       if (isCustomError(error)) {
@@ -360,6 +367,7 @@ class Checkout extends Component<
         className={classNames('remove-checkout-step-numbers', { 'is-embedded': isEmbedded() })}
         data-test="checkout-page-container"
         id="checkout-page-container"
+        style={{ height: '100vh' }}
       >
         <Header />
         <div
@@ -376,8 +384,12 @@ class Checkout extends Component<
             <span className="checkout-page-title">Checkout</span>
           </div>
         </div>
-
-        <div className="layout optimizedCheckout-contentPrimary">{this.renderContent()}</div>
+        <div
+          className="layout optimizedCheckout-contentPrimary"
+          style={{ height: `${isLoading ? '100%' : 'max-content'}` }}
+        >
+          {this.renderContent()}
+        </div>
         {errorModal}
         <Footer />
       </div>
@@ -418,7 +430,7 @@ class Checkout extends Component<
       <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting} showLoader={false}>
         <div
           className="checkout-page-container"
-          style={{ display: 'flex', flexDirection: 'row', height: '100%' }}
+          style={{ display: 'flex', flexDirection: 'row', height: '100%', minHeight: '90vh' }}
         >
           <div className="layout-main">
             <LoadingNotification

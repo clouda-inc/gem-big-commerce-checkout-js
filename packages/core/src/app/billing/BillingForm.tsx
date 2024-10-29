@@ -172,6 +172,84 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
       return;
     }
 
+    const validfirstName = tempBillingAddress?.firstName;
+    const validlastName = tempBillingAddress?.lastName;
+    const validaddress1 = tempBillingAddress?.address1;
+    const validcity = tempBillingAddress?.city;
+    const validpostalCode = tempBillingAddress?.postalCode;
+    const validstate = tempBillingAddress?.stateOrProvince;
+    const validcountry = tempBillingAddress?.countryCode;
+
+    if (!validfirstName) {
+      setInputError({
+        input: 'firstName',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validlastName) {
+      setInputError({
+        input: 'lastName',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validaddress1) {
+      setInputError({
+        input: 'address1',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validcity) {
+      setInputError({
+        input: 'city',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validstate) {
+      setInputError({
+        input: 'state',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validpostalCode) {
+      setInputError({
+        input: 'postalCode',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return;
+    }
+
+    if (!validcountry) {
+      setInputError({
+        input: 'country',
+        error: true,
+        type: 'validationMessage',
+      });
+
+      return 0;
+    }
+
     const add = {
       ...tempBillingAddress,
       country: countries.find((country) => country.code === tempBillingAddress.countryCode)?.name,
@@ -313,6 +391,9 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                       title="First Name"
                       value={tempBillingAddress.firstName}
                     />
+                    {inputError.input === 'firstName' && inputError.error && (
+                      <div className="form-field-error-message">Enter a valid First Name</div>
+                    )}
                   </div>
                   <div className="temp-billing-address-lastname">
                     <InputField
@@ -324,6 +405,9 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                       title="Last Name"
                       value={tempBillingAddress.lastName}
                     />
+                    {inputError.input === 'lastName' && inputError.error && (
+                      <div className="form-field-error-message">Enter a valid Last Name</div>
+                    )}
                   </div>
                 </div>
                 <div className="temp-billing-address1-container">
@@ -342,12 +426,17 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     <InputField
                       id="address1"
                       name="address1"
-                      onChange={(e: { target: { value: any } }) =>
-                        setTempBillingAddress({ ...tempBillingAddress, address1: e.target.value })
-                      }
+                      onChange={(e: { target: { value: any } }) => {
+                        const value = e.target.value;
+
+                        setTempBillingAddress({ ...tempBillingAddress, address1: value });
+                      }}
                       title="Address"
                       value={tempBillingAddress.address1}
                     />
+                  )}
+                  {inputError.input === 'address1' && inputError.error && (
+                    <div className="form-field-error-message">Enter a valid Last Name</div>
                   )}
                 </div>
                 <div className="temp-billing-address2-container">
@@ -357,7 +446,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     onChange={(e: { target: { value: any } }) =>
                       setTempBillingAddress({ ...tempBillingAddress, address2: e.target.value })
                     }
-                    title="Address"
+                    title="Address 2 (Optional)"
                     value={tempBillingAddress.address2}
                   />
                 </div>
@@ -375,6 +464,9 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                       </option>
                     ))}
                   </select>
+                  {inputError.input === 'country' && inputError.error && (
+                    <div className="form-field-error-message">Select a valid Country</div>
+                  )}
                 </div>
                 <div className="temp-billing-address-state-city-container">
                   <div className="temp-billing-address-state">
@@ -421,6 +513,9 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                         />
                       </div>
                     )}
+                    {inputError.input === 'state' && inputError.error && (
+                      <div className="form-field-error-message">Select a valid Country</div>
+                    )}
                   </div>
                   <div className="temp-billing-address-city-container">
                     <InputField
@@ -432,6 +527,9 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                       title="City"
                       value={tempBillingAddress.city}
                     />
+                    {inputError.input === 'city' && inputError.error && (
+                      <div className="form-field-error-message">Enter a valid city</div>
+                    )}
                   </div>
                 </div>
                 <div className="temp-billing-address-postalcode-phone-container">
@@ -501,7 +599,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                           });
                         }
                       }}
-                      title="Phone"
+                      title="Phone (Optional)"
                       value={tempBillingAddress.phone}
                     />
                     {inputError.input === 'phone' && inputError.error && (

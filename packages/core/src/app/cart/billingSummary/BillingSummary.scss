@@ -124,7 +124,8 @@
   line-height: 20px;
 }
 
-.billing-summary-privacy-policy-link {
+.billing-summary-privacy-policy-link,
+.billing-summary-privacy-policy-link:hover {
   color: #177a90;
   font-size: 14px;
   font-style: normal;
@@ -140,8 +141,10 @@
   justify-content: center;
 }
 
-.billing-summary-shipping-policy,
-.billing-summary-return-policy {
+.billing-summary-shipping-policy-link,
+.billing-summary-return-policy-link,
+.billing-summary-shipping-policy-link:hover,
+.billing-summary-return-policy-link:hover {
   color: #216574;
   font-size: 12px;
   font-style: normal;

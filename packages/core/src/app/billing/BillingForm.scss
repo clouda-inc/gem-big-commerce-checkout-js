@@ -97,7 +97,7 @@
   border-radius: 4px;
   border: 1px solid var(--Dark-Dark-1, #b2bcca);
   background: #fff;
-  color: #828282;
+  color: #4f4f4f;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -207,6 +207,6 @@
 .temp-billing-address-state-select:-webkit-autofill:focus,
 .temp-billing-address-state-select:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-  -webkit-text-fill-color: #828282 !important;
-  color: #828282 !important;
+  -webkit-text-fill-color: #4f4f4f !important;
+  color: #4f4f4f !important;
 }

@@ -99,12 +99,31 @@ class BillingSummary extends Component<
               <div className="billing-summary-privacy-container">
                 <div className="billing-summary-privacy-label">By purchasing you agree to our</div>
                 <div className="billing-summary-privacy-policy">
-                  <a className="billing-summary-privacy-policy-link">Privacy & Terms Policy</a>
+                  <a
+                    className="billing-summary-privacy-policy-link"
+                    href="https://www.lucd.art/terms-conditions"
+                  >
+                    Privacy & Terms Policy
+                  </a>
                 </div>
               </div>
               <div className="billing-summary-policy-container">
-                <div className="billing-summary-shipping-policy">Shipping Policy</div>
-                <div className="billing-summary-return-policy">Return Policy</div>
+                <div className="billing-summary-shipping-policy">
+                  <a
+                    className="billing-summary-shipping-policy-link"
+                    href="https://www.lucd.art/shipping-policy"
+                  >
+                    Shipping Policy
+                  </a>
+                </div>
+                <div className="billing-summary-return-policy">
+                  <a
+                    className="billing-summary-return-policy-link"
+                    href="https://www.lucd.art/return-policy"
+                  >
+                    Return Policy
+                  </a>
+                </div>
               </div>
             </div>
           </div>

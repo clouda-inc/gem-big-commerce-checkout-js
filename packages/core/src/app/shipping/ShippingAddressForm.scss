@@ -215,7 +215,7 @@
 
 .form-field-country .form-field-input,
 .form-field-stateOrProvince .form-field-input {
-  color: #828282;
+  color: #4f4f4f;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -231,8 +231,8 @@
 .form-field-country:-webkit-autofill:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   outline: none;
-  -webkit-text-fill-color: #828282 !important;
-  color: #828282 !important;
+  -webkit-text-fill-color: #4f4f4f !important;
+  color: #4f4f4f !important;
 }
 
 .form-field-stateOrProvince:-webkit-autofill,
@@ -242,8 +242,8 @@
 .form-field-stateOrProvince:-webkit-autofill:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   outline: none;
-  -webkit-text-fill-color: #828282 !important;
-  color: #828282 !important;
+  -webkit-text-fill-color: #4f4f4f !important;
+  color: #4f4f4f !important;
 }
 
 .country-selector-option:hover {
