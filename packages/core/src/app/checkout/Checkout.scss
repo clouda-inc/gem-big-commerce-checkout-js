@@ -346,3 +346,10 @@ input:focus-visible {
   box-shadow: none;
   outline: none;
 }
+
+.loading-overlay {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

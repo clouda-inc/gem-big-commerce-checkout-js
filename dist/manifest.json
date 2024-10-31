@@ -13,12 +13,12 @@
       "discount-code-5745a678.js",
       "order-comment-e5b6be0a.js",
       "payment-c7412640.js",
-      "shipping-1318d8b0.js"
+      "shipping-1c1524da.js"
     ],
     "css": [
       "billing-65053494.css",
       "cart-summary-wrapper-f968bd3f.css",
-      "discount-code-a7a7e99a.css",
+      "discount-code-cb75e06e.css",
       "order-comment-9bed9d54.css",
       "payment-0037a6b1.css",
       "shipping-b3db70e8.css"
@@ -34,14 +34,14 @@
     ]
   },
   "js": [
-    "runtime-fe3f8c63.js",
+    "runtime-3bd74f15.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
     "985-4e3c0cf4.js",
-    "checkout-1dad436b.js"
+    "checkout-df7e77c7.js"
   ],
   "css": [
-    "checkout-f35c4623.css"
+    "checkout-9af35e61.css"
   ]
 }

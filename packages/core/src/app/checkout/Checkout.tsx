@@ -8,7 +8,6 @@ import {
   CustomerAccountRequestBody,
   EmbeddedCheckoutMessenger,
   EmbeddedCheckoutMessengerOptions,
-  // ExtensionRegion,
   FlashMessage,
   FormField,
   PaymentMethod,
@@ -20,11 +19,7 @@ import { find, findIndex } from 'lodash';
 import React, { Component, lazy, ReactNode } from 'react';
 
 import { AnalyticsContextProps } from '@bigcommerce/checkout/analytics';
-import {
-  // Extension,
-  ExtensionContextProps,
-  withExtension,
-} from '@bigcommerce/checkout/checkout-extension';
+import { ExtensionContextProps, withExtension } from '@bigcommerce/checkout/checkout-extension';
 import { ErrorLogger } from '@bigcommerce/checkout/error-handling-utils';
 import { TranslatedString, withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
 import { AddressFormSkeleton, ChecklistSkeleton, Modal } from '@bigcommerce/checkout/ui';
@@ -34,9 +29,6 @@ import { withAnalytics } from '../analytics';
 import { StaticBillingAddress } from '../billing';
 import { EmptyCartMessage } from '../cart';
 import BillingSummary from '../cart/billingSummary/BillingSummary';
-// import CartSummaryWrapper from '../cart/customeCart/CartSummaryWrapper';
-// import DiscountCode from '../cart/discount-code/DiscountCode';
-// import OrderComment from '../cart/order-comment/OrderComment';
 import { withCheckout } from '../checkout';
 import { BreadCrumb } from '../common/breadCrumb';
 import { CustomError, ErrorModal, isCustomError } from '../common/error';
@@ -62,8 +54,7 @@ import { PromotionBannerList } from '../promotion';
 import { hasSelectedShippingOptions, isUsingMultiShipping, StaticConsignment } from '../shipping';
 import { ShippingOptionExpiredError } from '../shipping/shippingOption';
 import { IconClose } from '../ui/icon';
-import { LazyContainer, LoadingNotification, LoadingOverlay } from '../ui/loading';
-// import { MobileView } from '../ui/responsive';
+import { LargeLoadingSpinner, LazyContainer, LoadingOverlay } from '../ui/loading';
 
 import CheckoutStep from './CheckoutStep';
 import CheckoutStepStatus from './CheckoutStepStatus';
@@ -83,26 +74,6 @@ const Billing = lazy(() =>
       ),
   ),
 );
-
-// const CartSummary = lazy(() =>
-//   retry(
-//     () =>
-//       import(
-//         /* webpackChunkName: "cart-summary" */
-//         '../cart/CartSummary'
-//       ),
-//   ),
-// );
-
-// const CartSummaryDrawer = lazy(() =>
-//   retry(
-//     () =>
-//       import(
-//         /* webpackChunkName: "cart-summary-drawer" */
-//         '../cart/CartSummaryDrawer'
-//       ),
-//   ),
-// );
 
 const CartSummaryWrapper = lazy(() =>
   retry(
@@ -426,6 +397,14 @@ class Checkout extends Component<
       ? activeStepType === CheckoutStepType.Payment
       : defaultStepType === CheckoutStepType.Payment;
 
+    if ((!isShowingWalletButtonsOnTop && isPending) || extensionState.isShowingLoadingIndicator) {
+      return (
+        <div className="loading-overlay">
+          <LargeLoadingSpinner isLoading={true} />
+        </div>
+      );
+    }
+
     return (
       <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting} showLoader={false}>
         <div
@@ -433,13 +412,6 @@ class Checkout extends Component<
           style={{ display: 'flex', flexDirection: 'row', height: '100%', minHeight: '90vh' }}
         >
           <div className="layout-main">
-            <LoadingNotification
-              isLoading={
-                (!isShowingWalletButtonsOnTop && isPending) ||
-                extensionState.isShowingLoadingIndicator
-              }
-            />
-
             <PromotionBannerList promotions={promotions} />
 
             {isShowingWalletButtonsOnTop && this.state.buttonConfigs?.length > 0 && (
@@ -499,12 +471,6 @@ class Checkout extends Component<
                 onSubmit={this.handleSignUpUserSubmit}
                 requiresMarketingConsent={false}
               />
-              {/* <div className="sign-up-modal-error">
-                {!!customerCreateError &&
-                  (customerCreateError === 'Could not create customer'
-                    ? 'User allready exist'
-                    : customerCreateError)}
-              </div> */}
             </div>
             <div className="sign-up-modal-image-wrapper">
               <button className="sign-up-modal-close" onClick={this.handleCloseSignUpForm}>
@@ -740,6 +706,7 @@ class Checkout extends Component<
       </div>
     );
   }
+
   private navigateToStep(type: CheckoutStepType, options?: { isDefault?: boolean }): void {
     const { clearError, error, steps } = this.props;
     const { activeStepType } = this.state;

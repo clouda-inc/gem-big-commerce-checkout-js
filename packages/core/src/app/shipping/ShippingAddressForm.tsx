@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Address,
   Consignment,
@@ -58,8 +57,6 @@ interface ShippingEditFormState {
   customerAddressList: CustomerAddress[];
 }
 
-// const token = 'q64h3xndgjcrd3vn1iggj9iypp2tyzi';
-
 class ShippingAddressForm extends Component<
   ShippingAddressFormProps & ConnectFormikProps<SingleShippingFormValues>,
   ShippingEditFormState
@@ -110,7 +107,9 @@ class ShippingAddressForm extends Component<
 
   componentDidUpdate(
     prevProps: Readonly<ShippingAddressFormProps & ConnectFormikProps<SingleShippingFormValues>>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _prevState: Readonly<ShippingEditFormState>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _snapshot?: any,
   ): void {
     if (JSON.stringify(prevProps.addresses) !== JSON.stringify(this.props.addresses)) {
@@ -145,6 +144,19 @@ class ShippingAddressForm extends Component<
           countryCode: countries?.find((country) => country.code === 'US')?.code ?? 'US',
           stateOrProvinceCode: 'AL',
         } as CustomerAddress,
+      });
+
+      this.setState({
+        newStateAddressError: {
+          field: '',
+          error: false,
+        },
+      });
+      this.setState({
+        editStateAddressError: {
+          field: '',
+          error: false,
+        },
       });
     };
 
@@ -267,7 +279,6 @@ class ShippingAddressForm extends Component<
       const validStateOrProvince = this.state.newStateAddress?.stateOrProvinceCode;
       const validPostalCode = this.state.newStateAddress?.postalCode;
       const validCountryCode = this.state.newStateAddress?.countryCode;
-      // const validPhone = this.state.newStateAddress?.phone;e
 
       if (!validFirstName) {
         this.setState({ newStateAddressError: { error: true, field: 'firstName' } });
@@ -310,10 +321,6 @@ class ShippingAddressForm extends Component<
 
         return 0;
       }
-
-      // if (!validPhone) {
-      //   this.setState({ newStateAddressError: { error: true, field: 'phone' } });
-      // }
 
       if (this.state.saveNewAddressToCustomerProfile) {
         createCustomerAddress(this.state.newStateAddress);
