@@ -11,17 +11,6 @@ const BreadCrumb = () => {
             Home
           </a>
         </div>
-        <div className="breadCrumbIcon">
-          <svg
-            fill="none"
-            height="13"
-            viewBox="0 0 12 13"
-            width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M4.5 3.90723L7.5 6.90723L4.5 9.90723" stroke="#E5E6E8" />
-          </svg>
-        </div>
         <div className="breadCrumbText">Cart</div>
         <div style={{ width: '12px', height: '12px' }}>
           <svg

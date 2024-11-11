@@ -401,6 +401,7 @@ class Checkout extends Component<
       return (
         <div className="loading-overlay">
           <LargeLoadingSpinner isLoading={true} />
+          <div className="loading-overlay-text">Loading...</div>
         </div>
       );
     }

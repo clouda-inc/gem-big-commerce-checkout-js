@@ -8,10 +8,17 @@
 
 .checkout-cart-summary-item-count {
   color: #000;
-  font-size: 0.75rem;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.25rem;
+}
+
+.checkout-cart-summary-product-quantity,
+.checkout-cart-summary-product-price,
+.checkout-cart-summary-product-quantity-value,
+.checkout-cart-summary-product-quantity-unit {
+  font-size: 16px;
 }
 
 .checkout-cart-summary-line-items {

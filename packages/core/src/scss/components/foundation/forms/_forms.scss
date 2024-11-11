@@ -181,8 +181,8 @@
   }
 
   .form-legend {
-    @include headingStyle('h3');
-
+    // @include headingStyle('h3');
+    font-size: 20px;
     background-color: $legend-bg;
     color: $header-font-color;
     font-weight: $legend-font-weight;
