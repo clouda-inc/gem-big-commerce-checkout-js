@@ -21,7 +21,7 @@
       "discount-code-4559feac.css",
       "order-comment-73b462a7.css",
       "payment-0037a6b1.css",
-      "shipping-3d3c6958.css"
+      "shipping-5b6bd400.css"
     ],
     "png": [
       "static/GIA-certificate-2a4cafcf.png",
@@ -34,7 +34,7 @@
     ]
   },
   "js": [
-    "runtime-d55835da.js",
+    "runtime-94dbb80b.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
@@ -42,6 +42,6 @@
     "checkout-7f408e6d.js"
   ],
   "css": [
-    "checkout-8477143b.css"
+    "checkout-7e015b21.css"
   ]
 }
