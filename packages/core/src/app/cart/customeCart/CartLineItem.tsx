@@ -18,13 +18,20 @@ class CartLineItem extends Component<CartLineItemProps & WithCurrencyProps> {
     return (
       <div className="checkout-cart-summary-line-item" key={lineItem?.id}>
         <div className="checkout-cart-summary-image-container">
-          <img className="checkout-cart-summary-image" src={lineItem?.imageUrl} />
+          <img
+            alt={lineItem?.name}
+            className="checkout-cart-summary-image"
+            height={80}
+            src={lineItem?.imageUrl}
+            width={80}
+          />
         </div>
         <div className="checkout-cart-summary-detaile-wrapper">
           <div className="checkout-cart-summary-product-name-container">
             <div className="checkout-cart-summary-product-name">{lineItem?.name}</div>
             <div className="checkout-cart-summary-product-certificate">
               <img
+                alt="GIA Certificate"
                 className="checkout-cart-summary-product-certificate-image"
                 height={16}
                 src={giaCertificate}
