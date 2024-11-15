@@ -26,6 +26,7 @@ input:focus-visible {
   flex-direction: row;
   height: 100%;
   column-gap: 30px;
+  min-height: 90vh;
 }
 
 .layout-main {
@@ -226,8 +227,6 @@ input:focus-visible {
   height: 1rem;
 }
 
-.checkout-step--shipping 
-
 .checkout-view-header {
   margin-bottom: 0;
 }
@@ -402,6 +401,18 @@ input:focus-visible {
   color: #fff;
 }
 
+.redeemable-payments {
+  display: none;
+}
+
+.checkout-page-title-container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 92.3076923077rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 #card-number:-webkit-autofill,
 #card-number:-webkit-autofill:hover,
 #card-number:-webkit-autofill:focus,
@@ -409,4 +420,54 @@ input:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   -webkit-text-fill-color: #4f4f4f !important;
   color: #4f4f4f !important;
+}
+
+.sign-up-modal-body-wrapper.desktop {
+  display: flex;
+}
+
+.sign-up-modal-body-wrapper.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .checkout-steps.paymentInactive {
+    padding-bottom: 20px;
+  }
+
+  .checkout-page-container {
+    flex-direction: column;
+  }
+
+  .checkout-cart-summary {
+    max-width: 100%;
+  }
+
+  .sign-up-modal-body-wrapper.desktop {
+    display: none;
+  }
+
+  .sign-up-modal-body-wrapper.mobile {
+    display: block;
+  }
+
+  .sign-up-modal-body-wrapper.mobile .sign-up-modal-form-wrapper {
+    width: 100%;
+    max-width: unset;
+  }
+
+  .sign-up-modal-body-wrapper.mobile .sign-up-modal-close-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .sign-up-modal-body-wrapper.mobile .sign-up-modal-close-wrapper .sign-up-modal-close {
+    position: relative;
+    top: unset;
+    right: unset;
+  }
+
+  .checkout-step--payment .paymentInactive {
+    padding-bottom: 20px;
+  }
 }

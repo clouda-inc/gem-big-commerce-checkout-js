@@ -60,3 +60,9 @@
   cursor: pointer;
   height: fit-content;
 }
+
+@media screen and (max-width: 768px) {
+  .static-consignment-address-change {
+    width: 20%;
+  }
+}

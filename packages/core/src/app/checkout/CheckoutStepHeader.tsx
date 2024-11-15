@@ -35,6 +35,8 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
       className={classNames('stepHeader checkout-summary-wrapper ', {
         'is-readonly': !isEditable,
         'is-summary': isEditable && !isActive,
+        'is-active': isActive,
+        'is-inactive': !isActive,
       })}
       // onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
     >
@@ -58,7 +60,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
         <div
           className={`stepHeader-body stepHeader-column optimizedCheckout-contentPrimary summary-${
             !isActive && isComplete ? 'is-complete' : 'is-incomplete'
-          }`}
+          } ${isActive ? 'is-active' : 'is-inactive'}`}
           data-test="step-info"
         >
           {!isActive && isComplete && summary}

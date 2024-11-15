@@ -210,3 +210,21 @@
   -webkit-text-fill-color: #4f4f4f !important;
   color: #4f4f4f !important;
 }
+
+@media screen and (max-width: 768px) {
+  .temp-billing-address-name-container,
+  .temp-billing-address-state-city-container,
+  .temp-billing-address-postalcode-phone-container {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  .temp-billing-address-firstname,
+  .temp-billing-address-lastname,
+  .temp-billing-address-state,
+  .temp-billing-address-city-container,
+  .temp-billing-address-postalcode-container,
+  .temp-billing-address-phone-container {
+    width: 100%;
+  }
+}

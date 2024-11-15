@@ -408,10 +408,7 @@ class Checkout extends Component<
 
     return (
       <LoadingOverlay hideContentWhenLoading isLoading={isRedirecting} showLoader={false}>
-        <div
-          className="checkout-page-container"
-          style={{ display: 'flex', flexDirection: 'row', height: '100%', minHeight: '90vh' }}
-        >
+        <div className="checkout-page-container">
           <div className="layout-main">
             <PromotionBannerList promotions={promotions} />
 
@@ -424,7 +421,12 @@ class Checkout extends Component<
               />
             )}
 
-            <ol className="checkout-steps">
+            <ol
+              className={classNames('checkout-steps', {
+                paymentInactive: !steps?.find((step) => step.type === CheckoutStepType.Payment)
+                  ?.isActive,
+              })}
+            >
               {steps
                 .filter((step) => step.isRequired)
                 .map((step) =>
@@ -452,7 +454,7 @@ class Checkout extends Component<
           onRequestClose={this.handleCloseSignUpForm}
           shouldShowCloseButton={false}
         >
-          <div className="sign-up-modal-body-wrapper">
+          <div className="sign-up-modal-body-wrapper desktop">
             <div className="sign-up-modal-form-wrapper">
               <div className="sign-up-modal-title-wrapper">
                 <div className="sign-up-modal-title">
@@ -479,6 +481,40 @@ class Checkout extends Component<
               </button>
               <img className="sign-up-modal-image" src={signinSigupImage} />
             </div>
+          </div>
+          <div className="sign-up-modal-body-wrapper mobile">
+            <div className="sign-up-modal-form-wrapper">
+              <div className="sign-up-modal-close-wrapper">
+                <button className="sign-up-modal-close" onClick={this.handleCloseSignUpForm}>
+                  <IconClose />
+                </button>
+              </div>
+
+              <div className="sign-up-modal-title-wrapper">
+                <div className="sign-up-modal-title">
+                  Discover Your Preferred Gemstone Selection Here
+                </div>
+                <div className="sign-up-modal-description">Sign up</div>
+              </div>
+              <CreateAccountForm
+                defaultShouldSubscribe={false}
+                errorInSignInEmail={
+                  !!customerCreateError && customerCreateError === 'Could not create customer'
+                }
+                fixNewsletterCheckboxExperimentEnabled={false}
+                formFields={customerAccountFields}
+                isFloatingLabelEnabled={true}
+                onCancel={this.handleCloseSignUpForm}
+                onSubmit={this.handleSignUpUserSubmit}
+                requiresMarketingConsent={false}
+              />
+            </div>
+            {/* <div className="sign-up-modal-image-wrapper">
+              <button className="sign-up-modal-close" onClick={this.handleCloseSignUpForm}>
+                <IconClose />
+              </button>
+              <img className="sign-up-modal-image" src={signinSigupImage} />
+            </div> */}
           </div>
         </Modal>
       </LoadingOverlay>
@@ -639,6 +675,9 @@ class Checkout extends Component<
 
   private renderPaymentStep(step: CheckoutStepStatus): ReactNode {
     const { consignments, cart, errorLogger } = this.props;
+
+    // eslint-disable-next-line no-console
+    console.log('step', step);
 
     return (
       <CheckoutStep

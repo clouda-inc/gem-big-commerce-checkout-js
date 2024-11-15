@@ -71,7 +71,11 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
         })}
         ref={this.containerRef}
       >
-        <div className="checkout-view-header">
+        <div
+          className={classNames('checkout-view-header', {
+            paymentInactive: type === CheckoutStepType.Payment && !isActive,
+          })}
+        >
           <CheckoutStepHeader
             heading={heading}
             isActive={isActive}
@@ -95,7 +99,7 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
   }
 
   private renderContent(): ReactNode {
-    const { children, isActive, isBusy } = this.props;
+    const { children, isActive, isBusy, type } = this.props;
 
     return (
       <MobileView>
@@ -111,7 +115,13 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
             timeout={{}}
             unmountOnExit
           >
-            <div aria-busy={isBusy} className="checkout-view-content" ref={this.contentRef}>
+            <div
+              aria-busy={isBusy}
+              className={classNames('checkout-view-content', {
+                paymentInactive: type === CheckoutStepType.Payment && isBusy,
+              })}
+              ref={this.contentRef}
+            >
               {isActive ? children : null}
             </div>
           </CSSTransition>

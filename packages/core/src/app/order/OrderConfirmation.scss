@@ -5,6 +5,11 @@
 
 .order-confirmation-main-page {
   padding-top: 32px;
+  height: calc(100vh - 160px);
+}
+
+.order-confirmation-main-page .layout-main {
+  padding-bottom: 32px;
 }
 
 .order-confirmation-loading-container {

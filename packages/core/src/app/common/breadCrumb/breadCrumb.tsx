@@ -11,7 +11,6 @@ const BreadCrumb = () => {
             Home
           </a>
         </div>
-        <div className="breadCrumbText">Cart</div>
         <div style={{ width: '12px', height: '12px' }}>
           <svg
             fill="none"

@@ -29,33 +29,7 @@ export interface LoadFilesResult {
 }
 
 export function loadFiles(options?: LoadFilesOptions): Promise<LoadFilesResult> {
-  const fontLink = document.createElement('link');
-
-  fontLink.rel = 'prefetch';
-  fontLink.as = 'font';
-  fontLink.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf';
-  fontLink.type = 'font/ttf';
-  fontLink.crossOrigin = 'anonymous';
-  document.head.appendChild(fontLink);
-
-  const fontLink2 = document.createElement('link');
-
-  fontLink2.rel = 'prefetch';
-  fontLink2.as = 'font';
-  fontLink2.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf';
-  fontLink2.type = 'font/ttf';
-  fontLink2.crossOrigin = 'anonymous';
-  document.head.appendChild(fontLink2);
-
-  const fontLink3 = document.createElement('link');
-
-  fontLink3.rel = 'prefetch';
-  fontLink3.as = 'font';
-  fontLink3.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirBlack.ttf';
-  fontLink3.type = 'font/ttf';
-  fontLink3.crossOrigin = 'anonymous';
-  document.head.appendChild(fontLink3);
-
+  // Preconnect to critical domains
   const openSansLink = document.createElement('link');
 
   openSansLink.rel = 'preconnect';
@@ -69,24 +43,38 @@ export function loadFiles(options?: LoadFilesOptions): Promise<LoadFilesResult> 
   openSansLink2.crossOrigin = 'anonymous';
   document.head.appendChild(openSansLink2);
 
+  const bigcommerceLink = document.createElement('link');
+
+  bigcommerceLink.rel = 'preconnect';
+  bigcommerceLink.href = 'https://store-qxtizk9ym4.mybigcommerce.com';
+  bigcommerceLink.crossOrigin = 'anonymous';
+  document.head.appendChild(bigcommerceLink);
+
+  // Preload critical assets
+  const imageLink = document.createElement('link');
+
+  imageLink.rel = 'preload';
+  imageLink.as = 'image';
+  imageLink.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/images/logo.webp';
+  document.head.appendChild(imageLink);
+
+  // Prefetch fonts that will be needed soon
+  const fontLink = document.createElement('link');
+
+  fontLink.rel = 'prefetch';
+  fontLink.as = 'font';
+  fontLink.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/fonts/AvenirRegular.ttf';
+  fontLink.type = 'font/ttf';
+  fontLink.crossOrigin = 'anonymous';
+  document.head.appendChild(fontLink);
+
+  // Load stylesheets with priority
   const openSansFont = document.createElement('link');
 
   openSansFont.rel = 'stylesheet';
   openSansFont.href =
     'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap';
   document.head.appendChild(openSansFont);
-
-  const imageLink = document.createElement('link');
-
-  imageLink.rel = 'preload'; // changed from prefetch to preload
-  imageLink.as = 'image';
-  imageLink.href = 'https://store-qxtizk9ym4.mybigcommerce.com/content/images/logo.webp';
-
-  imageLink.onerror = () => {
-    document.head.removeChild(imageLink);
-  };
-
-  document.head.appendChild(imageLink);
 
   const publicPath = configurePublicPath(options && options.publicPath);
   const {
