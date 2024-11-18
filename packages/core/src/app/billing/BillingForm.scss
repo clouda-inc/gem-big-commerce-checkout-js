@@ -115,6 +115,7 @@
 .temp-billing-address1-input:focus-visible,
 .temp-billing-address2-input:focus-visible {
   border: 1px solid var(--Dark-Dark-1, #b2bcca);
+  outline: none;
 }
 
 .custom-billing-address-list {

@@ -385,9 +385,14 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     <InputField
                       id="firstName"
                       name="firstName"
-                      onChange={(e: { target: { value: any } }) =>
-                        setTempBillingAddress({ ...tempBillingAddress, firstName: e.target.value })
-                      }
+                      onChange={(e: { target: { value: any } }) => {
+                        setTempBillingAddress({ ...tempBillingAddress, firstName: e.target.value });
+                        setInputError({
+                          input: 'firstName',
+                          error: false,
+                          type: 'noError',
+                        });
+                      }}
                       title="First Name"
                       value={tempBillingAddress.firstName}
                     />
@@ -401,6 +406,11 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                       name="lastName"
                       onChange={(e: { target: { value: any } }) => {
                         setTempBillingAddress({ ...tempBillingAddress, lastName: e.target.value });
+                        setInputError({
+                          input: 'lastName',
+                          error: false,
+                          type: 'noError',
+                        });
                       }}
                       title="Last Name"
                       value={tempBillingAddress.lastName}

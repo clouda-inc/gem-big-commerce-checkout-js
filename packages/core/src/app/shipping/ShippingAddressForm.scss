@@ -137,7 +137,7 @@
   color: #fff;
   font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 160%;
   display: flex;
   height: 40px;
@@ -239,7 +239,8 @@
 .form-field-stateOrProvince:-webkit-autofill:hover,
 .form-field-stateOrProvince:-webkit-autofill:focus,
 .form-field-stateOrProvince:-webkit-autofill:active,
-.form-field-stateOrProvince:-webkit-autofill:focus-visible {
+.form-field-stateOrProvince:-webkit-autofill:focus-visible,
+.form-field-stateOrProvince:focus-visible {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   outline: none;
   -webkit-text-fill-color: #4f4f4f !important;
