@@ -21,7 +21,8 @@ class CartSummaryWrapper extends Component<WithCheckoutProps & WithLanguageProps
             <div className="checkout-cart-summary-title">Order Review</div>
             <div className="checkout-cart-summary-item-list">
               <div className="checkout-cart-summary-item-count">
-                {cart?.lineItems?.physicalItems?.length ?? 0} items in card
+                {cart?.lineItems?.physicalItems?.length ?? 0} item
+                {cart?.lineItems?.physicalItems?.length ?? 0 > 1 ? 's' : ''} in cart
               </div>
               {cart?.lineItems?.physicalItems && (
                 <div className="checkout-cart-summary-line-items">

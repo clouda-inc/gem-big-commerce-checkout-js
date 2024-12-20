@@ -25,6 +25,8 @@ import {
 import CheckoutStepType from '../checkout/CheckoutStepType';
 import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
+import { PhoneNumberInput } from '../common/phoneNumberInput';
+import countryListData from '../common/phoneNumberInput/countries_data.json';
 import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { Button, ButtonVariant } from '../ui/button';
 import { Fieldset, Form } from '../ui/form';
@@ -180,6 +182,14 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
     const validstate = tempBillingAddress?.stateOrProvince;
     const validcountry = tempBillingAddress?.countryCode;
 
+    const phoneNumberWithCountryCode = `${
+      countryListData[tempBillingAddress.countryCode as keyof typeof countryListData]?.phone_code
+    }-${
+      tempBillingAddress.phone?.split('-')[1]
+        ? tempBillingAddress.phone?.split('-')[1]
+        : tempBillingAddress.phone?.split('-')[0]
+    }`;
+
     if (!validfirstName) {
       setInputError({
         input: 'firstName',
@@ -265,10 +275,15 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
           ?.subdivisions.find(
             (subdivision) => subdivision.code === tempBillingAddress.stateOrProvince,
           )?.code ?? tempBillingAddress.stateOrProvinceCode,
+      phone: phoneNumberWithCountryCode,
     };
 
     localStorage.setItem('billingAddress', JSON.stringify(add));
-    handleSelectAddress({ ...tempBillingAddress, id: billingAddress?.id } as Address);
+    handleSelectAddress({
+      ...tempBillingAddress,
+      id: billingAddress?.id,
+      phone: phoneNumberWithCountryCode,
+    } as Address);
     setOpenEdit(false);
   };
 
@@ -578,12 +593,11 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     )}
                   </div>
                   <div className="temp-billing-address-phone-container">
-                    <InputField
-                      id="phone"
-                      name="phone"
+                    <PhoneNumberInput
+                      country={tempBillingAddress.countryCode}
                       onChange={(e: { target: { value: any } }) => {
                         const value = e.target.value;
-                        const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
+                        const pattern = /^[0-9]{6,12}$/;
 
                         setTempBillingAddress({ ...tempBillingAddress, phone: value });
 
@@ -609,8 +623,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                           });
                         }
                       }}
-                      title="Phone (Optional)"
-                      value={tempBillingAddress.phone}
+                      value={tempBillingAddress?.phone?.split('-')[1]}
                     />
                     {inputError.input === 'phone' && inputError.error && (
                       <div className="form-field-error-message">Enter a valid phone number</div>

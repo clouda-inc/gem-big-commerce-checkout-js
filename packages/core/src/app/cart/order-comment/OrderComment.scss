@@ -10,16 +10,19 @@
   align-items: center;
   align-self: stretch;
   background: #e7e7e7;
+  border-radius: 4px 4px 0px 0px;
 }
 
 .order-comment-input-wrapper {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 24px;
+  padding: 24px 13px 24px 13px;
   display: flex;
   flex-direction: column;
   row-gap: 21px;
+  border-radius: 0px 0px 4px 4px;
+  border-right: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+  background: #fff;
 }
 
 .order-comment-input-container {

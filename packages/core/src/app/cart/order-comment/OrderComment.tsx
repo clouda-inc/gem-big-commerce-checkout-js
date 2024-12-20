@@ -94,13 +94,15 @@ class OrderComment extends Component<
                     </div>
                   </div>
                   <div>
-                    <button
-                      className="order-comment-submit"
-                      disabled={this.props.isLoading}
-                      onClick={handleSubmitOrderComment}
-                    >
-                      Add Comment
-                    </button>
+                    {this.state.comment.length > 0 && (
+                      <button
+                        className="order-comment-submit"
+                        disabled={this.props.isLoading}
+                        onClick={handleSubmitOrderComment}
+                      >
+                        Add Comment
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

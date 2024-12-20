@@ -2,10 +2,11 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid #edeff8;
+  border: 1px solid #e7e7e7;
   background: #fff;
   padding-top: 0;
   padding-bottom: 0;
+  // border-radius: 4px;
 }
 
 .checkout-summary-heading {
@@ -92,4 +93,18 @@
   .customerView-actions
   .customerView-action-change {
   cursor: pointer;
+}
+
+.checkout-step--customer .checkout-summary-wrapper,
+.checkout-step--shipping .checkout-summary-wrapper,
+.checkout-step--billing .checkout-summary-wrapper {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.checkout-step--payment .optimizedCheckout-form-checklist {
+  border-color: #e7e7e7;
+}
+
+.checkout-step--payment .checkout-summary-wrapper {
+  border-radius: 4px 4px 0px 0px;
 }

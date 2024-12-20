@@ -133,10 +133,11 @@ input:focus-visible {
 
 .checkout-order-review {
   border-radius: 0px 0px 4px 4px;
-  border-right: 1px solid #edeff8;
-  border-bottom: 1px solid #edeff8;
-  border-left: 1px solid #edeff8;
+  border-right: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
   background: #fff;
+  border-radius: 4px;
 }
 
 .checkout-cart-summary {
@@ -159,16 +160,11 @@ input:focus-visible {
   font-style: normal;
   font-weight: 800;
   line-height: 20px;
+  border-radius: 4px 4px 0px 0px;
 }
 
-.checkout-discount-wrapper,
-.checkout-order-wrapper,
-.checkout-billing-summary-wrapper {
-  border-radius: 0px 0px 4px 4px;
-  border-right: 1px solid #edeff8;
-  border-bottom: 1px solid #edeff8;
-  border-left: 1px solid #edeff8;
-  background: #fff;
+.checkout-discount-wrapper {
+  border-radius: 4px;
 }
 
 .checkout-step {
@@ -263,9 +259,9 @@ input:focus-visible {
 .checkout-step--billing .checkout-form,
 .checkout-step--customer .checkout-form {
   border-radius: 0px 0px 4px 4px;
-  border-right: 1px solid #edeff8;
-  border-bottom: 1px solid #edeff8;
-  border-left: 1px solid #edeff8;
+  border-right: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
   background: #fff;
   padding: 24px;
 }
@@ -311,8 +307,25 @@ input:focus-visible {
   font-size: 14px !important;
 }
 
-.checkout-step--shipping .summary-is-complete .stepHeader-body {
+.checkout-step--billing .summary-is-complete .stepHeader-body,
+.checkout-step--shipping .summary-is-complete .stepHeader-body,
+.checkout-step--customer .summary-is-complete .stepHeader-body {
   margin-top: 24px;
+}
+
+.checkout-step--shipping
+  .checkout-view-content
+  .loading-skeleton
+  .checkout-form
+  .form-legend-container
+  .optimizedCheckout-headingSecondary,
+.checkout-step--billing
+  .checkout-view-content
+  .loading-skeleton
+  .checkout-form
+  .form-legend-container
+  .optimizedCheckout-headingSecondary {
+  padding-top: 0;
 }
 
 .checkout-step--payment .optimizedCheckout-form-checklist {
@@ -428,6 +441,10 @@ input:focus-visible {
 
 .sign-up-modal-body-wrapper.mobile {
   display: none;
+}
+
+.summary-is-complete {
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 768px) {

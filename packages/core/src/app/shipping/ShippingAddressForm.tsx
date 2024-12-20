@@ -13,6 +13,8 @@ import { AddressType, isEqualAddress, isValidAddress, StaticAddress } from '../a
 import { connectFormik, ConnectFormikProps } from '../common/form';
 import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
+import { PhoneNumberInput } from '../common/phoneNumberInput';
+import countryListData from '../common/phoneNumberInput/countries_data.json';
 import { Fieldset } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
@@ -183,6 +185,10 @@ class ShippingAddressForm extends Component<
         return;
       }
 
+      const phoneNumberWithCountryCode = `${
+        countryListData[editAddress?.countryCode as keyof typeof countryListData]?.phone_code
+      }-${editAddress?.phone}`;
+
       const variable = {
         addressEntityId: editAddress?.id,
         address1: editAddress?.address1,
@@ -191,7 +197,7 @@ class ShippingAddressForm extends Component<
         countryCode: editAddress?.countryCode,
         firstName: editAddress?.firstName,
         lastName: editAddress?.lastName,
-        phone: editAddress?.phone,
+        phone: phoneNumberWithCountryCode,
         postalCode: editAddress?.postalCode,
         stateOrProvince: editAddress?.stateOrProvince,
       };
@@ -313,7 +319,7 @@ class ShippingAddressForm extends Component<
       if (!validPostalCode) {
         this.setState({ newStateAddressError: { error: true, field: 'postalCode' } });
 
-        return;
+        return 0;
       }
 
       if (!validCountryCode) {
@@ -322,11 +328,20 @@ class ShippingAddressForm extends Component<
         return 0;
       }
 
+      const phoneNumberWithCountryCode = `${
+        countryListData[validCountryCode as keyof typeof countryListData]?.phone_code
+      }-${this.state.newStateAddress?.phone}`;
+
+      const createCustomerAddressData = {
+        ...this.state.newStateAddress,
+        phone: phoneNumberWithCountryCode,
+      };
+
       if (this.state.saveNewAddressToCustomerProfile) {
-        createCustomerAddress(this.state.newStateAddress);
+        createCustomerAddress(createCustomerAddressData);
       }
 
-      onAddressSelect(this.state.newStateAddress);
+      onAddressSelect(createCustomerAddressData);
       this.setState({ showAddNewAddress: false });
     };
 
@@ -683,12 +698,11 @@ class ShippingAddressForm extends Component<
                     )}
                 </div>
                 <div className="form-field-phone form-field">
-                  <InputField
-                    id="phone"
-                    name="phone"
+                  <PhoneNumberInput
+                    country={editAddress?.countryCode}
                     onChange={(e: { target: { value: any } }) => {
-                      const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
-                      const phoneNumnerTemp = e.target.value;
+                      const pattern = /^[0-9]{6,12}$/;
+                      const phoneNumnerTemp = `${e.target.value}`;
 
                       this.setState({ editAddress: { ...editAddress, phone: phoneNumnerTemp } });
 
@@ -706,8 +720,7 @@ class ShippingAddressForm extends Component<
                         });
                       }
                     }}
-                    title="Phone (Optional)"
-                    value={editAddress.phone}
+                    value={editAddress?.phone?.split('-')[1]}
                   />
                   {this.state.editStateAddressError?.field === 'phone' &&
                     this.state.editStateAddressError.error && (
@@ -1095,9 +1108,8 @@ class ShippingAddressForm extends Component<
                       )}
                   </div>
                   <div className="form-field-phone form-field">
-                    <InputField
-                      id="phone"
-                      name="phone"
+                    <PhoneNumberInput
+                      country={this.state.newStateAddress?.countryCode}
                       onChange={(e: { target: { value: any } }) => {
                         const phoneNumnerTemp = e.target.value;
 
@@ -1105,7 +1117,7 @@ class ShippingAddressForm extends Component<
                           newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
                         });
 
-                        const pattern = /^\+[1-9]{1}[0-9]{9,14}$/;
+                        const pattern = /^[0-9]{6,12}$/;
 
                         if (phoneNumnerTemp?.length > 0) {
                           if (pattern.test(phoneNumnerTemp)) {
@@ -1123,8 +1135,7 @@ class ShippingAddressForm extends Component<
                           });
                         }
                       }}
-                      title="Phone (Optional)"
-                      value={this.state.newStateAddress?.phone}
+                      value={this.state.newStateAddress?.phone?.split('-')[1]}
                     />
                     {this.state.newStateAddressError?.field === 'phone' &&
                       this.state.newStateAddressError.error && (

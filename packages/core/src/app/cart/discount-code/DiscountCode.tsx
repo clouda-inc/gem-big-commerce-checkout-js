@@ -72,7 +72,7 @@ class DiscountCode extends Component<
     };
 
     return (
-      <div className='checkout-discount-wrapper"'>
+      <div className="checkout-discount-wrapper">
         <div className="discount-code">
           {this.props.checkout && (
             <div className="discount-code-container">
