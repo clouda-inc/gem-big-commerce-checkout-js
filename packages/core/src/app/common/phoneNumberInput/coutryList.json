@@ -32,14 +32,14 @@
     "emoji": "🇦🇬",
     "unicode": "U+1F1E6 U+1F1EC",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AG.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1268"
   },
   "AI": {
     "name": "Anguilla",
     "emoji": "🇦🇮",
     "unicode": "U+1F1E6 U+1F1EE",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AI.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1264"
   },
   "AL": {
     "name": "Albania",
@@ -81,7 +81,7 @@
     "emoji": "🇦🇸",
     "unicode": "U+1F1E6 U+1F1F8",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AS.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1684"
   },
   "AT": {
     "name": "Austria",
@@ -130,7 +130,7 @@
     "emoji": "🇧🇧",
     "unicode": "U+1F1E7 U+1F1E7",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BB.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1246"
   },
   "BD": {
     "name": "Bangladesh",
@@ -193,7 +193,7 @@
     "emoji": "🇧🇲",
     "unicode": "U+1F1E7 U+1F1F2",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BM.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1441"
   },
   "BN": {
     "name": "Brunei",
@@ -228,7 +228,7 @@
     "emoji": "🇧🇸",
     "unicode": "U+1F1E7 U+1F1F8",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BS.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1242"
   },
   "BT": {
     "name": "Bhutan",
@@ -1628,7 +1628,7 @@
     "emoji": "🇹🇹",
     "unicode": "U+1F1F9 U+1F1F9",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TT.svg",
-    "phoneCode": "+1 868"
+    "phoneCode": "+1868"
   },
   "TV": {
     "name": "Tuvalu",
@@ -1665,20 +1665,6 @@
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UG.svg",
     "phoneCode": "+256"
   },
-  "UM": {
-    "name": "U.S. Outlying Islands",
-    "emoji": "🇺🇲",
-    "unicode": "U+1F1FA U+1F1F2",
-    "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UM.svg",
-    "phoneCode": "+1"
-  },
-  "UN": {
-    "name": "United Nations",
-    "emoji": "🇺🇳",
-    "unicode": "U+1F1FA U+1F1F3",
-    "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UN.svg",
-    "phoneCode": "+1"
-  },
   "US": {
     "name": "United States",
     "emoji": "🇺🇸",
@@ -1712,7 +1698,7 @@
     "emoji": "🇻🇨",
     "unicode": "U+1F1FB U+1F1E8",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VC.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1784"
   },
   "VE": {
     "name": "Venezuela",
@@ -1726,14 +1712,14 @@
     "emoji": "🇻🇬",
     "unicode": "U+1F1FB U+1F1EC",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VG.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1284"
   },
   "VI": {
     "name": "U.S. Virgin Islands",
     "emoji": "🇻🇮",
     "unicode": "U+1F1FB U+1F1EE",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VI.svg",
-    "phoneCode": "+1"
+    "phoneCode": "+1340"
   },
   "VN": {
     "name": "Vietnam",

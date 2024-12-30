@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Address,
   Consignment,
@@ -13,8 +14,7 @@ import { AddressType, isEqualAddress, isValidAddress, StaticAddress } from '../a
 import { connectFormik, ConnectFormikProps } from '../common/form';
 import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
-import { PhoneNumberInput } from '../common/phoneNumberInput';
-import countryListData from '../common/phoneNumberInput/countries_data.json';
+import PhoneNumberInput from '../common/phoneNumberInput';
 import { Fieldset } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
@@ -23,6 +23,11 @@ import { SingleShippingFormValues } from './SingleShippingForm';
 import { addShippingAddress } from './util';
 
 import './ShippingAddressForm.scss';
+
+// Define libraries array as a constant outside the component
+const GOOGLE_MAPS_LIBRARIES: Array<'places' | 'drawing' | 'geometry' | 'visualization'> = [
+  'places',
+];
 
 export interface ShippingAddressFormProps {
   addresses: CustomerAddress[];
@@ -185,9 +190,7 @@ class ShippingAddressForm extends Component<
         return;
       }
 
-      const phoneNumberWithCountryCode = `${
-        countryListData[editAddress?.countryCode as keyof typeof countryListData]?.phone_code
-      }-${editAddress?.phone}`;
+      const phoneNumberWithCountryCode = `${editAddress?.phone}`;
 
       const variable = {
         addressEntityId: editAddress?.id,
@@ -264,8 +267,6 @@ class ShippingAddressForm extends Component<
 
           this.setState({ customerAddressList: newCustomerAddressList });
         })
-
-        // eslint-disable-next-line no-console
         .catch((error) => console.error(error));
     };
 
@@ -328,9 +329,7 @@ class ShippingAddressForm extends Component<
         return 0;
       }
 
-      const phoneNumberWithCountryCode = `${
-        countryListData[validCountryCode as keyof typeof countryListData]?.phone_code
-      }-${this.state.newStateAddress?.phone}`;
+      const phoneNumberWithCountryCode = `${this.state.newStateAddress?.phone}`;
 
       const createCustomerAddressData = {
         ...this.state.newStateAddress,
@@ -504,7 +503,7 @@ class ShippingAddressForm extends Component<
                 {this.props?.googleMapsApiKey ? (
                   <CustomGoogleAutocomplete
                     googleMapsApiKey={this.props.googleMapsApiKey}
-                    libraries={['places']}
+                    libraries={GOOGLE_MAPS_LIBRARIES}
                     onAddressSelect={handleSelectGoogleEditAddress}
                     onChange={(value) => {
                       this.setState({
@@ -699,12 +698,15 @@ class ShippingAddressForm extends Component<
                 </div>
                 <div className="form-field-phone form-field">
                   <PhoneNumberInput
-                    country={editAddress?.countryCode}
-                    onChange={(e: { target: { value: any } }) => {
-                      const pattern = /^[0-9]{6,12}$/;
-                      const phoneNumnerTemp = `${e.target.value}`;
+                    onChange={(e: string) => {
+                      const phoneNumber = e;
 
-                      this.setState({ editAddress: { ...editAddress, phone: phoneNumnerTemp } });
+                      this.setState({
+                        editAddress: { ...editAddress, phone: phoneNumber },
+                      });
+
+                      const pattern = /^[0-9]{6,12}$/;
+                      const phoneNumnerTemp = phoneNumber.split('-')[1];
 
                       if (phoneNumnerTemp.length > 0) {
                         if (pattern.test(phoneNumnerTemp)) {
@@ -720,7 +722,8 @@ class ShippingAddressForm extends Component<
                         });
                       }
                     }}
-                    value={editAddress?.phone?.split('-')[1]}
+                    setState={this.setState}
+                    value={editAddress?.phone}
                   />
                   {this.state.editStateAddressError?.field === 'phone' &&
                     this.state.editStateAddressError.error && (
@@ -1109,15 +1112,16 @@ class ShippingAddressForm extends Component<
                   </div>
                   <div className="form-field-phone form-field">
                     <PhoneNumberInput
-                      country={this.state.newStateAddress?.countryCode}
-                      onChange={(e: { target: { value: any } }) => {
-                        const phoneNumnerTemp = e.target.value;
+                      onChange={(e: string) => {
+                        const phoneNumber = e;
 
                         this.setState({
-                          newStateAddress: { ...this.state.newStateAddress, phone: e.target.value },
+                          newStateAddress: { ...this.state.newStateAddress, phone: e },
                         });
 
                         const pattern = /^[0-9]{6,12}$/;
+
+                        const phoneNumnerTemp = phoneNumber.split('-')[1];
 
                         if (phoneNumnerTemp?.length > 0) {
                           if (pattern.test(phoneNumnerTemp)) {
@@ -1135,7 +1139,8 @@ class ShippingAddressForm extends Component<
                           });
                         }
                       }}
-                      value={this.state.newStateAddress?.phone?.split('-')[1]}
+                      setState={this.setState}
+                      value={this.state.newStateAddress?.phone}
                     />
                     {this.state.newStateAddressError?.field === 'phone' &&
                       this.state.newStateAddressError.error && (

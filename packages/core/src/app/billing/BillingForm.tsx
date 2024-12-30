@@ -25,8 +25,8 @@ import {
 import CheckoutStepType from '../checkout/CheckoutStepType';
 import { CustomGoogleAutocomplete } from '../common/google-autofile';
 import { InputField } from '../common/input';
-import { PhoneNumberInput } from '../common/phoneNumberInput';
 import countryListData from '../common/phoneNumberInput/countries_data.json';
+import PhoneNumberInputWss from '../common/phoneNumberInput/withSingleState';
 import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { Button, ButtonVariant } from '../ui/button';
 import { Fieldset, Form } from '../ui/form';
@@ -593,8 +593,8 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                     )}
                   </div>
                   <div className="temp-billing-address-phone-container">
-                    <PhoneNumberInput
-                      country={tempBillingAddress.countryCode}
+                    <PhoneNumberInputWss
+                      // country={tempBillingAddress.countryCode}
                       onChange={(e: { target: { value: any } }) => {
                         const value = e.target.value;
                         const pattern = /^[0-9]{6,12}$/;
@@ -623,6 +623,7 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                           });
                         }
                       }}
+                      setState={setInputError}
                       value={tempBillingAddress?.phone?.split('-')[1]}
                     />
                     {inputError.input === 'phone' && inputError.error && (

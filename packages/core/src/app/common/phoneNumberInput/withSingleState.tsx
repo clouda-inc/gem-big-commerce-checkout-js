@@ -20,6 +20,8 @@ interface CountryList {
 const countryListTyped: CountryList = countryList;
 
 const countries = Object.keys(countryListTyped).map((key: string) => {
+  // console.log('[PhoneNumberInput] key : ', key);
+
   return {
     name: countryListTyped[key].name,
     code: key,
@@ -36,14 +38,16 @@ interface PhoneNumberInputProps {
   // onCountryChange: (e: any) => void;
 }
 
-const PhoneNumberInput = (props: PhoneNumberInputProps) => {
+const PhoneNumberInputWss = (props: PhoneNumberInputProps) => {
   const value = props.value;
 
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [phoneNumber, setPhoneNumber] = useState('');
 
+  // console.log('[PhoneNumberInput] value : ', value);
+
   useEffect(() => {
-    const splitValue = value?.split('-') || [];
+    const splitValue = value.split('-') || [];
     const countryCode = splitValue[0] || 'US';
     const phoneNumberTemp = splitValue[1] || '';
 
@@ -88,14 +92,22 @@ const PhoneNumberInput = (props: PhoneNumberInputProps) => {
     if (phoneNumnerTemp.length > 0) {
       if (pattern.test(phoneNumnerTemp)) {
         props.setState({
-          editStateAddressError: { field: 'phone', error: false },
+          input: 'phone',
+          error: false,
+          type: 'validationMessage',
         });
       } else {
-        props.setState({ editStateAddressError: { field: 'phone', error: true } });
+        props.setState({
+          input: 'phone',
+          error: true,
+          type: 'validationMessage',
+        });
       }
     } else {
       props.setState({
-        editStateAddressError: { field: 'phone', error: false },
+        input: 'phone',
+        error: false,
+        type: 'validationMessage',
       });
     }
   };
@@ -117,7 +129,7 @@ const PhoneNumberInput = (props: PhoneNumberInputProps) => {
   );
 };
 
-export default PhoneNumberInput;
+export default PhoneNumberInputWss;
 
 const CountryCodeSelector = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);

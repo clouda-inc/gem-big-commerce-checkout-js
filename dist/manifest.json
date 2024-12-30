@@ -1,28 +1,28 @@
 {
   "version": 2,
-  "appVersion": "0.18.0",
+  "appVersion": "0.19.0",
   "dynamicChunks": {
     "js": [
       "102-d7d9e669.js",
       "479-12c34af2.js",
+      "553-7feff39e.js",
       "568-1e86db57.js",
-      "675-b2252b15.js",
       "850-048e84f3.js",
       "904-08425d6b.js",
-      "billing-00ff40f4.js",
+      "billing-d6450d1c.js",
       "cart-summary-wrapper-0ab0a1f1.js",
       "discount-code-9302d329.js",
       "order-comment-d0b71f46.js",
       "payment-c7412640.js",
-      "shipping-be606f20.js"
+      "shipping-42626061.js"
     ],
     "css": [
-      "billing-f7402b71.css",
+      "billing-b6e64494.css",
       "cart-summary-wrapper-203f2299.css",
       "discount-code-674f4f2f.css",
       "order-comment-33e18505.css",
       "payment-0037a6b1.css",
-      "shipping-84290fb9.css"
+      "shipping-3900e735.css"
     ],
     "png": [
       "static/GIA-certificate-12257472.png",
@@ -34,14 +34,14 @@
     ]
   },
   "js": [
-    "runtime-ffb8e611.js",
+    "runtime-4f3b0109.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
     "985-4e3c0cf4.js",
-    "checkout-0230a08f.js"
+    "checkout-83e9ee22.js"
   ],
   "css": [
-    "checkout-7d8d80b7.css"
+    "checkout-ea10ac8f.css"
   ]
 }
