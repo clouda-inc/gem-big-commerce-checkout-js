@@ -17,12 +17,12 @@
       "shipping-42626061.js"
     ],
     "css": [
-      "billing-00ce8a49.css",
+      "billing-36f38b69.css",
       "cart-summary-wrapper-203f2299.css",
       "discount-code-674f4f2f.css",
       "order-comment-33e18505.css",
       "payment-0037a6b1.css",
-      "shipping-119f82e4.css"
+      "shipping-bb8d180b.css"
     ],
     "png": [
       "static/GIA-certificate-12257472.png",
@@ -34,7 +34,7 @@
     ]
   },
   "js": [
-    "runtime-5c987520.js",
+    "runtime-708ae042.js",
     "700-d575b870.js",
     "608-6573dede.js",
     "375-dd5e60e7.js",
