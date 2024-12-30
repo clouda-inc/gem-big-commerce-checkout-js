@@ -595,11 +595,13 @@ BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
                   <div className="temp-billing-address-phone-container">
                     <PhoneNumberInputWss
                       // country={tempBillingAddress.countryCode}
-                      onChange={(e: { target: { value: any } }) => {
-                        const value = e.target.value;
+                      onChange={(e: string) => {
+                        const phoneNumber = e;
                         const pattern = /^[0-9]{6,12}$/;
 
-                        setTempBillingAddress({ ...tempBillingAddress, phone: value });
+                        setTempBillingAddress({ ...tempBillingAddress, phone: phoneNumber });
+
+                        const value = phoneNumber.split('-')[1] || '';
 
                         if (value.length > 0) {
                           if (!pattern.test(value)) {
