@@ -9,219 +9,224 @@ import CheckoutStepHeader from './CheckoutStepHeader';
 import CheckoutStepType from './CheckoutStepType';
 
 export interface CheckoutStepProps {
-    heading?: ReactNode;
-    isActive?: boolean;
-    isBusy: boolean;
-    isComplete?: boolean;
-    isEditable?: boolean;
-    suggestion?: ReactNode;
-    summary?: ReactNode;
-    type: CheckoutStepType;
-    onExpanded?(step: CheckoutStepType): void;
-    onEdit?(step: CheckoutStepType): void;
+  heading?: ReactNode;
+  isActive?: boolean;
+  isBusy: boolean;
+  isComplete?: boolean;
+  isEditable?: boolean;
+  suggestion?: ReactNode;
+  summary?: ReactNode;
+  type: CheckoutStepType;
+  onExpanded?(step: CheckoutStepType): void;
+  onEdit?(step: CheckoutStepType): void;
 }
 
 export interface CheckoutStepState {
-    isClosed: boolean;
+  isClosed: boolean;
 }
 
 export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutStepState> {
-    state = {
-        isClosed: true,
-    };
+  state = {
+    isClosed: true,
+  };
 
-    private containerRef = createRef<HTMLLIElement>();
-    private contentRef = createRef<HTMLDivElement>();
-    private timeoutRef?: number;
-    private timeoutDelay?: number;
+  private containerRef = createRef<HTMLLIElement>();
+  private contentRef = createRef<HTMLDivElement>();
+  private timeoutRef?: number;
+  private timeoutDelay?: number;
 
-    componentDidMount(): void {
-        const { isActive } = this.props;
+  componentDidMount(): void {
+    const { isActive } = this.props;
 
-        if (isActive) {
-            this.focusStep();
-        }
+    if (isActive) {
+      this.focusStep();
     }
+  }
 
-    componentDidUpdate(prevProps: Readonly<CheckoutStepProps>): void {
-        const { isActive } = this.props;
+  componentDidUpdate(prevProps: Readonly<CheckoutStepProps>): void {
+    const { isActive } = this.props;
 
-        if (isActive && isActive !== prevProps.isActive) {
-            this.focusStep();
-        }
+    if (isActive && isActive !== prevProps.isActive) {
+      this.focusStep();
     }
+  }
 
-    componentWillUnmount(): void {
-        if (this.timeoutRef) {
-            window.clearTimeout(this.timeoutRef);
+  componentWillUnmount(): void {
+    if (this.timeoutRef) {
+      window.clearTimeout(this.timeoutRef);
 
-            this.timeoutRef = undefined;
-        }
+      this.timeoutRef = undefined;
     }
+  }
 
-    render(): ReactNode {
-        const { heading, isActive, isComplete, isEditable, onEdit, suggestion, summary, type } =
-            this.props;
+  render(): ReactNode {
+    const { heading, isActive, isComplete, isEditable, suggestion, summary, type } = this.props;
 
-        const { isClosed } = this.state;
+    const { isClosed } = this.state;
 
-        return (
-            <li
-                className={classNames('checkout-step', 'optimizedCheckout-checkoutStep', {
-                    [`checkout-step--${type}`]: !!type,
-                })}
-                ref={this.containerRef}
+    return (
+      <li
+        className={classNames('checkout-step', 'optimizedCheckout-checkoutStep', {
+          [`checkout-step--${type}`]: !!type,
+        })}
+        ref={this.containerRef}
+      >
+        <div
+          className={classNames('checkout-view-header', {
+            paymentInactive: type === CheckoutStepType.Payment && !isActive,
+          })}
+        >
+          <CheckoutStepHeader
+            heading={heading}
+            isActive={isActive}
+            isComplete={isComplete}
+            isEditable={isEditable}
+            // onEdit={onEdit}
+            summary={summary}
+            // type={type}
+          />
+        </div>
+
+        {suggestion && isClosed && !isActive && (
+          <div className="checkout-suggestion" data-test="step-suggestion">
+            {suggestion}
+          </div>
+        )}
+
+        {this.renderContent()}
+      </li>
+    );
+  }
+
+  private renderContent(): ReactNode {
+    const { children, isActive, isBusy, type } = this.props;
+
+    return (
+      <MobileView>
+        {(matched) => (
+          <CSSTransition
+            addEndListener={this.handleTransitionEnd}
+            classNames="checkout-view-content"
+            enter={!matched}
+            exit={!matched}
+            in={isActive}
+            mountOnEnter
+            onExited={this.onAnimationEnd}
+            timeout={{}}
+            unmountOnExit
+          >
+            <div
+              aria-busy={isBusy}
+              className={classNames('checkout-view-content', {
+                paymentInactive: type === CheckoutStepType.Payment && isBusy,
+              })}
+              ref={this.contentRef}
             >
-                <div className="checkout-view-header">
-                    <CheckoutStepHeader
-                        heading={heading}
-                        isActive={isActive}
-                        isComplete={isComplete}
-                        isEditable={isEditable}
-                        onEdit={onEdit}
-                        summary={summary}
-                        type={type}
-                    />
-                </div>
+              {isActive ? children : null}
+            </div>
+          </CSSTransition>
+        )}
+      </MobileView>
+    );
+  }
 
-                {suggestion && isClosed && !isActive && (
-                    <div className="checkout-suggestion" data-test="step-suggestion">
-                        {suggestion}
-                    </div>
-                )}
+  private focusStep(): void {
+    const delay = isMobileView() ? 0 : this.getTransitionDelay();
 
-                {this.renderContent()}
-            </li>
-        );
+    this.setState({ isClosed: false });
+
+    this.timeoutRef = window.setTimeout(() => {
+      const input = this.getChildInput();
+      const position = this.getScrollPosition();
+      const { type, onExpanded = noop } = this.props;
+
+      if (input) {
+        input.focus();
+      }
+
+      if (position !== undefined && !isNaN(position)) {
+        window.scrollTo(0, position);
+      }
+
+      onExpanded(type);
+
+      this.timeoutRef = undefined;
+    }, delay);
+  }
+
+  private getChildInput(): HTMLElement | undefined {
+    const container = this.containerRef.current;
+
+    if (!container) {
+      return;
     }
 
-    private renderContent(): ReactNode {
-        const { children, isActive, isBusy } = this.props;
+    const input = container.querySelector<HTMLElement>('input, select, textarea');
 
-        return (
-            <MobileView>
-                {(matched) => (
-                    <CSSTransition
-                        addEndListener={this.handleTransitionEnd}
-                        classNames="checkout-view-content"
-                        enter={!matched}
-                        exit={!matched}
-                        in={isActive}
-                        mountOnEnter
-                        onExited={ this.onAnimationEnd }
-                        timeout={ {} }
-                        unmountOnExit
-                    >
-                        <div
-                            aria-busy={isBusy}
-                            className="checkout-view-content"
-                            ref={this.contentRef}
-                        >
-                            {isActive ? children : null}
-                        </div>
-                    </CSSTransition>
-                )}
-            </MobileView>
-        );
+    return input || undefined;
+  }
+
+  private getScrollPosition(): number | undefined {
+    const container = this.getParentContainer();
+    const { isComplete } = this.props;
+
+    if (!container || window !== window.top) {
+      return;
     }
 
-    private focusStep(): void {
-        const delay = isMobileView() ? 0 : this.getTransitionDelay();
+    const topOffset = isComplete ? 0 : window.innerHeight / 5;
+    const containerOffset =
+      container.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
 
-        this.setState({ isClosed: false });
+    return containerOffset - topOffset;
+  }
 
-        this.timeoutRef = window.setTimeout(() => {
-            const input = this.getChildInput();
-            const position = this.getScrollPosition();
-            const { type, onExpanded = noop } = this.props;
+  // For now, we need to find the parent container because `CheckoutStep`
+  // isn't the outer container yet. Once both the header and body are
+  // moved inside this component, we can remove the lookup.
+  private getParentContainer(): HTMLElement | undefined {
+    let container: HTMLElement | null = this.containerRef.current;
 
-            if (input) {
-                input.focus();
-            }
+    while (container && container.parentElement) {
+      if (container.parentElement.classList.contains('checkout-step')) {
+        return container.parentElement;
+      }
 
-            if (position !== undefined && !isNaN(position)) {
-                window.scrollTo(0, position);
-            }
-
-            onExpanded(type);
-
-            this.timeoutRef = undefined;
-        }, delay);
+      container = container.parentElement;
     }
 
-    private getChildInput(): HTMLElement | undefined {
-        const container = this.containerRef.current;
+    return this.containerRef.current ? this.containerRef.current : undefined;
+  }
 
-        if (!container) {
-            return;
-        }
-
-        const input = container.querySelector<HTMLElement>('input, select, textarea');
-
-        return input || undefined;
+  private getTransitionDelay(): number {
+    if (this.timeoutDelay !== undefined) {
+      return this.timeoutDelay;
     }
 
-    private getScrollPosition(): number | undefined {
-        const container = this.getParentContainer();
-        const { isComplete } = this.props;
+    // Cache the result to avoid unnecessary reflow
+    this.timeoutDelay =
+      parseFloat(
+        this.contentRef.current
+          ? getComputedStyle(this.contentRef.current).transitionDuration
+          : '0s',
+      ) * 1000;
 
-        if (!container || window !== window.top) {
-            return;
-        }
+    return this.timeoutDelay;
+  }
 
-        const topOffset = isComplete ? 0 : window.innerHeight / 5;
-        const containerOffset =
-            container.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+  private handleTransitionEnd: (node: HTMLElement, done: () => void) => void = (node, done) => {
+    node.addEventListener('transitionend', ({ target }) => {
+      if (target === node) {
+        done();
+      }
+    });
+  };
 
-        return containerOffset - topOffset;
+  private onAnimationEnd = (): void => {
+    const { isActive } = this.props;
+
+    if (!isActive) {
+      this.setState({ isClosed: true });
     }
-
-    // For now, we need to find the parent container because `CheckoutStep`
-    // isn't the outer container yet. Once both the header and body are
-    // moved inside this component, we can remove the lookup.
-    private getParentContainer(): HTMLElement | undefined {
-        let container: HTMLElement | null = this.containerRef.current;
-
-        while (container && container.parentElement) {
-            if (container.parentElement.classList.contains('checkout-step')) {
-                return container.parentElement;
-            }
-
-            container = container.parentElement;
-        }
-
-        return this.containerRef.current ? this.containerRef.current : undefined;
-    }
-
-    private getTransitionDelay(): number {
-        if (this.timeoutDelay !== undefined) {
-            return this.timeoutDelay;
-        }
-
-        // Cache the result to avoid unnecessary reflow
-        this.timeoutDelay =
-            parseFloat(
-                this.contentRef.current
-                    ? getComputedStyle(this.contentRef.current).transitionDuration
-                    : '0s',
-            ) * 1000;
-
-        return this.timeoutDelay;
-    }
-
-    private handleTransitionEnd: (node: HTMLElement, done: () => void) => void = (node, done) => {
-        node.addEventListener('transitionend', ({ target }) => {
-            if (target === node) {
-                done();
-            }
-        });
-    };
-
-    private onAnimationEnd = (): void => {
-        const { isActive } = this.props;
-
-        if (!isActive) {
-            this.setState({ isClosed: true });
-        }
-    }
+  };
 }

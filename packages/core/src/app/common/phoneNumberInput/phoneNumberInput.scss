@@ -1,0 +1,73 @@
+.phone-number-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-number-input {
+  position: relative;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 100px;
+}
+
+.custom-dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  height: 206px;
+  overflow-y: auto;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 1px solid #b2bcca;
+  border-radius: 4px;
+}
+
+.dropdown-button-inner {
+  display: flex;
+  align-items: center;
+}
+
+.custom-dropdown-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #b2bcca;
+  background: #fff;
+  height: 44px;
+}
+
+.custom-dropdown-text {
+  font-size: 12px;
+}
+
+.phone-number-input-country-code {
+  width: 100px;
+}
+
+.dropdown-button-inner {
+  color: #828282;
+  font-family: Avenir;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  letter-spacing: 0.16px;
+}
+
+.phone-number-input .labelline {
+  font-size: 14px;
+}
+
+.custom-dropdown-item {
+  cursor: pointer;
+}

@@ -8,9 +8,6 @@ import {
   usePayPalFastlaneAddress,
 } from '@bigcommerce/checkout/paypal-fastlane-integration';
 
-import { DropdownTrigger } from '../ui/dropdown';
-
-import AddressSelectButton from './AddressSelectButton';
 import AddressType from './AddressType';
 import isEqualAddress from './isEqualAddress';
 import StaticAddress from './StaticAddress';
@@ -32,32 +29,38 @@ const AddressSelectMenu: FunctionComponent<AddressSelectProps> = ({
   selectedAddress,
   type,
 }) => (
-  <ul className="dropdown-menu instrumentSelect-dropdownMenu" id="addressDropdown">
-    <li className="dropdown-menu-item dropdown-menu-item--select">
-      <a
+  <div className="address-with-selector-container">
+    <div>
+      <div
+        className="add-new-address"
         data-test="add-new-address"
-        href="#"
         onClick={preventDefault(() => onUseNewAddress(selectedAddress))}
       >
         <TranslatedString id="address.enter_address_action" />
-      </a>
-    </li>
-    {addresses.map((address) => (
-      <li
-        className="dropdown-menu-item dropdown-menu-item--select"
-        data-test="address-select-option"
-        key={address.id}
-      >
-        <a
-          data-test="address-select-option-action"
-          href="#"
-          onClick={preventDefault(() => onSelectAddress(address))}
+      </div>
+    </div>
+    <ul className="address-with-selector-list-container">
+      {addresses.map((address) => (
+        <div
+          className="address-with-selector-container"
+          data-test="address-select-option"
+          key={address.id}
         >
-          <StaticAddress address={address} type={type} />
-        </a>
-      </li>
-    ))}
-  </ul>
+          <div className="address-with-selector-container-inner">
+            <div className="address-with-selector">
+              <input
+                checked={!!isEqualAddress(selectedAddress, address)}
+                className="address-with-selector-input"
+                onChange={preventDefault(() => onSelectAddress(address))}
+                type="radio"
+              />
+            </div>
+            <StaticAddress address={address} type={type} />
+          </div>
+        </div>
+      ))}
+    </ul>
+  </div>
 );
 
 const AddressSelect = ({
@@ -82,23 +85,13 @@ const AddressSelect = ({
   return (
     <div className="form-field">
       <div className="dropdown--select">
-        <DropdownTrigger
-          dropdown={
-            <AddressSelectMenu
-              addresses={addresses}
-              onSelectAddress={handleSelectAddress}
-              onUseNewAddress={handleUseNewAddress}
-              selectedAddress={selectedAddress}
-              type={type}
-            />
-          }
-        >
-          <AddressSelectButton
-            addresses={addresses}
-            selectedAddress={selectedAddress}
-            type={type}
-          />
-        </DropdownTrigger>
+        <AddressSelectMenu
+          addresses={addresses}
+          onSelectAddress={handleSelectAddress}
+          onUseNewAddress={handleUseNewAddress}
+          selectedAddress={selectedAddress}
+          type={type}
+        />
       </div>
 
       {shouldShowPayPalFastlaneLabel && <PoweredByPayPalFastlaneLabel />}
