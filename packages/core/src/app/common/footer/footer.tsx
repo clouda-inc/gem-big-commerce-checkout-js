@@ -9,8 +9,12 @@ const Footer = () => {
           <span>© 2024 All Rights Reserved</span>
         </div>
         <div className="footer-links">
-          <span>Privacy Policy</span>
-          <span>Terms of Conditions</span>
+          <a className="footer-link" href="https://www.lucd.art/privacy-policy">
+            <span>Privacy Policy</span>
+          </a>
+          <a className="footer-link" href="https://www.lucd.art/terms-conditions">
+            <span>Terms of Conditions</span>
+          </a>
         </div>
       </div>
     </div>

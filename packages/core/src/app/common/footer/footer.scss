@@ -28,3 +28,11 @@
   flex-direction: row;
   gap: 4.25rem;
 }
+
+.footer-link,
+.footer-link:visited,
+.footer-link:active,
+.footer-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+}

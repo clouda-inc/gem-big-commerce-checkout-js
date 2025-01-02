@@ -51,10 +51,14 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
       if (isSupportedSignoutMethod(methodId)) {
         await signOut({ methodId });
         onSignOut({ isCartEmpty: false });
-        window.location.reload();
+        window.location.href = 'https://www.lucd.art/auth/logout?redirect=checkout';
+        // window.location.reload();
       } else {
         await signOut();
         onSignOut({ isCartEmpty: false });
+        // eslint-disable-next-line no-console
+        console.log('signOut');
+        window.location.href = 'https://www.lucd.art/auth/logout?redirect=checkout';
       }
     } catch (error) {
       if (isErrorWithType(error) && error.type === 'checkout_not_available') {
